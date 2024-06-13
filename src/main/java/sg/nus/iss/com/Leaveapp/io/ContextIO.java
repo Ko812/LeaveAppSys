@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
+import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 
 
 
@@ -78,27 +79,7 @@ private String path;
 		} 
 	}
 	
-	public void LoadRoles(RoleRepository roleRepo) {
-		roleRepo.save(Role.getManagerRole());
-		roleRepo.save(Role.getAdminRole());
-		roleRepo.save(Role.getStaffRole());
-	}
 	
-	public void LoadActions(ActionRepository actionRepo) {
-		actionRepo.save(Action.actionApproveRejectClaim);
-		actionRepo.save(Action.actionApproveRejectLeave);
-		actionRepo.save(Action.actionClaimCompensation);
-		actionRepo.save(Action.actionLeaveHistory);
-		actionRepo.save(Action.actionManageApprovalHierarchy);
-		actionRepo.save(Action.actionManageLeave);
-		actionRepo.save(Action.actionManageLeaveEntitlement);
-		actionRepo.save(Action.actionManageLeaveTypes);
-		actionRepo.save(Action.actionManageStaff);
-		actionRepo.save(Action.actionSubmitApplication);
-		actionRepo.save(Action.actionViewApplications);
-		actionRepo.save(Action.actionViewEmployeeApplications);
-		actionRepo.save(Action.actionViewEmployeeHistory);
-	}
 	
 	public void AssignManagers(EmployeeRepository empRepo) {
 		try {

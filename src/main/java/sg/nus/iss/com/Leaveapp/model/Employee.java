@@ -1,9 +1,14 @@
 package sg.nus.iss.com.Leaveapp.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Employee {
@@ -15,7 +20,12 @@ public class Employee {
     private Long id;
     private String name;
     private String role;
+    private String username;
+    private String password;
     
+    @ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Employee manager;
+
 
     public Employee(String name, String role) {
 		super();

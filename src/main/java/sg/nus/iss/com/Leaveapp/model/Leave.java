@@ -1,8 +1,10 @@
 package sg.nus.iss.com.Leaveapp.model;
 
 import jakarta.persistence.*;
+
 import java.time.*;
 @Entity
+@Table(name="leaves")
 public class Leave {
 
 	@Id
@@ -19,6 +21,9 @@ public class Leave {
 	private String reasons;
 	
 	private LeaveStatus status;
+	
+	@ManyToOne
+	private LeaveType type;
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, String reasons, LeaveStatus status) {
 		super();

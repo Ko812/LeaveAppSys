@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        /* Add your CSS styles here */
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/admin/employees">User Management</a>
+    <a href="/admin/leavetypes">Leave Management</a>
+    <a href="/admin/approval">Approval Hierarchy</a>
+    <a href="/admin/calendar">Calendar View</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div style="padding: 20px;">
+    <!-- Add any additional content here -->
+    <h1>Welcome to Admin Dashboard</h1>
+    <!-- You can add more content here -->
+</div>
+
+</body>
+</html>

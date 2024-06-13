@@ -11,7 +11,7 @@ public class Leave {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.REFRESH})
 	private Employee employee;
 	
 	LocalDate start;
@@ -25,11 +25,12 @@ public class Leave {
 	@ManyToOne
 	private LeaveType type;
 
-	public Leave(Employee employee, LocalDate start, LocalDate end, String reasons, LeaveStatus status) {
+	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveType type, String reasons, LeaveStatus status) {
 		super();
 		this.employee = employee;
 		this.start = start;
 		this.end = end;
+		this.type = type;
 		this.reasons = reasons;
 		this.status = status;
 	}

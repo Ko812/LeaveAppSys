@@ -15,10 +15,19 @@ public class Employee {
     private Long id;
     private String name;
     private String role;
+    
+
+    public Employee(String name, String role) {
+		super();
+		this.name = name;
+		this.role = role;
+	}
 
     // Getters and Setters
     
-    public Long getId() { return id; }
+
+
+	public Long getId() { return id; }
     
     public void setId(Long id) { this.id = id; }
 

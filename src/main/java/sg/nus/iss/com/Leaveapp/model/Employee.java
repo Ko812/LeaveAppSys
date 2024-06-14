@@ -3,6 +3,7 @@ package sg.nus.iss.com.Leaveapp.model;
 import java.util.List;
 
 import jakarta.persistence.*;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 
 
 @Entity
@@ -22,6 +23,13 @@ public class Employee {
     
     @OneToMany(mappedBy="manager", fetch=FetchType.LAZY)
     private List<Employee> reportees;
+    
+    @OneToMany(mappedBy = "employee")
+	private List<LeaveEntitlement> leaveEntitlements;
+    
+    
+    
+    
     
     public Employee(String username, String password, String name, String role) {
 		super();

@@ -3,12 +3,14 @@ package sg.nus.iss.com.Leaveapp.service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.nus.iss.com.Leaveapp.model.*;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
+
 
 @Service
 public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
@@ -26,37 +28,50 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
         return leaveEntitlementRepository.findAll();
     }
 
-    @Override
-    public List<LeaveEntitlement> getLeaveEntitlementByEmployeeID(int employeeId) {
-        return leaveEntitlementRepository.findByEmployeeId(employeeId);
-    }
+    
 
     @Override
-    public LeaveEntitlement updateLeaveEntitlement(int id, LeaveEntitlement updatedEntitlement) {
-        LeaveEntitlement entitlement = leaveEntitlementRepository.findById(id);
-
-        entitlement.setLeaveType(updatedEntitlement.getLeaveType());
-        entitlement.setNumberOfDays(updatedEntitlement.getNumberOfDays());
-        entitlement.setBroughtForward(updatedEntitlement.getBroughtForward());
-        entitlement.setTotalDays(updatedEntitlement.getTotalDays());
-        entitlement.setYear(updatedEntitlement.getYear());
-        entitlement.setUsedDays(updatedEntitlement.getUsedDays());
-        entitlement.setBalance(updatedEntitlement.getBalance());
-
-        return leaveEntitlementRepository.save(entitlement);
+    public LeaveEntitlement getLeaveEntitlementById(int id) {
+        Optional<LeaveEntitlement> leaveEntitlementOptional = leaveEntitlementRepository.findById(id);
+        return leaveEntitlementOptional.orElse(null); // Return null if Optional is empty
+    }
+    
+    @Override
+    public void saveLeaveEntitlement(LeaveEntitlement leaveEntitlement) {
+        leaveEntitlementRepository.save(leaveEntitlement);
     }
 
+    
     @Override
     public void deleteLeaveEntitlement(int id) {
         leaveEntitlementRepository.deleteById(id);
     }
 
+    @Override
+    public LeaveEntitlement updateLeaveEntitlement(int id, LeaveEntitlement updatedEntitlement) {
+        Optional<LeaveEntitlement> entitlementOptional = leaveEntitlementRepository.findById(id);
+
+        if (entitlementOptional.isPresent()) {
+            LeaveEntitlement entitlement = entitlementOptional.get();
+            entitlement.setLeaveType(updatedEntitlement.getLeaveType());
+            entitlement.setNumberOfDays(updatedEntitlement.getNumberOfDays());
+            entitlement.setBroughtForward(updatedEntitlement.getBroughtForward());
+            entitlement.setTotalDays(updatedEntitlement.getTotalDays());
+            entitlement.setYear(updatedEntitlement.getYear());
+            entitlement.setUsedDays(updatedEntitlement.getUsedDays());
+            entitlement.setBalance(updatedEntitlement.getBalance());
+
+            return leaveEntitlementRepository.save(entitlement);
+        } else {
+            // Handle the case where the leave entitlement with the given id is not found
+            return null;
+        }
+    }
+
+   
    
 
-    @Override
-    public void saveLeaveEntitlement(LeaveEntitlement leaveEntitlement) {
-        leaveEntitlementRepository.save(leaveEntitlement);
-    }
+    
 
     @Override
     public boolean isValidLeavePeriod(LocalDate startDate, LocalDate endDate) {

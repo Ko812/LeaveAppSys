@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.service.LeaveEntitlementService;
 
+
 @Controller
 public class LeaveEntitlementController {
 	
@@ -36,12 +37,15 @@ public class LeaveEntitlementController {
 	}
 	
 	@GetMapping ("/leave-entitlements/{id}")
-	public String getLeaveEntitlementsById(@PathVariable("id") int id, Model model)
+	public String getLeaveEntitlementById(@PathVariable("id") int id, Model model)
 	{
-		List<LeaveEntitlement> leaveEntitlement = leaveEntitlementService.getLeaveEntitlementByEmployeeID(id);
-		model.addAttribute("leaveEntitlement", leaveEntitlement);
-		return "leave-entitlement-detail";
-	
+		LeaveEntitlement leaveEntitlement = leaveEntitlementService.getLeaveEntitlementById(id); // Updated to return a single LeaveEntitlement
+	    if (leaveEntitlement == null) {
+	        // Handle the case where the leave entitlement with the given id is not found
+	        return "redirect:/leave-entitlements";
+	    }
+	    model.addAttribute("leaveEntitlement", leaveEntitlement);
+	    return "leave-entitlement-detail";
 	}
 	
 	
@@ -53,9 +57,6 @@ public class LeaveEntitlementController {
 	}
 	
 	
-	
-
-    
 	@PostMapping("/leave-entitlements/new")
 	public String saveLeaveEntitlement(@Valid @ModelAttribute("leaveEntitlement")  LeaveEntitlement leaveEntitlement,BindingResult result)
 	{
@@ -75,6 +76,16 @@ public class LeaveEntitlementController {
 		return "redirect:/leave-entitlements";
 		
 	}
-	
+	//  method for updating a leave entitlement
+	@PostMapping("/leave-entitlements/update/{id}")
+	public String updateLeaveEntitlement(@PathVariable("id") int id, @ModelAttribute("updatedEntitlement") LeaveEntitlement updatedEntitlement) {
+	    LeaveEntitlement updated = leaveEntitlementService.updateLeaveEntitlement(id, updatedEntitlement);
+	    if (updated == null) {
+	   //  leave entitlement with the given id is not found
+	        return "redirect:/leave-entitlements";
+	    }
+	    return "redirect:/leave-entitlements/" + id;
+	}
+
 
 }

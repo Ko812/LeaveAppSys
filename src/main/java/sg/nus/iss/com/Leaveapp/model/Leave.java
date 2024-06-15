@@ -20,6 +20,7 @@ public class Leave {
 	
 	private String reasons;
 	
+	@Enumerated(EnumType.STRING)
 	private LeaveStatus status;
 	
 	@ManyToOne
@@ -34,7 +35,7 @@ public class Leave {
 		this.end = end;
 		this.setType(type);
 		this.reasons = reasons;
-		this.status = status;
+		this.setStatus(status);
 	}
 
 	public Long getId() {

@@ -71,10 +71,10 @@ public class Action {
 		return Stream.of(this.name.split("_")).map(s -> (s.charAt(0) + "").toUpperCase() + s.substring(1)).reduce((s1, s2) -> s1 + " " + s2).get();
 	}
 	
-	public static final Action actionSubmitApplication = new Action(1L, "submit_leave_application", "/leave/submit", List.of("employee", "admin", "manager"));
+	public static final Action actionSubmitApplication = new Action(1L, "submit_leave_application", "/leave/saveForm", List.of("employee", "admin", "manager"));
 	public static final Action actionManageLeave = new Action(2L, "manage_leave_application", "/leave/manage", List.of("employee", "admin", "manager"));
 	public static final Action actionClaimCompensation = new Action(3L, "claim_compensation", "/leave/claim", List.of("employee", "admin", "manager"));
-	public static final Action actionLeaveHistory = new Action(4L, "view_leave_history", "/leave/history", List.of("employee", "admin", "manager"));
+	public static final Action actionLeaveHistory = new Action(4L, "view_leave_history", "/leave/viewleaveHistory", List.of("employee", "admin", "manager"));
 //	public static final Action actionViewApplications = new Action(5L, "view_leave_applications", "/leave/view", List.of("employee", "admin", "manager"));
 	public static final Action actionViewEmployeeApplications = new Action(6L, "view_employee_applications", "/leave/manage/application", List.of("manager"));
 	public static final Action actionViewEmployeeHistory = new Action(7L, "view_employee_leave_history", "/leave/manage/view", List.of("manager"));
@@ -82,7 +82,7 @@ public class Action {
 	public static final Action actionApproveRejectClaim = new Action(9L, "approve_reject_claim", "/leave/manage/approve-claim", List.of("manager"));
 	public static final Action actionManageLeaveTypes = new Action(10L, "manage_leave_types", "/admin/leavetypes", List.of("admin"));
 	public static final Action actionManageStaff = new Action(11L, "manage_staff", "/admin/employees", List.of("admin"));
-	public static final Action actionManageLeaveEntitlement = new Action(12L, "manage_leave_entitlement", "/admin/leave-entitlement", List.of("admin"));
+	public static final Action actionManageLeaveEntitlement = new Action(12L, "manage_leave_entitlement", "/admin/leave-entitlements", List.of("admin"));
 	public static final Action actionManageApprovalHierarchy = new Action(13L, "manage_hierarchy", "/admin/manage-approver", List.of("admin"));
 	
 	public static List<Action> getAllActions(){

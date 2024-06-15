@@ -1,5 +1,7 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.AdminService;
@@ -32,6 +35,8 @@ public class AdminController {
     public String getAllEmployees(Model model) {
         model.addAttribute("employees", adminService.getAllEmployees());
         model.addAttribute("action", "employee");
+        List<Action> actions = Action.getAllActions();
+		model.addAttribute("actions", actions);
         return "index";
     }
     

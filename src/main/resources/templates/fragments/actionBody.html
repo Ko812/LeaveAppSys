@@ -1,0 +1,11 @@
+<div class="container" th:fragment="actionBody">
+	<div th:if="${action == 'employee'}">
+		<style th:insert="employees.html :: style"></style>
+		<div th:insert="employees.html :: body"></div>
+	</div>
+	
+	<div th:if="${action == 'leavetypes'}">
+		<style th:insert="leavetypes.html :: style"></style>
+		<div th:insert="leavetypes.html :: body"></div>
+	</div>
+</div>

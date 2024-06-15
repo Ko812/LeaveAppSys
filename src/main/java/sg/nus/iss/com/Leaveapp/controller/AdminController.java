@@ -31,7 +31,8 @@ public class AdminController {
     @GetMapping("/employees")
     public String getAllEmployees(Model model) {
         model.addAttribute("employees", adminService.getAllEmployees());
-        return "employees";
+        model.addAttribute("action", "employee");
+        return "index";
     }
     
     @GetMapping("/employees/add")
@@ -62,7 +63,8 @@ public class AdminController {
     @GetMapping("/leavetypes")
     public String getAllLeaveTypes(Model model) {
         model.addAttribute("leaveTypes", adminService.getAllLeaveTypes());
-        return "leavetypes";
+        model.addAttribute("action", "leavetypes");
+        return "index";
     }
     
     @GetMapping("/leavetypes/add")

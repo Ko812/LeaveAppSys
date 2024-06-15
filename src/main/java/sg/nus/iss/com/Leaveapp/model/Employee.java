@@ -27,10 +27,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
 	private List<LeaveEntitlement> leaveEntitlements;
     
-    
-    
-    
-    
     public Employee(String username, String password, String name, String role) {
 		super();
 		this.username = username;

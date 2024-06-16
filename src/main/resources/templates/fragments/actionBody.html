@@ -1,0 +1,29 @@
+<div class="container" th:fragment="actionBody">
+	<div th:if="${action == 'employee'}">
+		<style th:insert="employees.html :: style"></style>
+		<div th:insert="employees.html :: body"></div>
+	</div>
+	
+	
+	<!-- Admin Use Cases -->
+	<div th:if="${action == 'leavetypes'}">
+		<style th:insert="leavetypes.html :: style"></style>
+		<div th:insert="leavetypes.html :: body"></div>
+	</div>
+	
+	<div th:if="${action == 'view-leave-entitlements'}">
+		<div th:insert="leave-entitlement-list.html :: body"></div>
+	</div>
+	
+	<!-- Employee Use Cases -->
+	<div th:if="${action == 'leaveSubmitForm'}">
+		<div th:insert="submit-leave-app.html :: body"></div>
+	</div>
+	
+	
+	<div th:if="${action == 'viewleaveHistory'}">
+		<div th:insert="personal-leave-history.html :: body"></div>
+	</div>
+	
+	<!-- Manager Use Cases -->
+</div>

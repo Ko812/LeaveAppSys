@@ -1,6 +1,8 @@
 package sg.nus.iss.com.Leaveapp.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,8 @@ public class LeaveApproveServiceImpl implements LeaveApproveService{
 	
     @Override
     public void approveLeave(Long id) {
-        Leave leave = leaveApproveListRepository.findById(id).get();
+        Leave leave = leaveApproveListRepository.findById(id)
+        		.orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
                 
         leave.setStatus(LeaveStatus.Approved);
         leaveApproveListRepository.save(leave);
@@ -31,7 +34,8 @@ public class LeaveApproveServiceImpl implements LeaveApproveService{
     
     @Override
     public void rejectLeave(Long id) {
-        Leave leave = leaveApproveListRepository.findById(id).get();
+        Leave leave = leaveApproveListRepository.findById(id)
+        		.orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
                 
         leave.setStatus(LeaveStatus.Rejected);
         leaveApproveListRepository.save(leave);

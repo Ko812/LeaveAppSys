@@ -3,6 +3,7 @@ package sg.nus.iss.com.Leaveapp.model;
 import jakarta.persistence.*;
 
 import java.time.*;
+
 @Entity
 @Table(name="leaves")
 public class Leave {

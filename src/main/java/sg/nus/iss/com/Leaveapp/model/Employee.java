@@ -24,8 +24,8 @@ public class Employee {
     @OneToMany(mappedBy="manager", fetch=FetchType.LAZY)
     private List<Employee> reportees;
     
-    @OneToMany(mappedBy = "employee")
-	private List<LeaveEntitlement> leaveEntitlements;
+    @OneToOne(mappedBy = "employee")
+	private LeaveEntitlement leaveEntitlements;
     
     public Employee(String username, String password, String name, String role) {
 		super();

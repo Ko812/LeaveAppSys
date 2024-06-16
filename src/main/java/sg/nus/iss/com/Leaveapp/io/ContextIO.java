@@ -13,9 +13,11 @@ import java.util.List;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
 import sg.nus.iss.com.Leaveapp.model.Action;
@@ -109,6 +111,28 @@ public class ContextIO {
 				Employee employee = er.findEmployeeByUsername(username);
 				Leave el = new Leave(employee, start, end, type, reasons, status);
 				lr.save(el);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void LoadEntitlements(LeaveEntitlementRepository ler, EmployeeRepository er) {
+		try {
+			BufferedReader br = PrepareToRead();
+			String x;
+			br.readLine();
+			while((x = br.readLine()) != null) {
+				List<String> dat = List.of(x.split(","));
+				String username = dat.get(1);
+				Employee employee = er.findEmployeeByUsername(username);
+				Integer annualLeave = Integer.parseInt(dat.get(3));
+				Integer medicalLeave = Integer.parseInt(dat.get(4));
+				Integer compensation = Integer.parseInt(dat.get(5));
+				LeaveEntitlement le2024 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2024);
+				LeaveEntitlement le2023 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2023);
+				ler.save(le2023);
+				ler.save(le2024);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
@@ -53,11 +54,10 @@ public class LeaveController {
 	}
 	
 	@GetMapping("/saveForm")
-	public String leaveForm(Model model) {
+	public String leaveForm(Model model, HttpSession session) {
 		model.addAttribute("leave", new Leave());
 		model.addAttribute("action", "leaveSubmitForm");
-		List<Action> actions = Action.getAllActions();
-		model.addAttribute("actions", actions);
+		model.addAttribute("employeeId", ((Employee)session.getAttribute("loggedInEmployee")).getId());
 		return "index"; // 
 	}
 	

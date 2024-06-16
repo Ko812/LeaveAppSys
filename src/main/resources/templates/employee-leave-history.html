@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${employee.name} + ' Leave History'">Employee Leave History</title>
+    <style>
+        /* CSS styles */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${employee.name} + ' Leave History'">Employee Leave History</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reasons</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Use Thymeleaf to iterate over the leaveHistory list -->
+                <tr th:each="leave : ${leaveHistory}">
+                    <td th:text="${leave.start}"></td>
+                    <td th:text="${leave.end}"></td>
+                    <td th:text="${leave.reasons}"></td>
+                    <td th:text="${leave.status}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

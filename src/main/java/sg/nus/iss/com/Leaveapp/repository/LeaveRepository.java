@@ -78,4 +78,8 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 		@Query("SELECT l FROM Leave l JOIN l.employee e WHERE e.id = :id")
 		public List<Leave> findLeavesFromEmployeeId(@Param("id") Long id);
 
+		public List<Leave> findByStatusIn(List<LeaveStatus> asList);
+
+		public List<Leave> findByEmployeeOrderByStartDesc(Employee employee);
+
 }

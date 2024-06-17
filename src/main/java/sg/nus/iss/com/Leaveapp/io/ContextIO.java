@@ -130,8 +130,8 @@ public class ContextIO {
 				Integer medicalLeave = Integer.parseInt(dat.get(4));
 				Integer compensation = Integer.parseInt(dat.get(5));
 				LeaveEntitlement le2024 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2024);
-				LeaveEntitlement le2023 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2023);
-				ler.save(le2023);
+//				LeaveEntitlement le2023 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2023);
+//				ler.save(le2023);
 				ler.save(le2024);
 			}
 		} catch (Exception e) {

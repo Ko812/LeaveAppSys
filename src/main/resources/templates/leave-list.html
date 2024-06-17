@@ -9,7 +9,7 @@
 <div class="container">
 
     <h3>Leave Approve List</h3>
-    <a class="btn btn-primary" href="/leave-applications">Approve list</a>
+    <!--<a class="btn btn-primary" href="/leave-applications">Approve list</a>-->
 
     <!-- Add a form for status selection -->
     <form th:action="@{/leaveapprove/list}" method="get">
@@ -43,10 +43,12 @@
             <td th:text="${leave.start}"></td>
             <td th:text="${leave.end}"></td>
             <td th:text="${leave.reasons}"></td>
-            <td th:text="${leave.status}"></td>
+			<td th:text="${leave.status}"></td>
         </tr>
         </tbody>
     </table>
+	
+
 </div>
 </body>
 </html>

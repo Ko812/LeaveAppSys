@@ -45,7 +45,7 @@ public class ManagerController {
         if (leave != null) {
             model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeId(leave.getEmployee().getId()));
             model.addAttribute("leave", leave);
-            return "leave-detail";
+            return "leave-details";
         } else {
             model.addAttribute("leaves", leaveApproveService.findAllLeaves());
             return "leave-list";

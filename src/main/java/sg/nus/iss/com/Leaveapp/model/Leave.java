@@ -23,6 +23,8 @@ public class Leave {
 	
 	@Enumerated(EnumType.STRING)
 	private LeaveStatus status;
+	private LeaveClaimStatus claimStatus;
+	
 	
 	@ManyToOne
 	private LeaveType type;
@@ -31,7 +33,7 @@ public class Leave {
 	
 	public Leave() {}
 
-	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveType type, String reasons, LeaveStatus status) {
+	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveType type, String reasons, LeaveStatus status, LeaveClaimStatus claimStatus) {
 		super();
 		this.employee = employee;
 		this.start = start;
@@ -39,6 +41,8 @@ public class Leave {
 		this.setType(type);
 		this.reasons = reasons;
 		this.setStatus(status);
+		this.setClaimStatus(claimStatus);
+		
 	}
 
 	public String getComment() {
@@ -96,6 +100,14 @@ public class Leave {
 
 	public void setStatus(LeaveStatus status) {
 		this.status = status;
+	}
+	
+	public LeaveClaimStatus getClaimStatus() {
+		return claimStatus;
+	}
+
+	public void setClaimStatus(LeaveClaimStatus claimStatus) {
+		this.claimStatus = claimStatus;
 	}
 
 	public LeaveType getType() {

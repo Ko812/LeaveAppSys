@@ -4,6 +4,18 @@
     <meta charset="ISO-8859-1">
     <title>LeaveApproveList</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	    .status-applied { color: blue; }
+	    .status-rejected { color: red; }
+	    .status-approved { color: green; }
+	    .status-deleted { color: purple; }
+	    .status-cancelled { color: black; }
+		option[value="Applied"] { color: blue; }
+		option[value="Rejected"] { color: red; }
+		option[value="Approved"] { color: green; }
+		option[value="Deleted"] { color: purple; }
+		option[value="Cancelled"] { color: black; }
+	</style>
 </head>
 <body>
 <div class="container">
@@ -43,7 +55,13 @@
             <td th:text="${leave.start}"></td>
             <td th:text="${leave.end}"></td>
             <td th:text="${leave.reasons}"></td>
-			<td th:text="${leave.status}"></td>
+			<td th:switch="${leave.status}">
+			     <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Applied}" class="status-applied" th:text="${leave.status}"></span>
+			     <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Rejected}" class="status-rejected" th:text="${leave.status}"></span>
+			     <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Approved}" class="status-approved" th:text="${leave.status}"></span>
+			     <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Deleted}" class="status-deleted" th:text="${leave.status}"></span>
+			     <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Cancelled}" class="status-cancelled" th:text="${leave.status}"></span>
+			</td>
         </tr>
         </tbody>
     </table>

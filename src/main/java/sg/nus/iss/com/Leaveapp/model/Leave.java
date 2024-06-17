@@ -26,6 +26,8 @@ public class Leave {
 	
 	@ManyToOne
 	private LeaveType type;
+
+	private String comment;
 	
 	public Leave() {}
 
@@ -37,6 +39,15 @@ public class Leave {
 		this.setType(type);
 		this.reasons = reasons;
 		this.setStatus(status);
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public Leave setComment(String comment) {
+		this.comment = comment;
+		return this;
 	}
 
 	public Long getId() {

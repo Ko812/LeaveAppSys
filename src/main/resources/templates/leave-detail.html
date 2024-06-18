@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+    const params = {}
+
+    function LeaveList() {
+
+        React.useEffect(()=>{
+            getLeaveList({})
+        },[])
+
+        const [leaves, setLeaves] = React.useState([]);
+        const getLeaveList = (params) => {
+            fetch(`/leave/list`, params)
+                .then(response => response.json())
+                .then(data => {
+                    setLeaves(data.data || []);
+                });
+        }
+
+        const applyPay = (id) => {
+            fetch(`/leave/applyPay/${id}`, {method: 'POST'})
+                .then(response => response.json())
+                .then(() => {
+                    getLeaveList(params)
+                })
+        }
+        const approvePay = (id) => {
+            fetch(`/leave/approvePay/${id}`, {method: 'POST'})
+                .then(response => response.json())
+                .then(() => {
+                    getLeaveList(params)
+                })
+        }
+
+        const cancelPay = (id) => {
+            fetch(`/leave/cancelPay/${id}`, {method: 'POST'})
+                .then(response => response.json())
+                .then(() => {
+                    getLeaveList(params)
+                })
+        }
+
+        return (
+            <div className="container mt-4">
+                <h1 className="mb-4"><span th:text="${leave.employee.name}"></span> Leave Detail</h1>
+
+                <div className="row mb-3">
+                    <div className="col-md-6">
+                        <strong>Employee Name:</strong> <span th:text="${leave.employee.name}"></span>
+                    </div>
+                    <div className="col-md-6">
+                        <strong>Start Date:</strong> <span th:text="${leave.start}"></span>
+                    </div>
+                    <div className="col-md-6">
+                        <strong>End Date:</strong> <span th:text="${leave.end}"></span>
+                    </div>
+                    <div className="col-md-6">
+                        <strong>Reason:</strong> <span th:text="${leave.reasons}"></span>
+                    </div>
+                    <div className="col-md-6">
+                        <strong>Status:</strong> <span th:text="${leave.status}"></span>
+                    </div>
+                    <div className="col-md-6">
+                        <strong>Leave Type:</strong> <span th:text="${leave.type.type}"></span>
+                    </div>
+                </div>
+
+                <div className="mb-3" th:if="${leave.status.name()} == 'Applied'">
+                    <form method="post" th:action="@{/leaveapprove/approve(id=${leave.id})}">
+                        <button className="btn btn-success" type="submit">Approve</button>
+                    </form>
+
+                    <form method="post" th:action="@{/leaveapprove/reject(id=${leave.id})}">
+                        <div className="form-group">
+                            <label htmlFor="comment">Rejection Comment:</label>
+                            <textarea id="comment" className="form-control" name="comment" required></textarea>
+                        </div>
+                        <button className="btn btn-danger" type="submit">Reject</button>
+                    </form>
+                </div>
+
+                <a className="btn btn-link" th:href="@{/leaveapprove/list}">Back to list</a>
+
+                <h2 className="mt-5"><span th:text="${leave.employee.name}"></span> History Leave</h2>
+                <table className="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>ClaimStatus</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {leaves.map(leave => (
+                        <tr key={leave.id}>
+                            <td>{leave.start}</td>
+                            <td>{leave.end}</td>
+                            <td>{leave.reasons}</td>
+                            <td>{leave.status}</td>
+                            <td>{leave.claimStatus}</td>
+                            <td>
+                                { (leave.claimStatus === 'NoApplied') && <button  onClick={function(){applyPay(leave.id)}}>Apply</button>}
+                                { (leave.claimStatus === 'Applied') &&  <button onClick={function(){approvePay(leave.id)}}>Approval</button>}
+                                { (leave.claimStatus === 'Applied') && <button onClick={function(){cancelPay(leave.id)}}>Cancel</button>}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+
+    ReactDOM.render(<LeaveList/>, document.getElementById('root'));
+</script>
+</body>
+</html>

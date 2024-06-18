@@ -1,16 +1,18 @@
 package sg.nus.iss.com.Leaveapp.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
@@ -87,16 +89,56 @@ public class LeaveServiceImpl implements LeaveService {
     public String findEmpRoleByLeaveId(Long leaveId) {
         return leaveRepository.findEmpRoleByLeaveId(leaveId);
     }
-    
+
     @Override
-    public void save(Leave leave)
-    {
-    	leaveRepository.save(leave);
+    public void save(Leave leave) {
+        leaveRepository.save(leave);
     }
-    
+
     @Override
-    public List<Leave> findLeavesFromEmployeeId(Long id)
-    {
-    	return leaveRepository.findLeavesFromEmployeeId(id);
+    public List<Leave> findLeavesFromEmployeeId(Long id) {
+        return leaveRepository.findLeavesFromEmployeeId(id);
+    }
+
+    @Override
+    public void applyPay(Integer id) {
+        Leave leave = leaveRepository.getReferenceById(id);
+        leave.setClaimStatus(LeaveStatus.Applied.name());
+        leaveRepository.save(leave);
+    }
+
+    @Override
+    public void approvePay(Integer id) {
+        Leave leave = leaveRepository.getReferenceById(id);
+        leave.setClaimStatus(LeaveStatus.Approved.name());
+        leaveRepository.save(leave);
+    }
+
+    @Override
+    public void cancelPay(Integer id) {
+        Leave leave = leaveRepository.getReferenceById(id);
+        leave.setClaimStatus(LeaveStatus.Cancelled.name());
+        leaveRepository.save(leave);
+    }
+
+    @Override
+    public List<Leave> getList(Leave leave) {
+        return leaveRepository.findAll(getSpecification(leave));
+    }
+
+    private Specification<Leave> getSpecification(Leave leave) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (leave.getId() != null) {
+                predicates.add(cb.equal(root.get("id"), leave.getId()));
+            }
+            if (leave.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), leave.getStatus()));
+            }
+            if (leave.getClaimStatus() != null) {
+                predicates.add(cb.equal(root.get("claimStatus"), leave.getClaimStatus()));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 }

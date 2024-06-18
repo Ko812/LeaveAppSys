@@ -24,10 +24,7 @@
             const url = `/leaveapprove/list2?status=${status}`;
             fetch(url)
                 .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    setLeaves(data.data)
-                });
+                .then(data => setLeaves(data));
         }
 
         function handleStatusChange(event) {
@@ -37,6 +34,8 @@
         return (
             <div className="container">
                 <h3>Leave Approve List</h3>
+                <a className="btn btn-primary" href="/leave-applications">Approve list</a>
+
                 <div className="form-group">
                     <label htmlFor="status">Filter by Status:</label>
                     <select className="form-control" id="status" value={status} onChange={handleStatusChange}>
@@ -62,7 +61,7 @@
                     <tbody>
                     {leaves.map(leave => (
                         <tr key={leave.id}>
-                            <td><a href={`/leaveapprove/detail?id=${leave.id}`}>{leave.employee.name}</a></td>
+                            <td><a href={`/leaveapprove/detail/${leave.id}`}>{leave.employee.name}</a></td>
                             <td>{leave.start}</td>
                             <td>{leave.end}</td>
                             <td>{leave.reasons}</td>

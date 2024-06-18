@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
@@ -49,8 +50,8 @@ public class LeaveServiceImpl implements LeaveService {
     }
 
     @Override
-    public LeaveType findLeaveType(Long id) {
-        return leaveRepository.findLeaveTypeById(id);
+    public LeaveEntitlement findLeaveEntitlement(Long id) {
+        return leaveRepository.findLeaveEntitlementById(id);
     }
 
     @Override

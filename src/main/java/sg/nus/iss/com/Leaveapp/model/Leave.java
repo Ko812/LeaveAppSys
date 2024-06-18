@@ -85,11 +85,11 @@ public class Leave {
 		this.status = status;
 	}
 
-	public LeaveEntitlement getType() {
+	public LeaveEntitlement getEntitlement() {
 		return entitlement;
 	}
 
-	public void setType(LeaveEntitlement type) {
+	public void setEntitlement(LeaveEntitlement type) {
 		this.entitlement = type;
 	}
 	

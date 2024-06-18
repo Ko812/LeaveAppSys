@@ -8,7 +8,7 @@ import sg.nus.iss.com.Leaveapp.model.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Integer>{
 
-	@Query("SELECT r FROM ROLE r WHERE r.name = :name")
+	@Query("SELECT r FROM Role r WHERE r.name = :name")
 	public Role findRoleByName(@Param("name") String name);
 	
 }

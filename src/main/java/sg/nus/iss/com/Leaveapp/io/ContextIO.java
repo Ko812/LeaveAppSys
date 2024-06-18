@@ -15,11 +15,11 @@ import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
-import sg.nus.iss.com.Leaveapp.model.LeaveType;
+
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+
 import sg.nus.iss.com.Leaveapp.model.Action;
 
 
@@ -87,10 +87,10 @@ public class ContextIO {
 		} 
 	}
 	
-	public void LoadLeaveTypes(LeaveTypeRepository ltr) {
-		ltr.save(LeaveType.annual);
-		ltr.save(LeaveType.medical);
-		ltr.save(LeaveType.compensation);
+	public void LoadLeaveTypes() {
+//		ltr.save(LeaveType.annual);
+//		ltr.save(LeaveType.medical);
+//		ltr.save(LeaveType.compensation);
 	}
 	
 	public void LoadLeaves(LeaveRepository lr, EmployeeRepository er) {
@@ -105,7 +105,7 @@ public class ContextIO {
 				LocalDate start = LocalDate.of(Integer.parseInt(startStringArray[2]), Integer.parseInt(startStringArray[1]), Integer.parseInt(startStringArray[0]));
 				String[] endStringArray = dat.get(6).split("/");
 				LocalDate end = LocalDate.of(Integer.parseInt(endStringArray[2]), Integer.parseInt(endStringArray[1]), Integer.parseInt(endStringArray[0]));
-				LeaveType type = LeaveType.of(dat.get(7));
+//				LeaveType type = LeaveType.of(dat.get(7));
 				String reasons = dat.get(8);
 				LeaveStatus status = LeaveStatus.valueOf(dat.get(9));
 				Employee employee = er.findEmployeeByUsername(username);

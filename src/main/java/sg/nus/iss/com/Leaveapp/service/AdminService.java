@@ -13,7 +13,7 @@ import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.model.Role;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+
 import sg.nus.iss.com.Leaveapp.repository.RoleRepository;
 
 @Service

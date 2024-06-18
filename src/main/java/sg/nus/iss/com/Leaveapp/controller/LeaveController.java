@@ -21,7 +21,7 @@ import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+
 import sg.nus.iss.com.Leaveapp.service.LeaveService;
 
 @Controller
@@ -45,10 +45,10 @@ public class LeaveController {
             @RequestParam("leaveType") String type) {
 		
 		Employee e = employeeService.findEmployeeRoleById(employeeId);
-		LeaveEntitlement ent = leaveEntitlementRepository.findLeaveEntitlementByType(type, Integer.parseInt( e.getRole().getId().toString()));
+		LeaveEntitlement ent = leaveEntitlementRepository.findLeaveEntitlementByType(type, Long.parseLong( e.getRole().getId().toString()));
 		
 		leave.setEmployee(e);
-		
+		leave.setEntitlement(ent);
 		
 		leaveService.save(leave);
 

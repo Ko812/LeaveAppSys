@@ -10,7 +10,7 @@ import sg.nus.iss.com.Leaveapp.io.ContextIO;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+
 
 @SpringBootApplication
 public class LeaveapplicationApplication {
@@ -23,7 +23,7 @@ public class LeaveapplicationApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadContext(EmployeeRepository er, LeaveRepository lr, LeaveTypeRepository ltr, LeaveEntitlementRepository ler) {
+	CommandLineRunner loadContext(EmployeeRepository er, LeaveRepository lr, LeaveEntitlementRepository ler) {
 		return args -> {
 			if(false) {
 //			if(ddlauto.compareTo("create") == 0) {
@@ -32,7 +32,7 @@ public class LeaveapplicationApplication {
 				ContextIO empIO = new ContextIO(path+ "\\" + employeeCsv);
 				empIO.LoadCsv(er);
 				empIO.AssignManagers(er);
-				empIO.LoadLeaveTypes(ltr);
+//				empIO.LoadLeaveTypes(ltr);
 				String leaveCsv = "leave_dummy.csv";
 				ContextIO leaveIO = new ContextIO(path + "\\" + leaveCsv);
 				leaveIO.LoadLeaves(lr,er);

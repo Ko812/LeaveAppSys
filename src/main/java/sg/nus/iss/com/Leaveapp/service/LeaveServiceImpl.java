@@ -92,6 +92,7 @@ public class LeaveServiceImpl implements LeaveService {
     @Override
     public void save(Leave leave)
     {
+    	leave.setStatus(LeaveStatus.Applied);
     	leaveRepository.save(leave);
     }
     

@@ -15,7 +15,7 @@ public class Employee {
     private Long id;
     private String name;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Role role;
     
     private String username;

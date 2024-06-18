@@ -79,17 +79,8 @@ public class LeaveEntitlement {
     }
 
     public LeaveEntitlement(String type, int numberOfDays, Role role, int year) {
-//        this.employee = employee;
-//        this.leaveType = leaveType;
         this.numberOfDays = numberOfDays;
-//        this.annualLeave = annualLeave;
-//        this.sickLeave = sickLeave;
-//        this.compensationLeave = compensation;
-//        this.broughtForward = broughtForward;
-//        this.totalDays = annualLeave + sickLeave + compensation;
         this.year = year;
-//        this.usedDays = usedDays;
-//        this.balance = balance;
         this.leaveType = type;
         this.role = role;
     }
@@ -101,16 +92,6 @@ public class LeaveEntitlement {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
-//	public String getLeaveType() {
-//		return leaveType;
-//	}
-//
-//	public void setLeaveType(String leaveType) {
-//		this.leaveType = leaveType;
-//	}
 
 	public int getAnnualLeave() {
 		return annualLeave;
@@ -136,24 +117,6 @@ public class LeaveEntitlement {
 		this.compensationLeave = compensationLeave;
 	}
 
-//	public int getNumberOfDays() {
-//		return numberOfDays;
-//	}
-//
-//	public void setNumberOfDays(int numberOfDays) {
-//		this.numberOfDays = numberOfDays;
-//	}
-//
-//	public int getBroughtForward() {
-//		return broughtForward;
-//	}
-//
-//	public void setBroughtForward(int broughtForward) {
-//		this.broughtForward = broughtForward;
-//	}
-
-
-
 	public int getYear() {
 		return year;
 	}
@@ -162,13 +125,13 @@ public class LeaveEntitlement {
 		this.year = year;
 	}
 
-//	public String getLeaveType() {
-//		return leaveType;
-//	}
-//
-//	public void setLeaveType(String leaveType) {
-//		this.leaveType = leaveType;
-//	}
+	public String getLeaveType() {
+		return leaveType;
+	}
+
+	public void setLeaveType(String leaveType) {
+		this.leaveType = leaveType;
+	}
 
 	public Role getRole() {
 		return role;
@@ -185,30 +148,4 @@ public class LeaveEntitlement {
 	public void setNumberOfDays(int numberOfDays) {
 		this.numberOfDays = numberOfDays;
 	}
-
-//	public int getUsedDays() {
-//		return usedDays;
-//	}
-//
-//	public void setUsedDays(int usedDays) {
-//		this.usedDays = usedDays;
-//	}
-//
-//	public int getBalance() {
-//		return balance;
-//	}
-//
-//	public void setBalance(int balance) {
-//		this.balance = balance;
-//	}
-//	
-//	 public ApprovalHierarchy getApprovalHierarchy() {
-//	        return approvalHierarchy;
-//	    }
-//
-//	    public void setApprovalHierarchy(ApprovalHierarchy approvalHierarchy) {
-//	        this.approvalHierarchy = approvalHierarchy;
-//	    }
-
-  
 }

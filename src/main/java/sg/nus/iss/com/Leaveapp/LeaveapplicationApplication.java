@@ -10,6 +10,7 @@ import sg.nus.iss.com.Leaveapp.io.ContextIO;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
+import sg.nus.iss.com.Leaveapp.repository.RoleRepository;
 
 
 @SpringBootApplication
@@ -23,23 +24,19 @@ public class LeaveapplicationApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadContext(EmployeeRepository er, LeaveRepository lr, LeaveEntitlementRepository ler) {
+	CommandLineRunner loadContext(LeaveRepository lr, EmployeeRepository er, RoleRepository rr, LeaveEntitlementRepository ler) {
 		return args -> {
-
-			if(false) {
-//			if(ddlauto.compareTo("create") == 0) {
+			if(ddlauto.compareTo("create") == 0) {
 				String path = "C:\\Users\\user\\init-kopico\\Library\\java-spring-workspace\\LeaveAppSystem";
 				String employeeCsv = "employee_dummy.csv";
 				ContextIO empIO = new ContextIO(path+ "\\" + employeeCsv);
-				empIO.LoadCsv(er);
+				empIO.LoadRoles(rr);
+				empIO.LoadCsv(er,rr);
 				empIO.AssignManagers(er);
-//				empIO.LoadLeaveTypes(ltr);
+				empIO.LoadLeaveEntitlement(ler);
 				String leaveCsv = "leave_dummy.csv";
 				ContextIO leaveIO = new ContextIO(path + "\\" + leaveCsv);
-				leaveIO.LoadLeaves(lr,er);
-				String entitlementCsv = "leave_entitlement_dummy.csv";
-				ContextIO entitlementIO = new ContextIO(path + "\\" + entitlementCsv);
-				entitlementIO.LoadEntitlements(ler, er);
+				leaveIO.LoadLeaves(lr,er,ler,rr);
 				return ;
 			}
 			System.out.println("Skipped context load. ddl-auto: " + ddlauto);

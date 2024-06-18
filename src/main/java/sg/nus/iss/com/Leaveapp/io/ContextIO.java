@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
@@ -27,11 +28,12 @@ import sg.nus.iss.com.Leaveapp.model.Action;
 public class ContextIO {
 
 	private String path;
+	
+	private Scanner scan = new Scanner(System.in);
 
 	public ContextIO(String path) {
 		super();
 		this.path = path;
-		
 	}
 	
 	private BufferedReader PrepareToRead() {
@@ -131,6 +133,7 @@ public class ContextIO {
 			Role employee = rr.findRoleByName("employee");
 			Role admin = rr.findRoleByName("admin");
 			Role manager = rr.findRoleByName("manager");
+//			System.out.println("Employee role id: " + employee.getId() +". Admin role id: " + admin.getId() + ". Manager role id: " + manager.getId());
 			LeaveEntitlement employeeAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", employee.getId());
 			LeaveEntitlement adminAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", admin.getId());
 			LeaveEntitlement managerAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", manager.getId());
@@ -144,16 +147,20 @@ public class ContextIO {
 				String reasons = dat.get(8);
 				LeaveStatus status = LeaveStatus.valueOf(dat.get(9));
 				Employee e = er.findEmployeeByUsername(username);
+				System.out.println("Employee id " + e.getId() + ". Role: " + e.getRole().getName());
 				LeaveEntitlement employeeEntitlement;
-				if(e.getRole().getName() == "employee") {
+				if(e.getRole().getName().compareTo("employee") == 0) {
 					employeeEntitlement = employeeAnnualLeaveEntitlement;
-				} else if(e.getRole().getName() == "admin"){
+				} else if(e.getRole().getName().compareTo("admin") == 0){
 					employeeEntitlement = adminAnnualLeaveEntitlement;
-				} else {
+				} else if(e.getRole().getName().compareTo("manager") == 0){
 					employeeEntitlement = managerAnnualLeaveEntitlement;
+				} else {
+					throw new TypeNotFoundException();
 				}
 				Leave el = new Leave(e, start, end, employeeEntitlement, reasons, status);
 				lr.save(el);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -5,11 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -20,10 +19,10 @@ public class LeaveEntitlement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+//    @OneToOne
 //    @JoinColumn(name = "employee_id")
-    @NotNull(message = "Employee ID is required")
-    private Employee employee;
+//    @NotNull(message = "Employee ID is required")
+//    private Employee employee;
 
 //    @OneToOne(mappedBy = "leaveEntitlement")
 //    private ApprovalHierarchy approvalHierarchy;
@@ -49,17 +48,22 @@ public class LeaveEntitlement {
     @PositiveOrZero(message = "Compensation claim must be zero or positive")
     private int compensationLeave;
 
-//    @PositiveOrZero(message = "Number of days must be zero or positive")
-//    @Column(name = "number_of_days") // Updated column name
-//    private int numberOfDays;
+    private String leaveType;
+    
+    @ManyToOne
+    private Role role;
+
+    @PositiveOrZero(message = "Number of days must be zero or positive")
+    @Column(name = "number_of_days") // Updated column name
+    private int numberOfDays;
 
 //    @PositiveOrZero(message = "Brought forward days must be zero or positive")
 //    @Column(name = "brought_forward") // Updated column name
 //    private int broughtForward;
 
-    @PositiveOrZero(message = "Total days must be zero or positive")
-    @Column(name = "total_days") // Updated column name
-    private int totalDays;
+//    @PositiveOrZero(message = "Total days must be zero or positive")
+//    @Column(name = "total_days") // Updated column name
+//    private int totalDays;
 
     @Min(value = 2020, message = "Year must be greater than or equal to 2020")
     private int year;
@@ -74,18 +78,20 @@ public class LeaveEntitlement {
     public LeaveEntitlement() {
     }
 
-    public LeaveEntitlement(Employee employee, int annualLeave, int sickLeave, int compensation, int year) {
-        this.employee = employee;
+    public LeaveEntitlement(String type, int numberOfDays, Role role, int year) {
+//        this.employee = employee;
 //        this.leaveType = leaveType;
-//        this.numberOfDays = numberOfDays;
-        this.annualLeave = annualLeave;
-        this.sickLeave = sickLeave;
-        this.compensationLeave = compensation;
+        this.numberOfDays = numberOfDays;
+//        this.annualLeave = annualLeave;
+//        this.sickLeave = sickLeave;
+//        this.compensationLeave = compensation;
 //        this.broughtForward = broughtForward;
-        this.totalDays = annualLeave + sickLeave + compensation;
+//        this.totalDays = annualLeave + sickLeave + compensation;
         this.year = year;
 //        this.usedDays = usedDays;
 //        this.balance = balance;
+        this.leaveType = type;
+        this.role = role;
     }
 
 	public int getId() {
@@ -96,13 +102,7 @@ public class LeaveEntitlement {
 		this.id = id;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
 //	public String getLeaveType() {
 //		return leaveType;
@@ -152,13 +152,7 @@ public class LeaveEntitlement {
 //		this.broughtForward = broughtForward;
 //	}
 
-	public int getTotalDays() {
-		return totalDays;
-	}
 
-	public void setTotalDays(int totalDays) {
-		this.totalDays = totalDays;
-	}
 
 	public int getYear() {
 		return year;
@@ -166,6 +160,30 @@ public class LeaveEntitlement {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+//	public String getLeaveType() {
+//		return leaveType;
+//	}
+//
+//	public void setLeaveType(String leaveType) {
+//		this.leaveType = leaveType;
+//	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public int getNumberOfDays() {
+		return numberOfDays;
+	}
+
+	public void setNumberOfDays(int numberOfDays) {
+		this.numberOfDays = numberOfDays;
 	}
 
 //	public int getUsedDays() {

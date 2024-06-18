@@ -56,7 +56,7 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
 //            entitlement.setLeaveType(updatedEntitlement.getLeaveType());
 //            entitlement.setNumberOfDays(updatedEntitlement.getNumberOfDays());
 //            entitlement.setBroughtForward(updatedEntitlement.getBroughtForward());
-            entitlement.setTotalDays(updatedEntitlement.getTotalDays());
+//            entitlement.setTotalDays(updatedEntitlement.getTotalDays());
             entitlement.setYear(updatedEntitlement.getYear());
 //            entitlement.setUsedDays(updatedEntitlement.getUsedDays());
 //            entitlement.setBalance(updatedEntitlement.getBalance());

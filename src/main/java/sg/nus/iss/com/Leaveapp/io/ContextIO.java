@@ -60,8 +60,8 @@ public class ContextIO {
 			br.readLine();
 			while((x = br.readLine()) != null) {
 				List<String> dat = List.of(x.split(","));
-				Employee e = new Employee(dat.get(1), dat.get(2), dat.get(3) + " " + dat.get(4), dat.get(5));
-				empRepo.save(e);
+//				Employee e = new Employee(dat.get(1), dat.get(2), dat.get(3) + " " + dat.get(4), dat.get(5));
+//				empRepo.save(e);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,8 +109,8 @@ public class ContextIO {
 				String reasons = dat.get(8);
 				LeaveStatus status = LeaveStatus.valueOf(dat.get(9));
 				Employee employee = er.findEmployeeByUsername(username);
-				Leave el = new Leave(employee, start, end, type, reasons, status);
-				lr.save(el);
+//				Leave el = new Leave(employee, start, end, type, reasons, status);
+//				lr.save(el);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -129,10 +129,10 @@ public class ContextIO {
 				Integer annualLeave = Integer.parseInt(dat.get(3));
 				Integer medicalLeave = Integer.parseInt(dat.get(4));
 				Integer compensation = Integer.parseInt(dat.get(5));
-				LeaveEntitlement le2024 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2024);
+//				LeaveEntitlement le2024 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2024);
 //				LeaveEntitlement le2023 = new LeaveEntitlement(employee, annualLeave, medicalLeave, compensation, 2023);
 //				ler.save(le2023);
-				ler.save(le2024);
+//				ler.save(le2024);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

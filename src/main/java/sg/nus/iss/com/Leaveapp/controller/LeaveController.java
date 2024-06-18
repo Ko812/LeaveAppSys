@@ -17,8 +17,10 @@ import jakarta.servlet.http.HttpSession;
 import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
 import sg.nus.iss.com.Leaveapp.service.LeaveService;
 
@@ -35,18 +37,18 @@ public class LeaveController {
 	
 	//No service layer for leaveType?
 	@Autowired
-	private LeaveTypeRepository leaveTypeService;
+	private LeaveEntitlementRepository leaveEntitlementRepository;
 	
 	
 	@PostMapping("/submitForm")
 	public String submitLeaveApplication(@ModelAttribute("leave") Leave leave,@RequestParam("employeeId") Long employeeId, 
-            @RequestParam("leaveType") Long leaveTypeId) {
+            @RequestParam("leaveType") String type) {
 		
 		Employee e = employeeService.findEmployeeRoleById(employeeId);
-		LeaveType t = leaveTypeService.findLeaveTypeById(leaveTypeId);
+		LeaveEntitlement ent = leaveEntitlementRepository.findLeaveEntitlementByType(type, Integer.parseInt( e.getRole().getId().toString()));
 		
 		leave.setEmployee(e);
-		leave.setType(t);
+		
 		
 		leaveService.save(leave);
 

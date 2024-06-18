@@ -19,7 +19,6 @@ import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
 import sg.nus.iss.com.Leaveapp.model.Action;
-import sg.nus.iss.com.Leaveapp.model.LeaveClaimStatus;
 
 
 public class ContextIO {
@@ -107,9 +106,8 @@ public class ContextIO {
 				LeaveType type = LeaveType.of(dat.get(7));
 				String reasons = dat.get(8);
 				LeaveStatus status = LeaveStatus.valueOf(dat.get(9));
-				LeaveClaimStatus claimStatus = LeaveClaimStatus.valueOf(dat.get(9));
 				Employee employee = er.findEmployeeByUsername(username);
-				Leave el = new Leave(employee, start, end, type, reasons, status, claimStatus);
+				Leave el = new Leave(employee, start, end, type, reasons, status);
 				lr.save(el);
 			}
 		} catch (Exception e) {

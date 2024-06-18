@@ -1,6 +1,7 @@
 package sg.nus.iss.com.Leaveapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sg.nus.iss.com.Leaveapp.model.Leave;
@@ -62,6 +63,8 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     public List<Leave> findLeavesByEmployeeId(Long id) {
         return leaveApproveListRepository.findAllByEmployee_Id(id);
     }
+    
+
 
 //@Transactional(readOnly = false)
 //@Override

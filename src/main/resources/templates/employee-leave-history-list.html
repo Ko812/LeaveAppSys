@@ -40,6 +40,11 @@
 <body>
 	<div class="container">
 		<h1>Employee Leave History List</h1>
+		<form th:action="@{/leave/searchEmployee}" method="post">
+			<label for="employeeName">Employee Name:</label>
+			<input type="text" id="employeeName" name="employeeName">
+			<button type="submit">Search</button>
+		</form>
 		<table>
 			<thead>
 				<tr>
@@ -48,20 +53,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- Use Thymeleaf to display the found employee -->
-				<tr th:if="${employeeFound}">
+				<tr th:each="employee : ${employees}">
 					<td th:text="${employee.name}"></td>
 					<td>
 						<a th:href="@{/leave/viewleaveHistory(id=${employee.id})}">View</a>
 					</td>
 				</tr>
-				<!-- Display message if no employee is found -->
-				<tr th:if="${employeeFound == false}">
-					<td colspan="2" style="text-align: center;">No such employee found</td>
-				</tr>
 			</tbody>
 		</table>
-		<a href="manager/employeeHistory" class="nav-link">Back to Employee History List Page</a>
 	</div>
 </body>
 

@@ -89,14 +89,12 @@ public class LeaveServiceImpl implements LeaveService {
     }
     
     @Override
-    public void save(Leave leave)
-    {
+    public void save(Leave leave) {
     	leaveRepository.save(leave);
     }
     
     @Override
-    public List<Leave> findLeavesFromEmployeeId(Long id)
-    {
+    public List<Leave> findLeavesFromEmployeeId(Long id) {
     	return leaveRepository.findLeavesFromEmployeeId(id);
     }
 }

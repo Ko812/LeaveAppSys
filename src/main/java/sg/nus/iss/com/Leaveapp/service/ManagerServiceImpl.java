@@ -73,6 +73,16 @@ public class ManagerServiceImpl implements ManagerService{
         return leaveRepository.findByEmployeeOrderByStartDesc(employee);
     }
 
+	@Override
+	public Leave getLeaveApplicationById(Long id) {
+		return leaveRepository.findById(id);
+	}
+
+	@Override
+	public Employee findEmployeeByName(String employeeName) {
+		return leaveRepository.findEmployeeName(employeeName);
+	}
+
 
     //approve and reject leave
 //    @Override

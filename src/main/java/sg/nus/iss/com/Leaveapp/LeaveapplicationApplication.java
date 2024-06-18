@@ -25,7 +25,7 @@ public class LeaveapplicationApplication {
 	CommandLineRunner loadContext(EmployeeRepository er, LeaveRepository lr, LeaveTypeRepository ltr) {
 		return args -> {
 			if(ddlauto.compareTo("create") == 0) {
-				String path = "C:\\Users\\Vani\\Desktop\\LeaveGithub\\LeaveAppSys";
+				String path = "C:\\Users\\kaung\\OneDrive\\Documents\\SpringProjects\\LeaveAppSys-main";
 				String employeeCsv = "employee_dummy.csv";
 				ContextIO empIO = new ContextIO(path+ "\\" + employeeCsv);
 				empIO.LoadCsv(er);

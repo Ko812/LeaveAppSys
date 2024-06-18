@@ -18,7 +18,7 @@ import sg.nus.iss.com.Leaveapp.model.Leave;
 
 public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 	
-	//Find the employee from leaveApplication id
+		//Find the employee from leaveApplication id
 		@Query("SELECT l.employee FROM Leave l WHERE l.id = :id")
 		public Employee findEmployeeById(@Param("id") Long id);
 		
@@ -82,4 +82,8 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 
 		public List<Leave> findByEmployeeOrderByStartDesc(Employee employee);
 
+		public Leave findById(Long id);
+		
+		@Query("SELECT l.employee FROM Leave l WHERE l.name = :name")
+		public Employee findEmployeeName(@Param("name") String name);
 }

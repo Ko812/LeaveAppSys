@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PatchMapping;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
@@ -17,6 +18,7 @@ import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
+import sg.nus.iss.com.Leaveapp.service.LeaveService;
 import sg.nus.iss.com.Leaveapp.service.ManagerService;
 
 @Controller
@@ -54,6 +56,32 @@ public class ManagerController {
 	    List<Leave> leaveApplications = managerService.getLeaveApplicationsForApproval();
 	    model.addAttribute("leaveApplications", leaveApplications);
 	    return "applications-approval"; // Create a new HTML file for displaying the applications
+	}
+	
+	@GetMapping("/application-details/{id}")
+	public String viewApplicationDetails(@PathVariable("id") Long id, Model model) {
+	    Leave leaveApplication = managerService.getLeaveApplicationById(id);
+	    model.addAttribute("leaveApplication", leaveApplication);
+	    return "application-details";
+	}
+	
+	@GetMapping("/employeeHistory")
+	public String viewEmployeeLeaveHistory(Model model) {
+	    List<Employee> employees = managerService.getAllEmployees(); // Assuming you have a method to get all employees
+	    model.addAttribute("employees", employees);
+	    return "employee-leave-history-list"; // Create a new HTML file for displaying the employees and their leave history
+	}
+
+	@PostMapping("/searchEmployee")
+	public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model) {
+	    Employee employee = managerService.findEmployeeByName(employeeName);
+	    if (employee != null) {
+	        model.addAttribute("employeeFound", true);
+	        model.addAttribute("employee", employee);
+	    } else {
+	        model.addAttribute("employeeFound", false);
+	    }
+	    return "employee-leave-history";
 	}
 
 	

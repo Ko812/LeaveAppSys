@@ -22,7 +22,7 @@ public class LeaveController {
 
     @GetMapping
     public List<Leave> findAllLeaves() {
-        return leaveApproveService.findAllLeaves();
+        return leaveApproveService.findAllByOrderByStartDesc();
     }
 
     @PutMapping("/{id}/approve")

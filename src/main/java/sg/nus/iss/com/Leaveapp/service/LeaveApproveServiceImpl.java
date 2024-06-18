@@ -17,10 +17,16 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     @Autowired
     private LeaveApproveListRepository leaveApproveListRepository;
 
+//    @Override
+//    public List<Leave> findAllLeaves() {
+//        return leaveApproveListRepository.findAll();
+//    }
+    
     @Override
-    public List<Leave> findAllLeaves() {
-        return leaveApproveListRepository.findAll();
+    public List<Leave> findAllByOrderByStartDesc() {
+        return leaveApproveListRepository.findAllByOrderByStartDesc();
     }
+    
 
     @Override
     public void approveLeave(Long id) {
@@ -55,13 +61,13 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     }
 
     @Override
-    public List<Leave> findLeavesByStatus(LeaveStatus status) {
-        return leaveApproveListRepository.findAllByStatus(status);
+    public List<Leave> findLeavesByStatusOrderByStartDesc(LeaveStatus status) {
+        return leaveApproveListRepository.findLeavesByStatusOrderByStartDesc(status);
     }
 
     @Override
-    public List<Leave> findLeavesByEmployeeId(Long id) {
-        return leaveApproveListRepository.findAllByEmployee_Id(id);
+    public List<Leave> findLeavesByEmployeeIdOrderByStartDesc(Long id) {
+        return leaveApproveListRepository.findLeavesByEmployee_IdOrderByStartDesc(id);
     }
     
 

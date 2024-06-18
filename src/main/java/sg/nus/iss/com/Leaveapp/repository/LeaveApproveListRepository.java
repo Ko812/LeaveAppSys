@@ -12,7 +12,9 @@ public interface LeaveApproveListRepository extends JpaRepository<Leave, Long> {
 
     Optional<Leave> findById(Long id);
 
-    List<Leave> findAllByStatus(LeaveStatus status);
+    List<Leave> findLeavesByStatusOrderByStartDesc(LeaveStatus status);
 
-    List<Leave> findAllByEmployee_Id(Long id);
+    List<Leave> findLeavesByEmployee_IdOrderByStartDesc(Long id);
+    
+    List<Leave> findAllByOrderByStartDesc();
 }

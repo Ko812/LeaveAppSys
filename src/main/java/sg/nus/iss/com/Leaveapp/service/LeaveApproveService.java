@@ -6,7 +6,7 @@ import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 
 public interface LeaveApproveService {
-	List<Leave> findAllLeaves();
+//	List<Leave> findAllLeaves();
 	
     void approveLeave(Long id);
     void rejectLeave(Long id);
@@ -15,9 +15,11 @@ public interface LeaveApproveService {
 
     Leave getById(Long id);
 
-    List<Leave> findLeavesByStatus(LeaveStatus status);
+    List<Leave> findLeavesByStatusOrderByStartDesc(LeaveStatus status);
 
-    List<Leave> findLeavesByEmployeeId(Long id);
+    List<Leave> findLeavesByEmployeeIdOrderByStartDesc(Long id);
+    
+    List<Leave> findAllByOrderByStartDesc();
 
 //	Leave approveLeave(Leave leave);
 ////	Leave rejectLeave(Leave leave);

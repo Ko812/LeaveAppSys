@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
@@ -43,8 +44,8 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 		public LeaveStatus findLeaveStatusById(@Param("id") Long id);
 		
 		//Find leave Type from leaveApplication id
-		@Query("SELECT l.type FROM Leave l WHERE l.id = :id")
-		public LeaveType findLeaveTypeById(@Param("id") Long id);
+		@Query("SELECT l.entitlement FROM Leave l WHERE l.id = :id")
+		public LeaveEntitlement findLeaveEntitlementById(@Param("id") Long id);
 		
 		//find the leave application id from employee id
 		@Query("SELECT l.id FROM Leave l JOIN l.employee e WHERE e.id = :empId")

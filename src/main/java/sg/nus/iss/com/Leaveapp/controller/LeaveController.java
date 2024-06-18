@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
+
 import sg.nus.iss.com.Leaveapp.service.LeaveService;
 
 @Controller
@@ -34,18 +37,18 @@ public class LeaveController {
 	
 	//No service layer for leaveType?
 	@Autowired
-	private LeaveTypeRepository leaveTypeService;
+	private LeaveEntitlementRepository leaveEntitlementRepository;
 	
 	
 	@PostMapping("/submitForm")
 	public String submitLeaveApplication(@ModelAttribute("leave") Leave leave,@RequestParam("employeeId") Long employeeId, 
-            @RequestParam("leaveType") Long leaveTypeId) {
+            @RequestParam("leaveType") String type) {
 		
 		Employee e = employeeService.findEmployeeRoleById(employeeId);
-		LeaveType t = leaveTypeService.findLeaveTypeById(leaveTypeId);
+		LeaveEntitlement ent = leaveEntitlementRepository.findLeaveEntitlementByType(type, Long.parseLong( e.getRole().getId().toString()));
 		
 		leave.setEmployee(e);
-		leave.setType(t);
+		leave.setEntitlement(ent);
 		
 		leaveService.save(leave);
 
@@ -53,11 +56,10 @@ public class LeaveController {
 	}
 	
 	@GetMapping("/saveForm")
-	public String leaveForm(Model model) {
+	public String leaveForm(Model model, HttpSession session) {
 		model.addAttribute("leave", new Leave());
 		model.addAttribute("action", "leaveSubmitForm");
-		List<Action> actions = Action.getAllActions();
-		model.addAttribute("actions", actions);
+		model.addAttribute("employeeId", ((Employee)session.getAttribute("loggedInEmployee")).getId());
 		return "index"; // 
 	}
 	

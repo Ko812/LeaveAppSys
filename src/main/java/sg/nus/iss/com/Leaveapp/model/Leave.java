@@ -23,16 +23,16 @@ public class Leave {
 	private LeaveStatus status;
 	
 	@ManyToOne
-	private LeaveType type;
+	private LeaveEntitlement entitlement;
 	
 	public Leave() {}
 
-	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveType type, String reasons, LeaveStatus status) {
+	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, LeaveStatus status) {
 		super();
 		this.employee = employee;
 		this.start = start;
 		this.end = end;
-		this.setType(type);
+		this.entitlement = entitlement;
 		this.reasons = reasons;
 		this.status = status;
 	}
@@ -85,12 +85,12 @@ public class Leave {
 		this.status = status;
 	}
 
-	public LeaveType getType() {
-		return type;
+	public LeaveEntitlement getEntitlement() {
+		return entitlement;
 	}
 
-	public void setType(LeaveType type) {
-		this.type = type;
+	public void setEntitlement(LeaveEntitlement type) {
+		this.entitlement = type;
 	}
 	
 	

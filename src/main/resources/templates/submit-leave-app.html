@@ -9,35 +9,34 @@
     <h2>Leave Application Form</h2>
     <form th:action="@{/leave/submitForm}" th:object="${leave}" method="post">
 		<div class="mb-3">
-		            <label for="employeeId" class="form-label">Employee ID</label>
-		            <input type="text" class="form-control" id="employeeId" name="employeeId" required>
+			<label for="employeeId" class="form-label">Employee ID</label>
+			<input type="text" class="form-control" id="employeeId" name="employeeId" th:value="${employeeId}" required>
 		</div>
 		
 		<div class="mb-3">
-		            <label for="reasons" class="form-label">Reasons</label>
-		            <textarea class="form-control" id="reasons" th:field="*{reasons}" rows="3"></textarea>
+			<label for="reasons" class="form-label">Reasons</label>
+			<textarea class="form-control" id="reasons" th:field="*{reasons}" rows="3"></textarea>
 		</div>
 		
 		<div class="mb-3">
-		     <label for="leaveStatus" class="form-label">Leave Status</label>
+		    <label for="leaveStatus" class="form-label">Leave Status</label>
 			<input type="text" class="form-control" id="leaveStatus" th:field="*{status}" required>
 		</div>
 		
 		<div class="mb-3">
-		            <label for="leaveType" class="form-label">Leave Type</label>
-		            <input type="text" class="form-control" id="leaveType" name="leaveType" required>
+			<label for="leaveType" class="form-label">Leave Type</label>
+			<input type="text" class="form-control" id="leaveType" name="leaveType" required>
 		</div>
 
-		
 		<div class="form-group">
-		        <label for="startDate">Start Date:</label>
-		        <input type="date" id="startDate" th:field="*{start}" class="form-control" />
+		    <label for="startDate">Start Date:</label>
+		    <input type="date" id="startDate" th:field="*{start}" class="form-control" />
 		</div>
 		
 		<div class="form-group">
-		        <label for="endDate">End Date:</label>
-		        <input type="date" id="endDate" th:field="*{end}" class="form-control" />
-		 </div>
+		    <label for="endDate">End Date:</label>
+		    <input type="date" id="endDate" th:field="*{end}" class="form-control" />
+		</div>
 		
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

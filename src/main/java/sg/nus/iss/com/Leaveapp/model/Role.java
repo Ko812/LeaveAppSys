@@ -18,14 +18,13 @@ public class Role {
 	@OneToMany(mappedBy="role")
 	private List<LeaveEntitlement> entitlements;
 
-	
-	
-	public Role(String name, List<Employee> employees, List<LeaveEntitlement> entitlements) {
+	public Role(Long id, String name) {
 		super();
+		this.id = id;
 		this.name = name;
-		this.employees = employees;
-		this.entitlements = entitlements;
 	}
+	
+	public Role() {}
 
 	public Long getId() {
 		return id;
@@ -59,6 +58,19 @@ public class Role {
 		this.entitlements = entitlements;
 	}
 	
+	public static final Role employeeRole = new Role(1L, "employee");
+	public static final Role adminRole = new Role(2L, "admin");
+	public static final Role managerRole = new Role(3L, "manager");
 	
+	public static final Role getRoleByString(String role) {
+		if(role=="employee") {
+			return employeeRole; 
+		} else if(role=="admin") {
+			return adminRole;
+		} else if (role=="manager") {
+			return managerRole;
+		}
+		return null;
+	}
 	
 }

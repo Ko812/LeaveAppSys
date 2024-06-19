@@ -9,7 +9,7 @@
     <h2>Leave Application Form</h2>
     <form th:action="@{/leave/submitForm}" th:object="${leave}" method="post">
 		<div th:if="${hasError}">
-			<p th:each="error:${errorMessage}" th:text="${error}" class="text-red"></p>
+			<p th:each="error:${errors}" th:text="${error}" style="color:red;"></p>
 		</div>
 		<div class="mb-3">
 			<span th:text="${employeeName}"></span>

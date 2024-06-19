@@ -23,7 +23,7 @@ import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
-
+import sg.nus.iss.com.Leaveapp.service.LeaveEntitlementServiceImpl;
 import sg.nus.iss.com.Leaveapp.service.LeaveService;
 
 @Controller
@@ -39,22 +39,23 @@ public class LeaveController {
 	
 	//No service layer for leaveType?
 	@Autowired
-	private LeaveEntitlementRepository leaveEntitlementRepository;
+	private LeaveEntitlementServiceImpl leaveEntitlementService;
 	
 	
 	@PostMapping("/submitForm")
 	public String submitLeaveApplication(@ModelAttribute("leave") Leave leave, HttpSession session, 
             @RequestParam("leaveType") String type, Model model) {
+		session.removeAttribute("errors");
 		Employee e = (Employee)session.getAttribute("loggedInEmployee");
-		LeaveEntitlement ent = leaveEntitlementRepository.findLeaveEntitlementByType(type, Long.parseLong(e.getRole().getId().toString()));
+		LeaveEntitlement ent = leaveEntitlementService.findLeaveEntitlementByType(type, Long.parseLong(e.getRole().getId().toString()));
 		
 		leave.setEmployee(e);
 		leave.setEntitlement(ent);
 		
-		return validateLeave(leave, e, model);
+		return validateLeave(leave, e, model, session);
 	}
 	
-	public String validateLeave(Leave leave, Employee employee, Model model) {
+	public String validateLeave(Leave leave, Employee employee, Model model, HttpSession session) {
 		List<String> errorMessage = new ArrayList<String>();
 		List<Leave> existingLeaves = leaveService.findLeavesFromEmployeeId(employee.getId());
 		List<Leave> consumedLeaves = existingLeaves
@@ -71,25 +72,30 @@ public class LeaveController {
 		if(balance < leave.getNumberOfDays()) {
 			errorMessage.add("Exceed leave balance.");
 		}
+		
 		if(errorMessage.isEmpty()) {
 			leaveService.save(leave);
 			return "redirect:/leave/saveForm";
 		} else {
-			model.addAttribute("hasError", true);
-			model.addAttribute("error", errorMessage);
-			return "index";
+			System.out.println("errors " + errorMessage.toString());
+			session.setAttribute("errors", errorMessage);
+			return "redirect:/leave/saveForm";
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/saveForm")
 	public String leaveForm(Model model, HttpSession session) {
 		model.addAttribute("leave", new Leave());
 		Employee e = (Employee)session.getAttribute("loggedInEmployee");
-		List<String> leaveTypes = leaveEntitlementRepository.getLeaveTypesByRole(e.getRole().getName());
+		List<String> leaveTypes = leaveEntitlementService.getLeaveTypesByRole(e.getRole().getName());
 		model.addAttribute("leaveTypes", leaveTypes);
 		model.addAttribute("action", "leaveSubmitForm");
 		model.addAttribute("employeeName", e.getName());
 		model.addAttribute("employeeId", e.getId());
+		var errorList = session.getAttribute("errors");
+		model.addAttribute("hasError", errorList != null && !((List<String>)errorList).isEmpty());
+		model.addAttribute("errors", errorList);
 		return "index"; // 
 	}
 	

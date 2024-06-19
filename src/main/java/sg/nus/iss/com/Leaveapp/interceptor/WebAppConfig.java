@@ -10,8 +10,14 @@ public class WebAppConfig implements WebMvcConfigurer{
 	@Autowired
 	ActionsInterceptor actionInterceptor;
 	
+
+	@Autowired
+	LoginInterceptor loginInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(loginInterceptor);
+
 		registry.addInterceptor(actionInterceptor);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
@@ -22,7 +23,7 @@ public interface LeaveService {
 	
 	LeaveStatus findLeaveStatus(Long id);
 	
-	LeaveType findLeaveType(Long id);
+	LeaveEntitlement findLeaveEntitlement(Long id);
 	
 	Long findIdByEmpId(Long empId);
 	

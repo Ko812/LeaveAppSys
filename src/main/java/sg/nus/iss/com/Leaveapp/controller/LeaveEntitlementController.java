@@ -30,7 +30,9 @@ public class LeaveEntitlementController {
 	{
 		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.findAllLeaveEntitlements();
 		model.addAttribute("leaveEntitlements", leaveEntitlements);
+
 		model.addAttribute("action", "view-leave-entitlements");
+
 		model.addAttribute("actions", Action.getAllActions());
 		return "index";
 	

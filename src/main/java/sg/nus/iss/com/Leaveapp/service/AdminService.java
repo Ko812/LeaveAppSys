@@ -2,14 +2,14 @@ package sg.nus.iss.com.Leaveapp.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
-import sg.nus.iss.com.Leaveapp.model.LeaveType;
+
 import sg.nus.iss.com.Leaveapp.model.Role;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
@@ -91,6 +91,7 @@ public class AdminService {
 //      return leaveTypeRepository.findById(id).orElse(null);
 //  }
 
+<<<<<<< HEAD
     public void createOrUpdateLeaveType(Role role, Map<String, Integer> entitlements, int year) {
     	System.out.println(entitlements.get("annual"));
     	LeaveEntitlement annualLeaveEntitlement = new LeaveEntitlement("annual", entitlements.get("annual"), role, year);
@@ -100,6 +101,15 @@ public class AdminService {
     	leaveEntitlementRepository.save(medicalLeaveEntitlement);
     	leaveEntitlementRepository.save(compensationLeaveEntitlement);
     	System.out.println(ale);
+=======
+	public void createOrUpdateLeaveType(String type, Map<String, Integer> entitlements, int year) {
+
+		entitlements.keySet().forEach(roleName -> {
+			Role role = roleRepository.findRoleByName(roleName);
+			leaveEntitlementRepository.save(new LeaveEntitlement(type, entitlements.get(roleName), role, year));
+		});
+    	
+>>>>>>> 7a3aa7f25183e6f908896e093ae8d5588fd078e9
 //    	LeaveEntitlement staffLeaveEntitlement = new LeaveEntitlement(StaffRole, leaveType, entitlement)
 //    	leaveEntitlementRepository.s
 //        leaveTypeRepository.save(leaveType);

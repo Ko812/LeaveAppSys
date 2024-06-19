@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leave Applications for Approval</title>
-    <style>
+    <style th:fragment="style">
         /* CSS styles */
         table {
             border-collapse: collapse;
@@ -39,23 +39,19 @@
         <table>
             <thead>
                 <tr>
-                    <th style="background-color: #c0c0c0;">Employee Name</th>
-					<th style="background-color: #c0c0c0;">Leave ID</th>
-                    <th style="background-color: #c0c0c0;">Details</th>
+                    <th style="background-color: #9090c0;">Employee Name</th>
+					<th style="background-color: #9090c0;">Leave ID</th>
+                    <th style="background-color: #9090c0;">Details</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Use Thymeleaf to iterate over the leaveApplications list -->
-                <tr th:each="leaveApplication, index : ${leaveApplications}">
+                <tr th:each="leaveApplication,iter : ${leaveApplications}">
                     <td th:text="${leaveApplication.employee.name}"></td>
 					<td th:text="${leaveApplication.id}"></td>
                     <td>
 						<a th:href="@{/manager/application-details/{id}(id=${leaveApplication.id})}">View</a>
                     </td>
-                </tr>
-                <!-- Add a blank row after each group of leave applications -->
-                <tr class="blank-row" th:if="${index.index + 1 != leaveApplications.size()}">
-                    <td colspan="7">&nbsp;</td>
                 </tr>
             </tbody>
         </table>

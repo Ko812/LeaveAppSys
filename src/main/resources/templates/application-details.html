@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application Details</title>
-    <style>
+    <style th:fragment="style">
         /* CSS styles */
         table {
             border-collapse: collapse;
@@ -82,7 +82,7 @@
                     <td th:text="${leaveApplication.start}"></td>
                     <td th:text="${leaveApplication.end}"></td>
                     <td th:text="${leaveApplication.reasons}"></td>
-                    <td th:text="${leaveApplication.leaveType.type}"></td>
+                    <td th:text="${leaveApplication.entitlement.leaveType}"></td>
                     <td class="button-container">
                         <a href="#" class="button" th:href="@{'/manager/approve/' + ${leaveApplication.id}}">Approve</a>
                         <a href="#" class="button" th:href="@{'/manager/reject/' + ${leaveApplication.id}}">Reject</a>
@@ -90,7 +90,7 @@
                 </tr>
             </tbody>
         </table>
-        <a href="/applications" class="nav-link">Back to View Applications for Approval Page</a>
+        <a href="/manager/applications" class="nav-link">Back to View Applications for Approval Page</a>
     </div>
 </body>
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.*;
 
 import sg.nus.iss.com.Leaveapp.model.Leave;
@@ -57,24 +59,29 @@ public class ManagerController {
 	
 
 	@GetMapping("/applications")
-	public String viewApplicationsForApproval(Model model) {
-	    List<Leave> leaveApplications = managerService.getLeaveApplicationsForApproval();
+	public String viewApplicationsForApproval(Model model, HttpSession session) {
+		Employee manager = (Employee) session.getAttribute("loggedInEmployee");
+	    List<Leave> leaveApplications = managerService.getLeaveApplicationsForApproval(manager.getId());
 	    model.addAttribute("leaveApplications", leaveApplications);
-	    return "applications-approval"; // Create a new HTML file for displaying the applications
+	    model.addAttribute("action", "leaveApplications");
+	    return "index"; // Create a new HTML file for displaying the applications
 	}
 	
 	@GetMapping("/application-details/{id}")
 	public String viewApplicationDetails(@PathVariable("id") Long id, Model model) {
 	    Leave leaveApplication = managerService.getLeaveApplicationById(id);
 	    model.addAttribute("leaveApplication", leaveApplication);
-	    return "application-details";
+	    model.addAttribute("action", "application-details");
+	    return "index";
 	}
 	
 	@GetMapping("/employeeHistory")
-	public String viewEmployeeLeaveHistory(Model model) {
-	    List<Employee> employees = managerService.getAllEmployees(); // Assuming you have a method to get all employees
+	public String viewEmployeeLeaveHistory(Model model, HttpSession session) {
+		Employee manager = (Employee) session.getAttribute("loggedInEmployee");
+	    List<Employee> employees = managerService.findReporteeEmployeeByManagerId(manager.getId()); // Assuming you have a method to get all employees
 	    model.addAttribute("employees", employees);
-	    return "employee-leave-history-list"; // Create a new HTML file for displaying the employees and their leave history
+	    model.addAttribute("action", "employeeHistory");
+	    return "index"; // Create a new HTML file for displaying the employees and their leave history
 	}
 
 	@PostMapping("/searchEmployee")
@@ -86,17 +93,20 @@ public class ManagerController {
 	    } else {
 	        model.addAttribute("employeeFound", false);
 	    }
-	    return "employee-leave-history";
+	    model.addAttribute("action", "employee-leave-history");
+	    return "index";
 	}
 
 	
-	@GetMapping("/history/{employeeId}")
-  public String viewEmployeeLeaveHistory(@PathVariable("employeeId") Long employeeId, Model model) {
-        Employee employee = managerService.getEmployeeById(employeeId);
+	@GetMapping("/history/{id}")
+  public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
+        Employee employee = managerService.getEmployeeById(id);
         List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
         model.addAttribute("employee", employee);
+        model.addAttribute("employeeFound", employee != null);
         model.addAttribute("leaveHistory", leaveHistory);
-        return "employee-leave-history"; // Create a new HTML file for displaying the leave history
+        model.addAttribute("action", "employee-leave-history");
+        return "index"; // Create a new HTML file for displaying the leave history
   }
 
     @GetMapping("/leaveapprove/list")

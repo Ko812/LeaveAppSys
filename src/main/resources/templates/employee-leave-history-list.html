@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Employee Leave History List</title>
-	<style>
+	<style th:fragment="style">
 		/* CSS styles */
 		table {
 			border-collapse: collapse;
@@ -45,6 +45,7 @@
 			<input type="text" id="employeeName" name="employeeName">
 			<button type="submit">Search</button>
 		</form>
+		<br/><br/>
 		<table>
 			<thead>
 				<tr>
@@ -56,7 +57,7 @@
 				<tr th:each="employee : ${employees}">
 					<td th:text="${employee.name}"></td>
 					<td>
-						<a th:href="@{/leave/viewleaveHistory(id=${employee.id})}">View</a>
+						<a th:href="@{/manager/history/{id}(id=${employee.id})}">View</a>
 					</td>
 				</tr>
 			</tbody>

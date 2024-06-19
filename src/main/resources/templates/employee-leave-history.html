@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Employee Leave History List</title>
+	<style>
+		/* CSS styles */
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+			/* Light gray background for column names */
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+			/* Light gray background for even rows */
+		}
+
+		.blank-row {
+			background-color: #ffffff;
+			/* White background for blank rows */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Employee Leave History List</h1>
+		<table>
+			<thead>
+				<tr>
+					<th style="background-color: #c0c0c0;">Employee Name</th>
+					<th style="background-color: #c0c0c0;">Leave History</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Use Thymeleaf to display the found employee -->
+				<tr th:if="${employeeFound}">
+					<td th:text="${employee.name}"></td>
+					<td>
+						<a th:href="@{/leave/viewleaveHistory(id=${employee.id})}">View</a>
+					</td>
+				</tr>
+				<!-- Display message if no employee is found -->
+				<tr th:if="${employeeFound == false}">
+					<td colspan="2" style="text-align: center;">No such employee found</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="manager/employeeHistory" class="nav-link">Back to Employee History List Page</a>
+	</div>
+</body>
+
+</html>

@@ -90,6 +90,7 @@ public class LeaveServiceImpl implements LeaveService {
     }
     
     @Override
+
     public void save(Leave leave)
     {
     	leave.setStatus(LeaveStatus.Applied);
@@ -97,8 +98,7 @@ public class LeaveServiceImpl implements LeaveService {
     }
     
     @Override
-    public List<Leave> findLeavesFromEmployeeId(Long id)
-    {
+    public List<Leave> findLeavesFromEmployeeId(Long id) {
     	return leaveRepository.findLeavesFromEmployeeId(id);
     }
 }

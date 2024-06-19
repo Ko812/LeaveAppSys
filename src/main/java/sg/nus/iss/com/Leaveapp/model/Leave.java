@@ -3,7 +3,9 @@ package sg.nus.iss.com.Leaveapp.model;
 import jakarta.persistence.*;
 
 import java.time.*;
+
 import java.util.List;
+
 @Entity
 @Table(name="leaves")
 public class Leave {
@@ -21,16 +23,19 @@ public class Leave {
 	
 	private String reasons;
 	
+
 	private String nameOfSupportingCoworker;
 	
 	private boolean overseas;
 	
 	private String overseasContact;
-	
+
 	private LeaveStatus status;
+	
 	
 	@ManyToOne
 	private LeaveEntitlement entitlement;
+
 	
 	public Leave() {}
 
@@ -41,7 +46,17 @@ public class Leave {
 		this.end = end;
 		this.entitlement = entitlement;
 		this.reasons = reasons;
-		this.status = status;
+		this.setStatus(status);
+		
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public Leave setComment(String comment) {
+		this.comment = comment;
+		return this;
 	}
 
 	public Long getId() {
@@ -138,6 +153,7 @@ public class Leave {
 		return hasOverlap;
 	}
 	
+
 	public Boolean isOverlappedWith(Leave other) {
 		if(getStart().compareTo(other.getStart()) == 0) {
 			return true;
@@ -161,3 +177,4 @@ public class Leave {
 		.get();
 	}
 }
+

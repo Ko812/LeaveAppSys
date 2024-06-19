@@ -52,17 +52,23 @@
         <thead>
             <tr>
                 <th>ID</th>
+				<th>Role</th>
                 <th>Type</th>
+				<th>No. of days</th>
+				<th>Year</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="leaveType : ${leaveTypes}">
-                <td th:text="${leaveType.id}"></td>
-                <td th:text="${leaveType.type}"></td>
+            <tr th:each="leaveEntitlement : ${leaveEntitlements}">
+                <td th:text="${leaveEntitlement.id}"></td>
+				<td th:text="${leaveEntitlement.role.name}"></td>
+                <td th:text="${leaveEntitlement.leaveType}"></td>
+				<td th:text="${leaveEntitlement.numberOfDays}"></td>
+				<td th:text="${leaveEntitlement.year}"></td>
                 <td>
-                    <a th:href="@{/admin/leavetypes/edit/{id}(id=${leaveType.id})}">Edit</a> |
-                    <a th:href="@{/admin/leavetypes/delete/{id}(id=${leaveType.id})}">Delete</a>
+                    <a th:href="@{/admin/leavetypes/edit/{id}(id=${leaveEntitlement.id})}">Edit</a> |
+                    <a th:href="@{/admin/leavetypes/delete/{id}(id=${leaveEntitlement.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>

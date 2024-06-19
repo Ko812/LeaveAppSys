@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import jakarta.servlet.http.HttpSession;
-
+import jakarta.validation.Valid;
 import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
@@ -45,7 +45,7 @@ public class LeaveController {
 	
 	
 	@PostMapping("/submitForm")
-	public String submitLeaveApplication(@ModelAttribute("leave") Leave leave, HttpSession session, 
+	public String submitLeaveApplication(@Valid @ModelAttribute("leave") Leave leave, HttpSession session, 
             @RequestParam("leaveType") String type, Model model) {
 		session.removeAttribute("errors");
 		Employee e = (Employee)session.getAttribute("loggedInEmployee");

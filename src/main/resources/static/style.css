@@ -24,10 +24,10 @@ label {
 	font-weight: bold;
 }
 
-input[type="text"] {
+input[type="text"], select, input[type="number"] {
 	width: 100%;
 	padding: 8px;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
@@ -80,4 +80,8 @@ a:hover {
 	display:flex;
 }
 
-
+.inputErrorMessage{
+	margin-bottom: 20px;
+	color: red;
+	font-size: 12px;
+}

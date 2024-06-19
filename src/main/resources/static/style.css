@@ -1,7 +1,6 @@
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
-	padding: 20px;
 	background-color: #f4f4f4;
 }
 
@@ -56,3 +55,28 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+
+
+/**/
+
+.side-menu{
+	width: 200px;
+	height: 100vh;
+	border-right: 1px solid rgb(210,210,210);
+	display: flex;
+	flex-direction: column;
+}
+
+.menu-item {
+	width: 100%;
+	height: 30px;
+	font-size: 15px;
+	text-decoration: none;
+	color: black;
+}
+
+.maincontent {
+	display:flex;
+}
+
+

@@ -7,18 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.service.LeaveEntitlementService;
 
 
 @Controller
+@RequestMapping("/admin")
 public class LeaveEntitlementController {
 	
 	@Autowired
@@ -32,7 +30,11 @@ public class LeaveEntitlementController {
 	{
 		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.findAllLeaveEntitlements();
 		model.addAttribute("leaveEntitlements", leaveEntitlements);
-		return "leave-entitlement-list";
+
+		model.addAttribute("action", "view-leave-entitlements");
+
+		model.addAttribute("actions", Action.getAllActions());
+		return "index";
 	
 	}
 	

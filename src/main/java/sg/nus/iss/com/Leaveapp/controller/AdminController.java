@@ -1,5 +1,11 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
+
+import java.util.HashMap;
+import java.util.List;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.AdminService;
@@ -31,7 +38,10 @@ public class AdminController {
     @GetMapping("/employees")
     public String getAllEmployees(Model model) {
         model.addAttribute("employees", adminService.getAllEmployees());
-        return "employees";
+        model.addAttribute("action", "employee");
+        List<Action> actions = Action.getAllActions();
+		model.addAttribute("actions", actions);
+        return "index";
     }
     
     @GetMapping("/employees/add")
@@ -61,8 +71,9 @@ public class AdminController {
     // Manage Leave Types
     @GetMapping("/leavetypes")
     public String getAllLeaveTypes(Model model) {
-        model.addAttribute("leaveTypes", adminService.getAllLeaveTypes());
-        return "leavetypes";
+//        model.addAttribute("leaveTypes", adminService.getAllLeaveTypes());
+        model.addAttribute("action", "leavetypes");
+        return "index";
     }
     
     @GetMapping("/leavetypes/add")
@@ -73,19 +84,23 @@ public class AdminController {
     
     @GetMapping("/leavetypes/edit/{id}")
     public String editLeaveTypeForm(@PathVariable Long id, Model model) {
-        model.addAttribute("leaveType", adminService.getLeaveTypeById(id));
+//        model.addAttribute("leaveType", adminService.getLeaveTypeById(id));
         return "leave_type_form";
     }
     
     @PostMapping("/leavetypes/save")
-    public String saveLeaveType(@ModelAttribute LeaveType leaveType) {
-        adminService.createOrUpdateLeaveType(leaveType);
+    public String saveLeaveType(@ModelAttribute String type, Integer staffEntitlement, Integer adminEntitlement, Integer managerEntitlement, int year) {
+    	HashMap<String, Integer> entitlements = new HashMap<String, Integer>();
+    	entitlements.put("employee", staffEntitlement);
+    	entitlements.put("admin", adminEntitlement);
+    	entitlements.put("manager", managerEntitlement);
+    	adminService.createOrUpdateLeaveType(type, entitlements, year);
         return "redirect:/admin/leavetypes";
     }
     
     @GetMapping("/leavetypes/delete/{id}")
     public String deleteLeaveType(@PathVariable Long id) {
-        adminService.deleteLeaveType(id);
+//        adminService.deleteLeaveType(id);
         return "redirect:/admin/leavetypes";
     }
     

@@ -7,21 +7,29 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import sg.nus.iss.com.Leaveapp.Exceptions.TypeNotFoundException;
 
-@Entity
-@Table(name="leave_type")
+//@Entity
+//@Table(name="leave_type")
 public class LeaveType {
 	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
 
-    @OneToMany(mappedBy="type", fetch=FetchType.LAZY)
+//    @OneToMany(mappedBy="type", fetch=FetchType.LAZY)
     private List<Leave> leaves;
+    
+//    @OneToOne(mappedBy="leaveType")
+    private LeaveEntitlement entitlement;
+    
+//    @ManyToMany
+    private List<Role> roles;
     // Getters and Setters
     
     public Long getId() { return id; }

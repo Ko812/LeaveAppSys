@@ -53,13 +53,13 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
 
         if (entitlementOptional.isPresent()) {
             LeaveEntitlement entitlement = entitlementOptional.get();
-            entitlement.setLeaveType(updatedEntitlement.getLeaveType());
-            entitlement.setNumberOfDays(updatedEntitlement.getNumberOfDays());
-            entitlement.setBroughtForward(updatedEntitlement.getBroughtForward());
-            entitlement.setTotalDays(updatedEntitlement.getTotalDays());
+//            entitlement.setLeaveType(updatedEntitlement.getLeaveType());
+//            entitlement.setNumberOfDays(updatedEntitlement.getNumberOfDays());
+//            entitlement.setBroughtForward(updatedEntitlement.getBroughtForward());
+//            entitlement.setTotalDays(updatedEntitlement.getTotalDays());
             entitlement.setYear(updatedEntitlement.getYear());
-            entitlement.setUsedDays(updatedEntitlement.getUsedDays());
-            entitlement.setBalance(updatedEntitlement.getBalance());
+//            entitlement.setUsedDays(updatedEntitlement.getUsedDays());
+//            entitlement.setBalance(updatedEntitlement.getBalance());
 
             return leaveEntitlementRepository.save(entitlement);
         } else {
@@ -67,11 +67,6 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
             return null;
         }
     }
-
-   
-   
-
-    
 
     @Override
     public boolean isValidLeavePeriod(LocalDate startDate, LocalDate endDate) {
@@ -106,5 +101,15 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
         // Additional logic to check if the medical leave is limited to 60 days in a calendar year
         // This logic will depend on your business rules for medical leave
         return true;
+    }
+    
+    @Override
+    public LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId) {
+    	return leaveEntitlementRepository.findLeaveEntitlementByType(type, roleId);
+    }
+    
+    @Override
+    public List<String> getLeaveTypesByRole(String roleName){
+    	return leaveEntitlementRepository.getLeaveTypesByRole(roleName).stream().map(t -> t.substring(0, 1).toUpperCase() + t.substring(1)).toList();
     }
 }

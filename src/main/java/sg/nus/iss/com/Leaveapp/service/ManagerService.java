@@ -14,14 +14,8 @@ public interface ManagerService {
     List<Leave> getEmployeeLeaveHistory(Employee employee);
 	Employee findEmployeeByName(String employeeName);
 
-    // LeaveType methods
-    List<LeaveType> getAllLeaveTypes();
-    LeaveType getLeaveTypeById(Long id);
-    void createOrUpdateLeaveType(LeaveType leaveType);
-    void deleteLeaveType(Long id);
+    // Leave methods
 	Leave getLeaveApplicationById(Long id);
-
-	
     
     //approve or reject Leave
 //    void approveLeaveApplication(Long leavaApplicationId, String comment);

@@ -4,10 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +18,7 @@ import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 import sg.nus.iss.com.Leaveapp.repository.RoleRepository;
 import sg.nus.iss.com.Leaveapp.Exceptions.TypeNotFoundException;
-import sg.nus.iss.com.Leaveapp.model.Action;
+
 
 
 public class ContextIO {
@@ -137,9 +133,6 @@ public class ContextIO {
 			LeaveEntitlement employeeAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", employee.getId());
 			LeaveEntitlement adminAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", admin.getId());
 			LeaveEntitlement managerAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", manager.getId());
-			int countEmployeeLeave = 0;
-			int countAdminLeave = 0;
-			int countManagerLeave = 0;
 			while((x = br.readLine()) != null) {
 				List<String> dat = List.of(x.split(","));
 				String username = dat.get(1);

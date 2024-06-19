@@ -50,15 +50,6 @@ public class Leave {
 		
 	}
 
-	public String getComment() {
-		return comment;
-	}
-
-	public Leave setComment(String comment) {
-		this.comment = comment;
-		return this;
-	}
-
 	public Long getId() {
 		return id;
 	}

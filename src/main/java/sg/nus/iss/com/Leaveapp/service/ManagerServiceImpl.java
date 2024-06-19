@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
-import sg.nus.iss.com.Leaveapp.model.LeaveType;
+
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveStatusRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+
+
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
@@ -23,11 +25,8 @@ public class ManagerServiceImpl implements ManagerService{
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    private LeaveTypeRepository leaveTypeRepository;
-    
-    @Autowired
-    private LeaveStatusRepository leaveStatusRepository;
-    
+    private LeaveEntitlementRepository leaveEntitlementRepository;
+        
     @Autowired
     private LeaveRepository leaveRepository;
     
@@ -41,27 +40,19 @@ public class ManagerServiceImpl implements ManagerService{
     }
     
     // LeaveType methods
-    public List<LeaveType> getAllLeaveTypes() {
-        return leaveTypeRepository.findAll();
+    public List<LeaveEntitlement> getAllLeaveEntitlements() {
+    	return leaveEntitlementRepository.findAll();
     }
 
-    public LeaveType getLeaveTypeById(Long id) {
-        return leaveTypeRepository.findById(id).orElse(null);
+    public LeaveEntitlement getLeaveEntitlementById(Long id) {
+    	return leaveEntitlementRepository.findById(Integer.parseInt(id.toString())).orElse(null);
     }
 
-    public void createOrUpdateLeaveType(LeaveType leaveType) {
-        leaveTypeRepository.save(leaveType);
-    }
+   
 
-    public void deleteLeaveType(Long id) {
-        leaveTypeRepository.deleteById(id);
-    }
+    
 
     //approve or reject Leave
-    public List<LeaveStatus> getAllLeaveStatus(){
-    	return leaveStatusRepository.findAll();
-    }
-    
     @Override
     public List<Leave> getLeaveApplicationsForApproval() {
         return leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));

@@ -51,7 +51,6 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
         Leave leave = leaveApproveListRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
         leave.setStatus(LeaveStatus.Rejected);
-        leave.setComment(comment);
         leaveApproveListRepository.save(leave);
     }
 

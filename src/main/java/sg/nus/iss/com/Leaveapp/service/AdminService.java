@@ -46,6 +46,19 @@ public class AdminService {
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
+    
+    public List<Employee> getManagers() {
+        Role managerRole = roleRepository.findRoleByName("manager");
+        return employeeRepository.findByRole(managerRole);
+    }
+    
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+    
+    
+    
+    
 
  // LeaveType methods
 //  public List<LeaveType> getAllLeaveTypes() {

@@ -47,6 +47,8 @@ public class AdminController {
     @GetMapping("/employees/add")
     public String addEmployeeForm(Model model) {
         model.addAttribute("employee", new Employee());
+        model.addAttribute("managers", adminService.getManagers());
+        model.addAttribute("roles", adminService.getAllRoles()); // Fetching roles
         model.addAttribute("action", "add-employee");
         return "index";
     }
@@ -54,6 +56,8 @@ public class AdminController {
     @GetMapping("/employees/edit/{id}")
     public String editEmployeeForm(@PathVariable Long id, Model model) {
         model.addAttribute("employee", adminService.getEmployeeById(id));
+        model.addAttribute("managers", adminService.getManagers());
+        model.addAttribute("roles", adminService.getAllRoles()); // Fetching roles
         model.addAttribute("action", "edit-employee");
         return "index";
     }

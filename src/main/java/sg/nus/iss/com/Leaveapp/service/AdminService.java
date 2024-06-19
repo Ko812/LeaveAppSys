@@ -21,9 +21,6 @@ public class AdminService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-
-//    @Autowired
-//    private LeaveTypeRepository leaveTypeRepository;
     
     @Autowired
     private LeaveEntitlementRepository leaveEntitlementRepository;
@@ -41,6 +38,8 @@ public class AdminService {
     }
 
     public void createOrUpdateEmployee(Employee employee) {
+    	Role role = roleRepository.findRoleByName(employee.getRole().getName());
+    	employee.setRole(role);
         employeeRepository.save(employee);
     }
 

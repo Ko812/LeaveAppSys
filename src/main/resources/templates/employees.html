@@ -61,7 +61,7 @@
             <tr th:each="employee : ${employees}">
                 <td th:text="${employee.id}"></td>
                 <td th:text="${employee.name}"></td>
-                <td th:text="${employee.role}"></td>
+                <td th:text="${employee.role.name}"></td>
                 <td>
                     <a th:href="@{/admin/employees/edit/{id}(id=${employee.id})}">Edit</a> |
                     <a th:href="@{/admin/employees/delete/{id}(id=${employee.id})}">Delete</a>

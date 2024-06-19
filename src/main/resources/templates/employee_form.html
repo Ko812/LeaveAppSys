@@ -65,12 +65,14 @@
         </div>
         <div>
             <label>Role:</label>
-            <select th:field="*{role}">
+            <select th:field="*{role.name}">
                 <option value="employee">Employee</option>
                 <option value="admin">Admin</option>
                 <option value="manager">Manager</option>
             </select>
         </div>
+		<br/>
+		<br/>
         <div>
             <button type="submit">Save</button>
         </div>

@@ -47,13 +47,15 @@ public class AdminController {
     @GetMapping("/employees/add")
     public String addEmployeeForm(Model model) {
         model.addAttribute("employee", new Employee());
-        return "employee_form";
+        model.addAttribute("action", "add-employee");
+        return "index";
     }
     
     @GetMapping("/employees/edit/{id}")
     public String editEmployeeForm(@PathVariable Long id, Model model) {
         model.addAttribute("employee", adminService.getEmployeeById(id));
-        return "employee_form";
+        model.addAttribute("action", "edit-employee");
+        return "index";
     }
     
     @PostMapping("/employees/save")

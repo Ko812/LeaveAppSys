@@ -15,13 +15,13 @@ public class Employee {
     private Long id;
     private String name;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER, cascade={})
     private Role role;
     
     private String username;
     private String password;
     
-    @ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch=FetchType.EAGER)
     private Employee manager;
     
     @OneToMany(mappedBy="manager", fetch=FetchType.LAZY)

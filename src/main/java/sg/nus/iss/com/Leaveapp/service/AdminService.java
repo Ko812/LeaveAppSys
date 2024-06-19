@@ -56,6 +56,28 @@ public class AdminService {
         return roleRepository.findAll();
     }
     
+    public List<LeaveEntitlement> getAllLeaveEntitlements() {
+        return leaveEntitlementRepository.findAll();
+    }
+    
+    public List<LeaveEntitlement> getAllLeaveTypes() {
+        return leaveEntitlementRepository.findAll();
+    }
+    
+    public LeaveEntitlement getLeaveEntitlementById(Long id) {
+        return leaveEntitlementRepository.findById(id).orElse(null);
+    }
+    
+    
+    public void createOrUpdateLeaveEntitlement(LeaveEntitlement leaveEntitlement) {
+        leaveEntitlementRepository.save(leaveEntitlement);
+    }
+
+    public void deleteLeaveEntitlement(Long id) {
+        leaveEntitlementRepository.deleteById(id);
+    }
+    
+    
     
     
     
@@ -69,13 +91,15 @@ public class AdminService {
 //      return leaveTypeRepository.findById(id).orElse(null);
 //  }
 
-    public void createOrUpdateLeaveType(String type, Map<String, Integer> entitlements, int year) {
-    	
-    	entitlements.keySet().forEach(roleName -> {
-    		Role role = roleRepository.findRoleByName(roleName);
-    		leaveEntitlementRepository.save(new LeaveEntitlement(type, entitlements.get(roleName), role, year));
-    	});
-    	
+    public void createOrUpdateLeaveType(Role role, Map<String, Integer> entitlements, int year) {
+    	System.out.println(entitlements.get("annual"));
+    	LeaveEntitlement annualLeaveEntitlement = new LeaveEntitlement("annual", entitlements.get("annual"), role, year);
+    	LeaveEntitlement medicalLeaveEntitlement = new LeaveEntitlement("medical", entitlements.get("medical"), role, year);
+    	LeaveEntitlement compensationLeaveEntitlement = new LeaveEntitlement("compensation", entitlements.get("compensation"), role, year);
+    	var ale = leaveEntitlementRepository.save(annualLeaveEntitlement);
+    	leaveEntitlementRepository.save(medicalLeaveEntitlement);
+    	leaveEntitlementRepository.save(compensationLeaveEntitlement);
+    	System.out.println(ale);
 //    	LeaveEntitlement staffLeaveEntitlement = new LeaveEntitlement(StaffRole, leaveType, entitlement)
 //    	leaveEntitlementRepository.s
 //        leaveTypeRepository.save(leaveType);

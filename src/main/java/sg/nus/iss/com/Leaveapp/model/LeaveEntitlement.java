@@ -28,10 +28,10 @@ public class LeaveEntitlement {
 //    private ApprovalHierarchy approvalHierarchy;
     
     
-//    @NotNull(message = "Leave type is required")
-//    @Size(min = 1, max = 50, message = "Leave type must be between 1 and 50 characters")
-//    @Column(name = "leave_type") // Updated column name
-//    private String leaveType;
+   // @NotNull(message = "Leave type is required")
+   // @Size(min = 1, max = 50, message = "Leave type must be between 1 and 50 characters")
+   // @Column(name = "leave_type") // Updated column name
+   // private String leaveType;
 
     @Max(value = 20, message = "Annual leave cannot exceed 20 days")
     @Column(name = "annual_leave") // Updated column name

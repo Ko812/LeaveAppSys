@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.AdminService;
 
@@ -84,7 +85,8 @@ public class AdminController {
     
     @GetMapping("/leavetypes/add")
     public String addLeaveTypeForm(Model model) {
-        model.addAttribute("leaveType", new LeaveType());
+        model.addAttribute("leaveEntitlement", new LeaveEntitlement());
+        model.addAttribute("roles", adminService.getAllRoles());
         return "leave_type_form";
     }
     
@@ -95,12 +97,15 @@ public class AdminController {
     }
     
     @PostMapping("/leavetypes/save")
-    public String saveLeaveType(@ModelAttribute String type, Integer staffEntitlement, Integer adminEntitlement, Integer managerEntitlement, int year) {
+    public String saveLeaveType(@ModelAttribute("leaveEntitlement") LeaveEntitlement entitlement) {
     	HashMap<String, Integer> entitlements = new HashMap<String, Integer>();
-    	entitlements.put("employee", staffEntitlement);
-    	entitlements.put("admin", adminEntitlement);
-    	entitlements.put("manager", managerEntitlement);
-    	adminService.createOrUpdateLeaveType(type, entitlements, year);
+    	System.out.println(entitlement.getAnnualLeave());
+    	System.out.println(entitlement.getSickLeave());
+    	System.out.println(entitlement.getCompensationLeave());
+    	entitlements.put("annual", entitlement.getAnnualLeave());
+    	entitlements.put("medical", entitlement.getSickLeave());
+    	entitlements.put("compensation", entitlement.getCompensationLeave());
+    	adminService.createOrUpdateLeaveType(entitlement.getRole(), entitlements, entitlement.getYear());
         return "redirect:/admin/leavetypes";
     }
     

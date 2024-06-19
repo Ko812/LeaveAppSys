@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Leave Type Form</title>
+    <title>Leave Entitlement Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
             margin-bottom: 8px;
             font-weight: bold;
         }
-        input[type="text"] {
+        input[type="text"], select, input[type="number"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 20px;
@@ -56,12 +56,30 @@
     </style>
 </head>
 <body>
-    <h1>Leave Type Form</h1>
-    <form th:action="@{/admin/leavetypes/save}" th:object="${leaveType}" method="post">
+    <h1>Leave Entitlement Form</h1>
+    <form th:action="@{/admin/leavetypes/save}" th:object="${leaveEntitlement}" method="post" action="#">
         <input type="hidden" th:field="*{id}" />
         <div>
-            <label>Type:</label>
-            <input type="text" th:field="*{type}" />
+            <label>Role:</label>
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}" ></option>
+            </select>
+        </div>
+        <div>
+            <label>Annual Leave:</label>
+            <input type="number" th:field="*{annualLeave}" />
+        </div>
+        <div>
+            <label>Sick Leave:</label>
+            <input type="number" th:field="*{sickLeave}" />
+        </div>
+        <div>
+            <label>Compensation Leave:</label>
+            <input type="number" th:field="*{compensationLeave}" />
+        </div>
+        <div>
+            <label>Year:</label>
+            <input type="number" th:field="*{year}" />
         </div>
         <div>
             <button type="submit">Save</button>

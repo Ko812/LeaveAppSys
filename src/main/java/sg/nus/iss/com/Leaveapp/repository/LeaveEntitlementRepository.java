@@ -16,8 +16,8 @@ import sg.nus.iss.com.Leaveapp.model.Role;
 @Repository
 public interface LeaveEntitlementRepository extends JpaRepository<LeaveEntitlement, Integer> {
 
-	Optional<LeaveEntitlement> findById(int id);
-	void deleteById(int id);
+	Optional<LeaveEntitlement> findById(Long id);
+	void deleteById(Long id);
 	
 	@Query("SELECT e FROM LeaveEntitlement e WHERE e.leaveType = :type AND e.role.id =:role_id")
 	public LeaveEntitlement findLeaveEntitlementByType(@Param("type") String type, @Param("role_id") Long role_id);

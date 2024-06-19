@@ -71,8 +71,22 @@
                 <option value="manager">Manager</option>
             </select>
         </div>
-		<br/>
-		<br/>
+        <div>
+            <label>Username:</label>
+            <input type="text" th:field="*{username}" />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="text" th:field="*{password}" />
+        </div>
+        <div>
+            <label>Manager:</label>
+            <select th:field="*{manager.id}">
+                <option th:each="mgr : ${managers}" th:value="${mgr.id}" th:text="${mgr.name}"></option>
+            </select>
+        </div>
+        <br/>
+        <br/>
         <div>
             <button type="submit">Save</button>
         </div>

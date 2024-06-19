@@ -34,7 +34,7 @@ public class LeaveEntitlementController {
 		model.addAttribute("action", "view-leave-entitlements");
 
 		model.addAttribute("actions", Action.getAllActions());
-		return "index";
+		return "leave-entitlement-form";
 	
 	}
 	

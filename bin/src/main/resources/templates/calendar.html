@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calendar View</title>
+    <!-- Include FullCalendar CSS -->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css' rel='stylesheet' />
+</head>
+<body>
+    <h1>Calendar View</h1>
+    <div id="calendar"></div> <!-- This div will hold the calendar -->
+    
+    <!-- Include FullCalendar JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js'></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Display month view by default
+                events: [
+                    // Example events data
+                    {
+                        title: 'Event 1',
+                        start: '2024-06-01'
+                    },
+                    {
+                        title: 'Event 2',
+                        start: '2024-06-07',
+                        end: '2024-06-10'
+                    }
+                    // Add more events as needed
+                ]
+            });
+            calendar.render(); // Render the calendar
+        });
+    </script>
+</body>
+</html>

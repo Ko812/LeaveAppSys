@@ -6,11 +6,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Employee Leave History List</title>
-	<style>
+	<style th:fragment="style">
 		/* CSS styles */
 		table {
 			border-collapse: collapse;
-			width: 100%;
+			width:100%;
 		}
 
 		th,
@@ -37,31 +37,39 @@
 	</style>
 </head>
 
-<body>
+<body th:fragment="body">
 	<div class="container">
 		<h1>Employee Leave History List</h1>
+		<h3 th:text="${employee.name}"></h3>
 		<table>
 			<thead>
 				<tr>
-					<th style="background-color: #c0c0c0;">Employee Name</th>
-					<th style="background-color: #c0c0c0;">Leave History</th>
+					<th style="background-color: #c0c0c0;">Start</th>
+					<th style="background-color: #c0c0c0;">End</th>
+					<th style="background-color: #c0c0c0;">Type</th>
+					<th style="background-color: #c0c0c0;">Reason</th>
+					<th style="background-color: #c0c0c0;">Status</th>
 				</tr>
 			</thead>
 			<tbody>
 				<!-- Use Thymeleaf to display the found employee -->
-				<tr th:if="${employeeFound}">
-					<td th:text="${employee.name}"></td>
-					<td>
-						<a th:href="@{/leave/viewleaveHistory(id=${employee.id})}">View</a>
-					</td>
+				<tr th:if="${employeeFound}" th:each="leave : ${leaveHistory}">
+					<td th:text="${leave.start}"></td>
+					<td th:text="${leave.end}"></td>
+					<td th:text="${leave.entitlement.leaveType}"></td>
+					<td th:text="${leave.reasons}"></td>
+					<td th:text="${leave.status}"></td>
+					<!--<td>
+						<a th:href="@{/manager/history/{employeeId}(id=${employee.id})}">View</a>
+					</td>-->
 				</tr>
 				<!-- Display message if no employee is found -->
-				<tr th:if="${employeeFound == false}">
+				<tr th:if="${!employeeFound}">
 					<td colspan="2" style="text-align: center;">No such employee found</td>
 				</tr>
 			</tbody>
 		</table>
-		<a href="manager/employeeHistory" class="nav-link">Back to Employee History List Page</a>
+		<a href="/manager/employeeHistory" class="nav-link">Back to Employee History List Page</a>
 	</div>
 </body>
 

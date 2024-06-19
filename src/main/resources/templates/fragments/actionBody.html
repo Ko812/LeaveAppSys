@@ -41,14 +41,17 @@
 	</div>
 	
 	<div th:if="${action == 'employeeHistory'}">
+		<div th:insert="employee-leave-history-list.html :: style"></div>
 		<div th:insert="employee-leave-history-list.html :: body"></div>
 	</div>
 	
 	<div th:if="${action == 'employee-leave-history'}">
+		<div th:insert="employee-leave-history.html :: style"></div>
 		<div th:insert="employee-leave-history.html :: body"></div>
 	</div>
 	
 	<div th:if="${action == 'application-details'}">
+		<div th:insert="application-details.html :: style"></div>
 		<div th:insert="application-details.html :: body"></div>
 	</div>
 </div>

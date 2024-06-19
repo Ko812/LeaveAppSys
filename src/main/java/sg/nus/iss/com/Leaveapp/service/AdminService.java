@@ -2,14 +2,14 @@ package sg.nus.iss.com.Leaveapp.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
-import sg.nus.iss.com.Leaveapp.model.LeaveType;
+
 import sg.nus.iss.com.Leaveapp.model.Role;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
@@ -69,12 +69,12 @@ public class AdminService {
 //      return leaveTypeRepository.findById(id).orElse(null);
 //  }
 
-    public void createOrUpdateLeaveType(String type, Map<String, Integer> entitlements, int year) {
-    	
-    	entitlements.keySet().forEach(roleName -> {
-    		Role role = roleRepository.findRoleByName(roleName);
-    		leaveEntitlementRepository.save(new LeaveEntitlement(type, entitlements.get(roleName), role, year));
-    	});
+	public void createOrUpdateLeaveType(String type, Map<String, Integer> entitlements, int year) {
+
+		entitlements.keySet().forEach(roleName -> {
+			Role role = roleRepository.findRoleByName(roleName);
+			leaveEntitlementRepository.save(new LeaveEntitlement(type, entitlements.get(roleName), role, year));
+		});
     	
 //    	LeaveEntitlement staffLeaveEntitlement = new LeaveEntitlement(StaffRole, leaveType, entitlement)
 //    	leaveEntitlementRepository.s

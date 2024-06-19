@@ -47,12 +47,11 @@
             <tbody>
                 <!-- Use Thymeleaf to iterate over the leaveApplications list -->
                 <tr th:each="leaveApplication,iter : ${leaveApplications}">
-                    <td th:if="${iter.index + 1 != leaveApplications.size()}" th:text="${leaveApplication.employee.name}"></td>
-					<td th:if="${iter.index + 1 != leaveApplications.size()}" th:text="${leaveApplication.id}"></td>
-                    <td th:if="${iter.index + 1 != leaveApplications.size()}">
+                    <td th:text="${leaveApplication.employee.name}"></td>
+					<td th:text="${leaveApplication.id}"></td>
+                    <td>
 						<a th:href="@{/manager/application-details/{id}(id=${leaveApplication.id})}">View</a>
                     </td>
-					<td th:if="${iter.index + 1 == leaveApplications.size()}" class="blank-row" colspan="3" height="10px">&nbsp;</td>
                 </tr>
             </tbody>
         </table>

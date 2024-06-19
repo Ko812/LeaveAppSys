@@ -10,10 +10,11 @@ public interface ManagerService {
     // Employee methods
     List<Employee> getAllEmployees();
     Employee getEmployeeById(Long id);
-    List<Leave> getLeaveApplicationsForApproval();
+    List<Leave> getLeaveApplicationsForApproval(Long managerId);
     List<Leave> getEmployeeLeaveHistory(Employee employee);
 	Employee findEmployeeByName(String employeeName);
-
+	List<Employee> findReporteeEmployeeByManagerId(Long manager_id);
+	
     // Leave methods
 	Leave getLeaveApplicationById(Long id);
     

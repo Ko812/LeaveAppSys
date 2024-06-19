@@ -19,7 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		Employee superUser = employeeService.findEmployeeById(1L);
+		Employee superUser = employeeService.findEmployeeById(42L);
 		request.getSession().setAttribute("loggedInEmployee", superUser);
 		return true;
 	}

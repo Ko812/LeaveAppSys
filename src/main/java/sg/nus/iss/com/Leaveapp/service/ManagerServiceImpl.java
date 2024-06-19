@@ -54,8 +54,15 @@ public class ManagerServiceImpl implements ManagerService{
 
     //approve or reject Leave
     @Override
-    public List<Leave> getLeaveApplicationsForApproval() {
-        return leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
+    public List<Leave> getLeaveApplicationsForApproval(Long managerId) {
+    	List<Employee> reportees = employeeRepository.findReporteeEmployeesByManagerId(managerId);
+    	List<Long> reporteesId = reportees.stream().map(e -> e.getId()).toList();
+    	System.out.println(reporteesId);
+        List<Leave> allAppliedLeaves = leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
+        return allAppliedLeaves
+        		.stream()
+        		.filter(l -> reporteesId.contains(l.getEmployee().getId()))
+        		.toList();
     }
     
     
@@ -72,6 +79,11 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public Employee findEmployeeByName(String employeeName) {
 		return leaveRepository.findEmployeeName(employeeName);
+	}
+
+	@Override
+	public List<Employee> findReporteeEmployeeByManagerId(Long manager_id) {
+		return employeeRepository.findReporteeEmployeesByManagerId(manager_id);
 	}
 
 

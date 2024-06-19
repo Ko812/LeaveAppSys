@@ -17,8 +17,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query("SELECT e FROM Employee e WHERE e.id = :id")
 	public Employee findEmployeeRoleById(@Param("id") Long id);
 	
+	@Query("SELECT e FROM Employee e WHERE e.manager.id = :manager_id")
+	public List<Employee> findReporteeEmployeesByManagerId(@Param("manager_id") Long id);
 	
-	
-	    public List<Employee> findByRole(Role role);
-	
+	public List<Employee> findByRole(Role role);
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
@@ -43,6 +44,7 @@ public class AdminService {
         employeeRepository.save(employee);
     }
 
+    @Transactional
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
@@ -60,62 +62,22 @@ public class AdminService {
         return leaveEntitlementRepository.findAll();
     }
     
-    public List<LeaveEntitlement> getAllLeaveTypes() {
-        return leaveEntitlementRepository.findAll();
-    }
-    
     public LeaveEntitlement getLeaveEntitlementById(Long id) {
         return leaveEntitlementRepository.findById(id).orElse(null);
     }
-    
-    
-    public void createOrUpdateLeaveEntitlement(LeaveEntitlement leaveEntitlement) {
-        leaveEntitlementRepository.save(leaveEntitlement);
-    }
 
+    @Transactional
     public void deleteLeaveEntitlement(Long id) {
-        leaveEntitlementRepository.deleteById(id);
+    	leaveEntitlementRepository.deleteById(id);
     }
     
-    
-    
-    
-    
-
- // LeaveType methods
-//  public List<LeaveType> getAllLeaveTypes() {
-//      return leaveTypeRepository.findAll();
-//  }
-//
-//  public LeaveType getLeaveTypeById(Long id) {
-//      return leaveTypeRepository.findById(id).orElse(null);
-//  }
-
-<<<<<<< HEAD
+    @Transactional
     public void createOrUpdateLeaveType(Role role, Map<String, Integer> entitlements, int year) {
-    	System.out.println(entitlements.get("annual"));
     	LeaveEntitlement annualLeaveEntitlement = new LeaveEntitlement("annual", entitlements.get("annual"), role, year);
     	LeaveEntitlement medicalLeaveEntitlement = new LeaveEntitlement("medical", entitlements.get("medical"), role, year);
     	LeaveEntitlement compensationLeaveEntitlement = new LeaveEntitlement("compensation", entitlements.get("compensation"), role, year);
-    	var ale = leaveEntitlementRepository.save(annualLeaveEntitlement);
+    	leaveEntitlementRepository.save(annualLeaveEntitlement);
     	leaveEntitlementRepository.save(medicalLeaveEntitlement);
     	leaveEntitlementRepository.save(compensationLeaveEntitlement);
-    	System.out.println(ale);
-=======
-	public void createOrUpdateLeaveType(String type, Map<String, Integer> entitlements, int year) {
-
-		entitlements.keySet().forEach(roleName -> {
-			Role role = roleRepository.findRoleByName(roleName);
-			leaveEntitlementRepository.save(new LeaveEntitlement(type, entitlements.get(roleName), role, year));
-		});
-    	
->>>>>>> 7a3aa7f25183e6f908896e093ae8d5588fd078e9
-//    	LeaveEntitlement staffLeaveEntitlement = new LeaveEntitlement(StaffRole, leaveType, entitlement)
-//    	leaveEntitlementRepository.s
-//        leaveTypeRepository.save(leaveType);
     }
-
-//    public void deleteLeaveType(Long id) {
-//  leaveTypeRepository.deleteById(id);
-//}
 }

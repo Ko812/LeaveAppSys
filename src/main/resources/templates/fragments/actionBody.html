@@ -1,57 +1,63 @@
 <div class="container" th:fragment="actionBody">
 	<div th:if="${action == 'employee'}">
-		<style th:insert="employees.html :: style"></style>
-		<div th:insert="employees.html :: body"></div>
+		<style th:insert="~{employees.html :: style}"></style>
+		<div th:insert="~{employees.html :: body}"></div>
 	</div>
+	<div th:if="${action == 'login' || action == ''}">
 	
+		<div th:insert="~{login.html :: body}"></div>
+	</div>
 	
 	<!-- Admin Use Cases -->
 	<div th:if="${action == 'leavetypes'}">
-		<style th:insert="leavetypes.html :: style"></style>
-		<div th:insert="leavetypes.html :: body"></div>
+		<style th:insert="~{leavetypes.html :: style}"></style>
+		<div th:insert="~{leavetypes.html :: body}"></div>
 	</div>
 	
 
 	<div th:if="${action == 'view-leave-entitlements'}">
-		<div th:insert="leave-entitlement-list.html :: body"></div>
+		<div th:insert="~{leave-entitlement-list.html :: body}"></div>
 	</div>
 	
 	<div th:if="${action == 'add-employee'}">
-		<div th:insert="employee_form.html :: body"></div>
+		<div th:insert="~{employee_form.html :: body}"></div>
 	</div>
 	
 	<div th:if="${action == 'edit-employee'}">
-			<div th:insert="employee_form.html :: body"></div>
-		</div>
-	
+		<div th:insert="~{employee_form.html :: body}"></div>
+	</div>
+	<div th:if="${action == 'edit-leave-type' || action == 'add-leave-type'}">
+		<div th:insert="~{leave_type_form.html :: body}"></div>
+	</div>
+		
 	<!-- Employee Use Cases -->
 	<div th:if="${action == 'leaveSubmitForm'}">
-		<div th:insert="submit-leave-app.html :: body"></div>
+		<div th:insert="~{submit-leave-app.html :: body}"></div>
 	</div>
 	
 	
 	<div th:if="${action == 'viewleaveHistory'}">
-		<div th:insert="personal-leave-history.html :: body"></div>
+		<div th:insert="~{personal-leave-history.html :: body}"></div>
 	</div>
 	
 	<!-- Manager Use Cases -->
 	<div th:if="${action == 'leaveApplications'}">
-		<div th:insert="applications-approval.html :: style"></div>
-		<div th:insert="applications-approval.html :: body"></div>
+		<div th:insert="~{applications-approval.html :: style}"></div>
+		<div th:insert="~{applications-approval.html :: body}"></div>
 	</div>
 	
 	<div th:if="${action == 'employeeHistory'}">
-		<div th:insert="employee-leave-history-list.html :: style"></div>
-		<div th:insert="employee-leave-history-list.html :: body"></div>
+		<div th:insert="~{employee-leave-history-list.html :: style}"></div>
+		<div th:insert="~{employee-leave-history-list.html :: body}"></div>
 	</div>
 	
 	<div th:if="${action == 'employee-leave-history'}">
-		<div th:insert="employee-leave-history.html :: style"></div>
-		<div th:insert="employee-leave-history.html :: body"></div>
+		<div th:insert="~{employee-leave-history.html :: style}"></div>
+		<div th:insert="~{employee-leave-history.html :: body}"></div>
 	</div>
 	
 	<div th:if="${action == 'application-details'}">
-		<div th:insert="application-details.html :: style"></div>
-		<div th:insert="application-details.html :: body"></div>
+		<div th:insert="~{application-details.html :: style}"></div>
+		<div th:insert="~{application-details.html :: body}"></div>
 	</div>
 </div>

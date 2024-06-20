@@ -1,0 +1,52 @@
+package sg.nus.iss.leaveapp.login;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig  {
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+			.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/", "/home").permitAll()
+				.anyRequest().authenticated()
+			)
+			.formLogin((form) -> form
+				.loginPage("/login")
+				.permitAll()
+			)
+			.logout((logout) -> logout.permitAll());
+
+		return http.build();
+	}
+
+    @Bean
+    UserDetailsService userDetailsService() {
+		UserDetails user =
+			 User.builder()
+				.username("user")
+				.password("password")
+				.roles("USER")
+				.passwordEncoder(p -> {
+					String q = String.copyValueOf(p.toCharArray());
+					for(char c : p.toCharArray()) {
+						q.replace(c, (char)(c + 2));
+					}
+					return q;
+				})
+				.build();
+
+		return new InMemoryUserDetailsManager(user);
+	}
+}
+

@@ -4,8 +4,10 @@
 		<div th:insert="~{employees.html :: body}"></div>
 	</div>
 	<div th:if="${action == 'login' || action == ''}">
-	
 		<div th:insert="~{login.html :: body}"></div>
+	</div>
+	<div th:if="${action == 'error-message'}">
+		<p th:text="${error}"></p>
 	</div>
 	
 	<!-- Admin Use Cases -->
@@ -25,18 +27,21 @@
 	
 	<div th:if="${action == 'edit-employee'}">
 		<div th:insert="~{employee_form.html :: body}"></div>
-	</div>
-	<div th:if="${action == 'edit-leave-type' || action == 'add-leave-type'}">
+	</div> 
+	<div th:if="${action == 'add-leave-type'}">
 		<div th:insert="~{leave_type_form.html :: body}"></div>
 	</div>
+	<div th:if="${action == 'edit-leave-type'}">
+			<div th:insert="~{leave_type_form_edit.html :: body}"></div>
+		</div>
 		
 	<!-- Employee Use Cases -->
 	<div th:if="${action == 'leaveSubmitForm'}">
 		<div th:insert="~{submit-leave-app.html :: body}"></div>
 	</div>
-	
-	
+		
 	<div th:if="${action == 'viewleaveHistory'}">
+		<div th:insert="~{personal-leave-history.html :: style}"></div>
 		<div th:insert="~{personal-leave-history.html :: body}"></div>
 	</div>
 	

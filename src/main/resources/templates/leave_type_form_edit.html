@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Leave Entitlement Form</title>
+    <title>Edit Leave Entitlement</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,8 +56,8 @@
     </style>
 </head>
 <body>
-    <h1>Leave Entitlement Form</h1>
-    <form th:action="@{/admin/leavetypes/save}" th:object="${leaveEntitlement}" method="post">
+    <h1>Edit Leave Entitlement</h1>
+    <form th:action="@{/admin/leavetypes/edit/save}" th:object="${leaveEntitlement}" method="post">
         <input hidden th:field="*{id}" />
 		<div>
             <label>Role:</label>
@@ -66,14 +66,15 @@
             </select>
         </div>
         <div>
-            <label>No. of Annual Leave:</label>
-            <input type="number" th:field="*{annualLeave}" th:value="${leaveEntitlement.annualLeave}" />
-			<span th:if="${#fields.hasErrors('annualLeave')}" th:errors="*{annualLeave}" class="inputErrorMessage"></span>
+            <label>Type:</label>
+			<input hidden th:field="*{leaveType}" />
+            <p th:field="*{leaveType}" th:text="${leaveEntitlement.leaveType}"></p>
+			
         </div>
         <div>
-            <label>No. of Sick Leave:</label>
-            <input type="number" th:field="*{sickLeave}" th:value="${leaveEntitlement.sickLeave}"/>
-			<span th:if="${#fields.hasErrors('sickLeave')}" th:errors="*{sickLeave}" class="inputErrorMessage"></span>
+            <label>No. of Days:</label>
+            <input type="number" th:field="*{numberOfDays}" th:value="${leaveEntitlement.numberOfDays}"/>
+			<span th:if="${#fields.hasErrors('numberOfDays')}" th:errors="*{numberOfDays}" class="inputErrorMessage"></span>
         </div>
         
         <div>

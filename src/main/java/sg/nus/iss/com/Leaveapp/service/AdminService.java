@@ -1,10 +1,12 @@
 package sg.nus.iss.com.Leaveapp.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +47,7 @@ public class AdminService {
     }
 
     @Transactional
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(Long id) throws DataIntegrityViolationException{
         employeeRepository.deleteById(id);
     }
     
@@ -65,19 +67,18 @@ public class AdminService {
     public LeaveEntitlement getLeaveEntitlementById(Long id) {
         return leaveEntitlementRepository.findById(id).orElse(null);
     }
+    
+    public LeaveEntitlement findLeaveEntitlementByRoleTypeAndYear(Role role, String type, Integer year) {
+    	return leaveEntitlementRepository.findLeaveEntitlementByRoleTypeAndYear(role,type,year);
+    }
 
     @Transactional
-    public void deleteLeaveEntitlement(Long id) {
+    public void deleteLeaveEntitlement(Long id) throws DataIntegrityViolationException{
     	leaveEntitlementRepository.deleteById(id);
     }
     
     @Transactional
-    public void createOrUpdateLeaveType(Role role, Map<String, Integer> entitlements, int year) {
-    	LeaveEntitlement annualLeaveEntitlement = new LeaveEntitlement("annual", entitlements.get("annual"), role, year);
-    	LeaveEntitlement medicalLeaveEntitlement = new LeaveEntitlement("medical", entitlements.get("medical"), role, year);
-    	LeaveEntitlement compensationLeaveEntitlement = new LeaveEntitlement("compensation", entitlements.get("compensation"), role, year);
-    	leaveEntitlementRepository.save(annualLeaveEntitlement);
-    	leaveEntitlementRepository.save(medicalLeaveEntitlement);
-    	leaveEntitlementRepository.save(compensationLeaveEntitlement);
+    public void createOrUpdateLeaveType(LeaveEntitlement entitlement) {
+    	leaveEntitlementRepository.save(entitlement);
     }
 }

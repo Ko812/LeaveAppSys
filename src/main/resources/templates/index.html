@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
-	<header th:replace="fragments/header :: header"></header>
+	<header th:replace="~{fragments/header :: header}"></header>
 	<div class="maincontent">
-		<div th:replace="fragments/menu :: menu"></div>
-		<div th:replace="fragments/actionBody :: actionBody"></div>	
+		<div th:replace="~{fragments/menu :: menu}"></div>
+		<div th:replace="~{fragments/actionBody :: actionBody}"></div>	
 	</div>
 </body>
 

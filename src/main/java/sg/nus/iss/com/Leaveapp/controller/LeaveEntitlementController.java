@@ -53,7 +53,7 @@ public class LeaveEntitlementController {
 	
 	@GetMapping("/leave-entitlements/new")
 	  public String showLeaveEntitlementById(Model model) {
-	    LeaveEntitlement leaveEntitlement = new LeaveEntitlement();
+	    LeaveEntitlement leaveEntitlement = new LeaveEntitlement(0,0);
 	    model.addAttribute("leaveEntitlement", leaveEntitlement);
 	    return "leave-entitlement-form";
 	}

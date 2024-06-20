@@ -118,15 +118,16 @@ public class LeaveController {
 	
 	
 	@GetMapping("/viewleaveHistory")
-	public String leaveHistoryChecker(@RequestParam("id") Long employeeId, Model model)
+	public String leaveHistoryChecker(Model model, HttpSession session)
 	{
-		List<Leave> leaveList = leaveService.findLeavesFromEmployeeId(employeeId);
-		model.addAttribute("leaveList", leaveList);
-		List<Action> actions = Action.getAllActions();
-		model.addAttribute("actions", actions);
+		Employee loggedInEmployee = (Employee) session.getAttribute("loggedInEmployee");
+		List<Leave> leaveHistory = leaveService.findLeavesFromEmployeeId(loggedInEmployee.getId());
+		model.addAttribute("leaveHistory", leaveHistory);
 		model.addAttribute("action", "viewleaveHistory");
 		return "index";
 	}
+	
+	
 	
 
 }

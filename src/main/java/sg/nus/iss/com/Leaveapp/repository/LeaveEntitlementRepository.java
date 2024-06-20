@@ -24,5 +24,8 @@ public interface LeaveEntitlementRepository extends JpaRepository<LeaveEntitleme
 	
 	@Query("SELECT e.leaveType FROM LeaveEntitlement e WHERE e.role.name= :role")
 	public List<String> getLeaveTypesByRole(@Param("role") String role);
+	
+	@Query("SELECT le FROM LeaveEntitlement le WHERE le.role = :role AND le.leaveType = :type AND le.year = :year")
+	public LeaveEntitlement findLeaveEntitlementByRoleTypeAndYear(@Param("role") Role role, @Param("type") String type, @Param("year") Integer year);
 }
 

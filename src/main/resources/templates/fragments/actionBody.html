@@ -9,6 +9,9 @@
 	<div th:if="${action == 'error-message'}">
 		<p th:text="${error}"></p>
 	</div>
+	<div th:if="${action == 'show-message'}">
+		<p th:text="${message}"></p>
+	</div>
 	
 	<!-- Admin Use Cases -->
 	<div th:if="${action == 'leavetypes'}">
@@ -53,6 +56,10 @@
 		<div th:insert="~{update-leave-form.html :: style}"></div>
 		<div th:insert="~{update-leave-form.html :: body}"></div>
 	</div>
+	<div th:if="${action == 'make-claim'}">
+		<div th:insert="~{submit-claim.html :: body}"></div>
+	</div>
+	
 	
 	<!-- Manager Use Cases -->
 	<div th:if="${action == 'leaveApplications'}">

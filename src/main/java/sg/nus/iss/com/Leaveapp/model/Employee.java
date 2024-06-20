@@ -3,6 +3,9 @@ package sg.nus.iss.com.Leaveapp.model;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 
@@ -18,7 +21,9 @@ public class Employee {
     @ManyToOne(fetch=FetchType.EAGER, cascade={})
     private Role role;
     
+    @NotBlank
     private String username;
+    
     private String password;
     
     @ManyToOne(fetch=FetchType.EAGER)
@@ -27,8 +32,8 @@ public class Employee {
     @OneToMany(mappedBy="manager", fetch=FetchType.LAZY)
     private List<Employee> reportees;
     
-//    @OneToOne(mappedBy = "employee")
-//	private LeaveEntitlement leaveEntitlements;
+    @OneToMany(mappedBy = "employee", fetch=FetchType.EAGER)
+	private List<Claim> claims;
     
     public Employee(String username, String password, String name, Role role) {
 		super();

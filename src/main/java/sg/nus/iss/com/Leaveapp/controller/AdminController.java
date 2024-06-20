@@ -1,7 +1,7 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
 
-import java.sql.SQLIntegrityConstraintViolationException;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +12,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,8 @@ import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.AdminService;
+import sg.nus.iss.com.Leaveapp.validator.LeaveEntitlementValidator;
+import sg.nus.iss.com.Leaveapp.validator.LeaveValidator;
 
 @Controller
 @RequestMapping("/admin")
@@ -31,6 +35,15 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+    
+    
+    @Autowired
+	private LeaveEntitlementValidator leaveEntitlementValidator;
+	
+	@InitBinder
+	private void initCourseBinder(WebDataBinder binder) {
+		binder.addValidators(leaveEntitlementValidator);
+	}
     
     // Dashboard
     @GetMapping("/dashboard")

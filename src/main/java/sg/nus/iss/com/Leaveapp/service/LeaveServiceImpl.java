@@ -6,16 +6,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
+import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
 
+	@Autowired
+	private ClaimRepository claimRepository;
+	
     @Autowired
     private LeaveRepository leaveRepository;
 
@@ -96,14 +101,31 @@ public class LeaveServiceImpl implements LeaveService {
     
     @Override
 
-    public void save(Leave leave)
+    public Leave save(Leave leave)
     {
-    	leave.setStatus(LeaveStatus.Applied);
-    	leaveRepository.save(leave);
+    	if(leave.getStatus() == null) {
+    		leave.setStatus(LeaveStatus.Applied);
+    	}
+    	return leaveRepository.save(leave);
     }
     
     @Override
     public List<Leave> findLeavesFromEmployeeId(Long id) {
     	return leaveRepository.findLeavesFromEmployeeId(id);
     }
+    
+    @Override
+    public Claim saveClaim(Claim claim) {
+    	if(claim.getStatus() == null) {
+    		claim.setStatus(LeaveStatus.Applied);
+    	} else {
+    		claim.setStatus(LeaveStatus.Updated);
+    	}
+    	return claimRepository.save(claim);
+    }
+
+	@Override
+	public List<Claim> findClaimsByEmployee(Employee employee) {
+		return claimRepository.findClaimsByEmployee(employee);
+	}
 }

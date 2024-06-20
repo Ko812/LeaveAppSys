@@ -30,6 +30,7 @@ public class Leave {
 	
 	private String overseasContact;
 
+	@Enumerated(EnumType.STRING)
 	private LeaveStatus status;
 	
 	
@@ -37,7 +38,10 @@ public class Leave {
 	private LeaveEntitlement entitlement;
 
 	
-	public Leave() {}
+	public Leave() {
+		this.start = LocalDate.now();
+		this.end = LocalDate.now();
+	}
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, LeaveStatus status) {
 		super();
@@ -131,7 +135,26 @@ public class Leave {
 	}
 	
 	public Integer getNumberOfDays() {
-		return end.compareTo(start) + 1;
+		Integer range = end.compareTo(start) + 1;
+		if(range > 14) {
+			return range;
+		} else {
+			return range - getNumberOfWeekendDaysInLeaveRange(range);
+		}
+	}
+	
+	private Integer getNumberOfWeekendDaysInLeaveRange(int range) {
+		Integer count = 0;
+		for(Long i = 0L; i < range; i++) {
+			if(isWeekendDayOfWeek(start.plusDays(i).getDayOfWeek())){
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	private Boolean isWeekendDayOfWeek(DayOfWeek dayOfWeek) {
+		return dayOfWeek.compareTo(DayOfWeek.SATURDAY) == 0 || dayOfWeek.compareTo(DayOfWeek.SUNDAY) == 0;
 	}
 	
 	public Boolean isOverlappedWith(List<Leave> consumedLeave) {
@@ -157,17 +180,30 @@ public class Leave {
 	}
 	
 	public Boolean isConsumedOrConsuming() {
-		return this.status.compareTo(LeaveStatus.Applied) == 0 || this.status.compareTo(LeaveStatus.Approved) == 0;
+		return this.status.compareTo(LeaveStatus.Updated) == 0 ||this.status.compareTo(LeaveStatus.Applied) == 0 || this.status.compareTo(LeaveStatus.Approved) == 0;
 	}
 	
 	public static Integer consumedDaysOfLeave(List<Leave> consumedLeaves) {
 		return consumedLeaves
 		.stream()
-		.map(l -> l.getNumberOfDays())
+		.map(l -> {
+			System.out.println("Leave from: " + l.getStart() + " to " + l.getEnd() + ". Number of days: " + l.getNumberOfDays());
+			return l.getNumberOfDays();
+		})
 		.reduce((d1, d2) -> d1 + d2)
 		.get();
 	}
 	
+	public Boolean isCancellable() {
+		return this.status.compareTo(LeaveStatus.Approved) == 0;
+	}
 	
+	public Boolean isUpdateable() {
+		return this.status.compareTo(LeaveStatus.Updated) == 0 ||this.status.compareTo(LeaveStatus.Applied) == 0;
+	}
+	
+	public Boolean isDeletable() {
+		return this.isUpdateable();
+	}
 }
 

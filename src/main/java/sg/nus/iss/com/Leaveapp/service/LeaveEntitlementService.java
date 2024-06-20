@@ -25,4 +25,6 @@ public interface LeaveEntitlementService {
 	LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId);
 	
 	List<String> getLeaveTypesByRole(String roleName);
+	
+	List<LeaveEntitlement> getLeaveEntitlementsTypesByRole(String roleName);
 }

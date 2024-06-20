@@ -8,38 +8,19 @@
 
 <div class="container" th:fragment="submitLeaveAppBody">
     <h2>Claim Compensation Application Form</h2>
-    <form th:action="@{/leave/submitForm}" th:object="${claim}" method="post">
+    <form th:action="@{/leave/submitClaim}" th:object="${claim}" method="post">
+		<input hidden type="number" th:field="*{id}" name="claim_id" id="claim_id" />
+		<input hidden type="number" th:field="*{employee}" value="employee.id" name="employee" id="employee"/>
 		<div class="mb-3">
-			<span th:text="${employeeName}"></span>
+			<label for="reasons" class="form-label">Reasons Supporting</label>
+			<textarea class="form-control" id="reasons" th:field="*{reasonSupporting}" rows="3" maxlength="200"></textarea>
+			<span th:if="${#fields.hasErrors('reasonSupporting')}" th:errors="*{reasonSupporting}" class="inputErrorMessage"></span>
 		</div>
 		
 		<div class="mb-3">
-			<label for="leaveType" class="form-label">Leave Type</label>
-			<select class="form-control" id="leaveType" name="leaveType" required>
-				<option th:each="type : ${leaveTypes}" th:text="${type}"></option>
-			</select>
-		</div>
-		
-		<div class="mb-3">
-			<label for="reasons" class="form-label">Reasons</label>
-			<textarea class="form-control" id="reasons" th:field="*{reasons}" rows="3"></textarea>
-			<span th:if="${#fields.hasErrors('reasons')}" th:errors="*{reasons}" class="inputErrorMessage"></span>
-		</div>
-		
-		<div class="mb-3">
-		    <label for="leaveStatus" class="form-label">Supporting Coworker</label>
-			<input type="text" class="form-control" id="SupportingCoworker" th:field="*{nameOfSupportingCoworker}" required>
-			<span th:if="${#fields.hasErrors('nameOfSupportingCoworker')}" th:errors="*{nameOfSupportingCoworker}" class="inputErrorMessage"></span>
-		</div>
-		
-		<div class="d-flex flex-row p-2">
-			<input type="checkbox" id="overseasLeave" th:field="*{overseas}" name="overseasLeave" onchange="updateContactField()"><label for="overseasLeave" class="mt-1">Overseas Leave</label>
-		</div>
-		
-		<div class="mb-3">
-			<label for="leaveType" class="form-label">Overseas Contact</label>
-			<input type="text" class="form-control" disabled id="overseasContact" th:field="*{overseasContact}">
-			<span th:if="${#fields.hasErrors('overseasContact')}" th:errors="*{overseasContact}" class="inputErrorMessage"></span>
+		    <label for="leaveStatus" class="form-label">Days Claiming</label>
+			<input type="number" class="form-control" id="claimDays" th:field="*{claimDays}" step="0.5" required>
+			<span th:if="${#fields.hasErrors('claimDays')}" th:errors="*{claimDays}" class="inputErrorMessage"></span>
 		</div>
 		
 		<br/>
@@ -47,20 +28,6 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<script>
-	var isOverseas = false;
-	
-	function updateContactField(){
-		isOverseas = !isOverseas;
-		const contactField = document.getElementById("overseasContact");
-		const overseasLeaveCheckbox = document.getElementById("overseasLeave");
-		if(isOverseas){
-			contactField.removeAttribute("disabled");
-		} else {
-			contactField.setAttribute("disabled", true);
-		}
-	}
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

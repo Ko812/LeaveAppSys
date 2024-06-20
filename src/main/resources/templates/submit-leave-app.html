@@ -9,14 +9,15 @@
 <div class="container" th:fragment="submitLeaveAppBody">
     <h2>Leave Application Form</h2>
     <form th:action="@{/leave/submitForm}" th:object="${leave}" method="post">
+		<input hidden th:field="*{employee}" th:value="${leave.employee.id}"/>
 		<div class="mb-3">
 			<span th:text="${employeeName}"></span>
 		</div>
 		
 		<div class="mb-3">
 			<label for="leaveType" class="form-label">Leave Type</label>
-			<select class="form-control" id="leaveType" name="leaveType" required>
-				<option th:each="type : ${leaveTypes}" th:text="${type}"></option>
+			<select class="form-control" id="leaveType" name="leaveEntitlement" th:field="*{entitlement}" required>
+				<option th:each="entitlement : ${leaveEntitlements}" th:text="${entitlement.leaveType}" th:value="${entitlement.id}"></option>
 			</select>
 		</div>
 		
@@ -30,18 +31,17 @@
 			<label for="endDate">End Date:</label>
 			<input type="date" id="endDate" th:field="*{end}" class="form-control" />
 			<span th:if="${#fields.hasErrors('end')}" th:errors="*{end}" class="inputErrorMessage"></span>
+			<span th:if="${#fields.hasErrors('numberOfDays')}" th:errors="*{numberOfDays}" class="inputErrorMessage"></span>
 		</div>
 		
 		<div class="mb-3">
 			<label for="reasons" class="form-label">Reasons</label>
-			<textarea class="form-control" id="reasons" th:field="*{reasons}" rows="3"></textarea>
-			<span th:if="${#fields.hasErrors('reasons')}" th:errors="*{reasons}" class="inputErrorMessage"></span>
+			<textarea class="form-control" id="reasons" th:field="*{reasons}" rows="3" maxlength="200"></textarea>
 		</div>
 		
 		<div class="mb-3">
 		    <label for="leaveStatus" class="form-label">Supporting Coworker</label>
-			<input type="text" class="form-control" id="SupportingCoworker" th:field="*{nameOfSupportingCoworker}" required>
-			<span th:if="${#fields.hasErrors('nameOfSupportingCoworker')}" th:errors="*{nameOfSupportingCoworker}" class="inputErrorMessage"></span>
+			<input type="text" class="form-control" id="SupportingCoworker" th:field="*{nameOfSupportingCoworker}" maxlength="30" required>
 		</div>
 		
 		<div class="d-flex flex-row p-2">

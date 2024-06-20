@@ -154,9 +154,12 @@ public class ContextIO {
 					throw new TypeNotFoundException();
 				}
 				Leave el = new Leave(e, start, end, employeeEntitlement, reasons, status);
+				el.setOverseas(Integer.parseInt(dat.get(12)) == 1);
+				el.setNameOfSupportingCoworker(dat.get(13));
+				el.setOverseasContact(dat.get(14));
 				lr.save(el);
-				
 			}
+			System.out.println("Leaves loaded.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

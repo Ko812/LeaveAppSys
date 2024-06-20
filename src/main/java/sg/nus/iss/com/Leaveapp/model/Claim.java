@@ -18,10 +18,9 @@ public class Claim {
 	
 	private String reasonSupporting;
 	
-	@Enumerated(EnumType.STRING)
-	private LeaveStatus status;
+	private String status;
 
-	public Claim(Employee employee, double claimDays, String reasonSupporting, LeaveStatus status) {
+	public Claim(Employee employee, double claimDays, String reasonSupporting, String status) {
 		super();
 		this.employee = employee;
 		this.claimDays = claimDays;
@@ -65,11 +64,11 @@ public class Claim {
 		this.reasonSupporting = reasonSupporting;
 	}
 
-	public LeaveStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(LeaveStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	

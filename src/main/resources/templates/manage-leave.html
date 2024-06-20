@@ -60,7 +60,7 @@
 					<td th:text="${leave.reasons}"></td>
 					<td th:text="${leave.status}"></td>
 					<td>
-						<button th:if="${leave.isUpdateable()}" th:onclick="'goTo(\'/leave/update-leave/' + ${leave.id} + '\')'">Update</button>
+						<a th:if="${leave.isUpdateable()}" th:href="@{/leave/update-leave/{id}(id=${leave.id})}">Update</a>
 						<span th:if="${!leave.isUpdateable()}" style="color: lightgrey">Update</span> |
 						<a th:if="${leave.isDeletable()}" th:href="@{/leave/delete-leave/{id}(id=${leave.id})}">Delete</a>
 						<span th:if="${!leave.isDeletable()}" style="color: lightgrey">Delete</span> |
@@ -77,14 +77,7 @@
 		</table>
 		<a href="/leave/viewleaveHistory" class="nav-link">Back to Employee Leave History</a>
 	</div>
-	<script>
-		function goTo(urlMapping){
-			$.ajax({
-				url: 'http://localhost:8080' + urlMapping,
-				type: 'GET'
-			});
-		}
-	</script>
+
 </body>
 
 </html>

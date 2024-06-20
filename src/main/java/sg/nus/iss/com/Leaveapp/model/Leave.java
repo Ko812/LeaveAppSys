@@ -30,11 +30,11 @@ public class Leave {
 	
 	private String overseasContact;
 
-	@Enumerated(EnumType.STRING)
-	private LeaveStatus status;
+
+	private String status;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private LeaveEntitlement entitlement;
 
 	
@@ -43,7 +43,7 @@ public class Leave {
 		this.end = LocalDate.now();
 	}
 
-	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, LeaveStatus status) {
+	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, String status) {
 		super();
 		this.employee = employee;
 		this.start = start;
@@ -94,11 +94,11 @@ public class Leave {
 		this.reasons = reasons;
 	}
 
-	public LeaveStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(LeaveStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

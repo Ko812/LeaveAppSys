@@ -141,7 +141,7 @@ public class ContextIO {
 				String[] endStringArray = dat.get(6).split("/");
 				LocalDate end = LocalDate.of(Integer.parseInt(endStringArray[2]), Integer.parseInt(endStringArray[1]), Integer.parseInt(endStringArray[0]));
 				String reasons = dat.get(8);
-				LeaveStatus status = LeaveStatus.valueOf(dat.get(9));
+				String status = dat.get(9);
 				Employee e = er.findEmployeeByUsername(username);
 				LeaveEntitlement employeeEntitlement;
 				if(e.getRole().getName().compareTo("employee") == 0) {
@@ -154,9 +154,14 @@ public class ContextIO {
 					throw new TypeNotFoundException();
 				}
 				Leave el = new Leave(e, start, end, employeeEntitlement, reasons, status);
-				el.setOverseas(Integer.parseInt(dat.get(12)) == 1);
-				el.setNameOfSupportingCoworker(dat.get(13));
-				el.setOverseasContact(dat.get(14));
+				el.setOverseas(Integer.parseInt(dat.get(10)) == 1);
+				el.setNameOfSupportingCoworker(dat.get(11));
+				if(dat.size() >=13) {
+					el.setOverseasContact(dat.get(12));
+				} else {
+					el.setOverseasContact("");
+				}
+				
 				lr.save(el);
 			}
 			System.out.println("Leaves loaded.");

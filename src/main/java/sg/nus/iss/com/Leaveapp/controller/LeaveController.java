@@ -133,15 +133,18 @@ public class LeaveController {
 	
 	@GetMapping("/update-leave/{id}")
     public String updateLeave(@PathVariable("id") Long id, Model model) {
-        Leave Leave = leaveService.findById(id);
-        model.addAttribute("leave", Leave);
+        Leave leave = leaveService.findById(id);
+		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.getLeaveEntitlementsTypesByRole(leave.getEmployee().getRole().getName());
+		
+		model.addAttribute("leaveEntitlements", leaveEntitlements);
+        model.addAttribute("leave", leave);
         model.addAttribute("action", "update-leave");
         return "index";
     }
 
     @PostMapping("/update-leave")
     public String updateLeave(@Valid @ModelAttribute("leave") Leave leave, Model model, HttpSession session) {
-        if (leave != null && (LeaveStatus.Applied.compareTo(leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(leave.getStatus()) == 0)) {
+    	if (leave != null && (LeaveStatus.Applied.compareTo(leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(leave.getStatus()) == 0)) {
             leave.setStatus(LeaveStatus.Updated);
             leaveService.save(leave);
         }
@@ -162,7 +165,7 @@ public class LeaveController {
     public String cancelLeave(@PathVariable("id") Long id) {
         Leave Leave = leaveService.findById(id);
         if (Leave != null && (LeaveStatus.Applied.compareTo(Leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(Leave.getStatus()) == 0)) {
-            Leave.setStatus(LeaveStatus.Cancelled);
+        	Leave.setStatus(LeaveStatus.Cancelled);
             leaveService.save(Leave);
         }
         return "redirect:/leave/viewleaveHistory";

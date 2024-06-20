@@ -126,8 +126,8 @@ public class ManagerController {
     @GetMapping("/leaveapprove/list")
     public String listLeaves(@RequestParam(value = "status", required = false) String status, Model model) {
         if (status != null && !status.isEmpty()) {
-            LeaveStatus value = LeaveStatus.valueOf(status);
-            model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(value));
+
+            model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(status));
             
         } else {
             model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());

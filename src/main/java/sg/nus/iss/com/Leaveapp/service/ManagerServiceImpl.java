@@ -58,7 +58,7 @@ public class ManagerServiceImpl implements ManagerService{
     	List<Employee> reportees = employeeRepository.findReporteeEmployeesByManagerId(managerId);
     	List<Long> reporteesId = reportees.stream().map(e -> e.getId()).toList();
     	System.out.println(reporteesId);
-        List<Leave> allAppliedLeaves = leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
+    	List<Leave> allAppliedLeaves = leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
         return allAppliedLeaves
         		.stream()
         		.filter(l -> reporteesId.contains(l.getEmployee().getId()))

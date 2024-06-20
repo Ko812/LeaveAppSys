@@ -76,6 +76,17 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
 	public List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status) {
         return leaveApproveListRepository.findByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, type, status);
     }
+
+
+	@Override
+	public void reApplyLeave(Long id) {
+        Leave leave = leaveApproveListRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
+
+        leave.setStatus(LeaveStatus.Applied);
+        leaveApproveListRepository.save(leave);
+		
+	}
     
 
 

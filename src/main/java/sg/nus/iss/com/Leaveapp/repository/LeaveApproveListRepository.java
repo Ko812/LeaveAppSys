@@ -18,5 +18,8 @@ public interface LeaveApproveListRepository extends JpaRepository<Leave, Long> {
     List<Leave> findLeavesByEmployee_IdOrderByIdDesc(Long id);
     
     List<Leave> findAllByOrderByIdDesc();
+    
     List<Leave> findByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status);
+    
+    
 }

@@ -13,6 +13,8 @@ public interface LeaveApproveService {
     void rejectLeave(Long id);
 
     void rejectLeave(Long id, String comment);
+    
+    void reApplyLeave(Long id);
 
     Leave getById(Long id);
 

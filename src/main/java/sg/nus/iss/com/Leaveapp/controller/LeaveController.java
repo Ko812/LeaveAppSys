@@ -1,5 +1,6 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +47,7 @@ public class LeaveController {
 	
 	
 	@PostMapping("/submitForm")
-	public String submitLeaveApplication(@Valid @ModelAttribute("leave") Leave leave, HttpSession session, 
+	public String submitLeave(@Valid @ModelAttribute("leave") Leave leave, HttpSession session, 
             @RequestParam("leaveType") String type, Model model) {
 		session.removeAttribute("errors");
 		Employee e = (Employee)session.getAttribute("loggedInEmployee");
@@ -127,7 +129,52 @@ public class LeaveController {
 		return "index";
 	}
 	
+	@GetMapping("/manage-leave")
+    public String manageLeave(Model model, HttpSession session) {
+		Employee loggedInEmployee = (Employee) session.getAttribute("loggedInEmployee");
+        List<Leave> Leaves = leaveService.findLeavesFromEmployeeId(loggedInEmployee.getId());
+        
+        model.addAttribute("leaves", Leaves);
+        model.addAttribute("action", "manage-leave");
+        return "manage-leave";
+    }
 	
+	@GetMapping("/update-leave/{id}")
+    public String updateLeave(@PathVariable("id") Long id, Model model) {
+        Leave Leave = leaveService.findById(id);
+        model.addAttribute("leave", Leave);
+        model.addAttribute("action", "update-leave");
+        return "index";
+    }
+
+    @PostMapping("/update-leave")
+    public String updateLeave(@Valid @ModelAttribute("leave") Leave leave, Model model, HttpSession session) {
+        if (leave != null && (LeaveStatus.Applied.compareTo(leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(leave.getStatus()) == 0)) {
+            leave.setStatus(LeaveStatus.Updated);
+            leaveService.save(leave);
+        }
+        return "redirect:/leave/viewleaveHistory";
+    }
+
+    @PostMapping("/delete-leave/{id}")
+    public String deleteLeave(@PathVariable("id") Long id) {
+        Leave Leave = leaveService.findById(id);
+        if (Leave != null && (LeaveStatus.Applied.compareTo(Leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(Leave.getStatus()) == 0)) {
+            Leave.setStatus(LeaveStatus.Deleted);
+            leaveService.save(Leave);
+        }
+        return "redirect:/leave/viewleaveHistory";
+    }
+
+    @PostMapping("/cancel-leave/{id}")
+    public String cancelLeave(@RequestParam Long id) {
+        Leave Leave = leaveService.findById(id);
+        if (Leave != null && (LeaveStatus.Applied.compareTo(Leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(Leave.getStatus()) == 0)) {
+            Leave.setStatus(LeaveStatus.Cancelled);
+            leaveService.save(Leave);
+        }
+        return "redirect:/leave/viewleaveHistory";
+    }
 	
 
 }

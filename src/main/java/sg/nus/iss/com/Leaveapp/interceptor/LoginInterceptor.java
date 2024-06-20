@@ -43,6 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		Employee loggedInEmployee = (Employee) request.getSession().getAttribute("loggedInEmployee");
 		if(loggedInEmployee != null && modelAndView != null) {
 			modelAndView.addObject("isLoggedIn", true);
+			modelAndView.addObject("employeeName", loggedInEmployee.getName());
 		}
 	}
 

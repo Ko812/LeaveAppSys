@@ -48,6 +48,11 @@ public class LeaveServiceImpl implements LeaveService {
     public LeaveStatus findLeaveStatus(Long id) {
         return leaveRepository.findLeaveStatusById(id);
     }
+    
+    @Override
+    public Leave findById(Long id) {
+        return leaveRepository.findById(id);
+    }
 
     @Override
     public LeaveEntitlement findLeaveEntitlement(Long id) {

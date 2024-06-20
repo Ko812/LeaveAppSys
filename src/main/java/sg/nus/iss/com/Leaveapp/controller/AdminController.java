@@ -87,7 +87,6 @@ public class AdminController {
         	model.addAttribute("error", "Cannot delete employee. " + e.getClass().toString());
         	return "index";
         }
-        
     }
     
     // Manage Leave Types

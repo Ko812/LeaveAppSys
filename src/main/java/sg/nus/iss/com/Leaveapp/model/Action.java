@@ -72,7 +72,7 @@ public class Action {
 	}
 	
 	public static final Action actionSubmitApplication = new Action(1L, "submit_leave_application", "/leave/saveForm", List.of("employee", "admin", "manager"));
-	public static final Action actionManageLeave = new Action(2L, "manage_leave_application", "/leave/manage", List.of("employee", "admin", "manager"));
+	public static final Action actionManageLeave = new Action(2L, "manage_leave_application", "/leave//manage-leave", List.of("employee", "admin", "manager"));
 	public static final Action actionClaimCompensation = new Action(3L, "claim_compensation", "/leave/claim", List.of("employee", "admin", "manager"));
 	public static final Action actionLeaveHistory = new Action(4L, "view_leave_history", "/leave/viewleaveHistory", List.of("employee", "admin", "manager"));
 //	public static final Action actionViewApplications = new Action(5L, "view_leave_applications", "/leave/view", List.of("employee", "admin", "manager"));

@@ -23,6 +23,8 @@ public interface LeaveService {
 	
 	LeaveStatus findLeaveStatus(Long id);
 	
+	Leave findById(Long id);
+	
 	LeaveEntitlement findLeaveEntitlement(Long id);
 	
 	Long findIdByEmpId(Long empId);

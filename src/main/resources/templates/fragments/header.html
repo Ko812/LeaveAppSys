@@ -9,6 +9,7 @@
 			</button>
 			<div style="justify-content: space-between;">
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<span class="nav-item" th:text="${employeeName}"></span>
 				</div>
 				<div th:if="${isLoggedIn}"><a href="/logout" style="text-decoration: none; color: black;">Log out</a></div>	
 			</div>

@@ -45,6 +45,15 @@
 		<div th:insert="~{personal-leave-history.html :: body}"></div>
 	</div>
 	
+	<div th:if="${action == 'manage-leave'}">
+		<div th:insert="~{manage-leave.html :: style}"></div>
+		<div th:insert="~{manage-leave.html :: body}"></div>
+	</div>
+	<div th:if="${action == 'update-leave'}">
+		<div th:insert="~{update-leave-form.html :: style}"></div>
+		<div th:insert="~{update-leave-form.html :: body}"></div>
+	</div>
+	
 	<!-- Manager Use Cases -->
 	<div th:if="${action == 'leaveApplications'}">
 		<div th:insert="~{applications-approval.html :: style}"></div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
+import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
 public interface LeaveApproveService {
 //	List<Leave> findAllLeaves();
@@ -15,11 +16,15 @@ public interface LeaveApproveService {
 
     Leave getById(Long id);
 
-    List<Leave> findLeavesByStatusOrderByStartDesc(LeaveStatus status);
+    List<Leave> findLeavesByStatusOrderByIdDesc(LeaveStatus status);
 
-    List<Leave> findLeavesByEmployeeIdOrderByStartDesc(Long id);
+    List<Leave> findLeavesByEmployeeIdOrderByIdDesc(Long id);
     
-    List<Leave> findAllByOrderByStartDesc();
+    List<Leave> findAllByOrderByIdDesc();
+    
+    List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status);
+	
+	
 
 //	Leave approveLeave(Leave leave);
 ////	Leave rejectLeave(Leave leave);

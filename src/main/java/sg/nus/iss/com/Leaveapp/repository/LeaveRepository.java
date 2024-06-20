@@ -77,5 +77,7 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 		//fine leaves from employee id
 		@Query("SELECT l FROM Leave l JOIN l.employee e WHERE e.id = :id")
 		public List<Leave> findLeavesFromEmployeeId(@Param("id") Long id);
+		
+		
 
 }

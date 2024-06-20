@@ -99,4 +99,5 @@ public class LeaveServiceImpl implements LeaveService {
     {
     	return leaveRepository.findLeavesFromEmployeeId(id);
     }
+    
 }

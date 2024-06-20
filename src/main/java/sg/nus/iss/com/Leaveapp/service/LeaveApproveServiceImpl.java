@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
+import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.LeaveApproveListRepository;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
 //    }
     
     @Override
-    public List<Leave> findAllByOrderByStartDesc() {
-        return leaveApproveListRepository.findAllByOrderByStartDesc();
+    public List<Leave> findAllByOrderByIdDesc() {
+        return leaveApproveListRepository.findAllByOrderByIdDesc();
     }
     
 
@@ -61,13 +62,19 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     }
 
     @Override
-    public List<Leave> findLeavesByStatusOrderByStartDesc(LeaveStatus status) {
-        return leaveApproveListRepository.findLeavesByStatusOrderByStartDesc(status);
+    public List<Leave> findLeavesByStatusOrderByIdDesc(LeaveStatus status) {
+        return leaveApproveListRepository.findLeavesByStatusOrderByIdDesc(status);
     }
 
     @Override
-    public List<Leave> findLeavesByEmployeeIdOrderByStartDesc(Long id) {
-        return leaveApproveListRepository.findLeavesByEmployee_IdOrderByStartDesc(id);
+    public List<Leave> findLeavesByEmployeeIdOrderByIdDesc(Long id) {
+        return leaveApproveListRepository.findLeavesByEmployee_IdOrderByIdDesc(id);
+    }
+
+
+	@Override
+	public List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status) {
+        return leaveApproveListRepository.findByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, type, status);
     }
     
 

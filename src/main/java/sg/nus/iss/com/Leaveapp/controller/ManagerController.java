@@ -27,10 +27,10 @@ public class ManagerController {
     public String listLeaves(@RequestParam(value = "status", required = false) String status, Model model) {
         if (status != null && !status.isEmpty()) {
             LeaveStatus value = LeaveStatus.valueOf(status);
-            model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(value));
+            model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByIdDesc(value));
             
         } else {
-            model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+            model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());
         }
         return "leave-list";
     }
@@ -44,11 +44,11 @@ public class ManagerController {
     public String getDetail(@RequestParam Long id, Model model) {
         Leave leave = leaveApproveService.getById(id);
         if (leave != null) {
-            model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByStartDesc(leave.getEmployee().getId()));
+            model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByIdDesc(leave.getEmployee().getId()));
             model.addAttribute("leave", leave);
             return "leave-details";
         } else {
-            model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+            model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());
             return "leave-list";
         }
     }

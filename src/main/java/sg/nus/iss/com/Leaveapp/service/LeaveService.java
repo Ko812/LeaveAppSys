@@ -42,4 +42,5 @@ public interface LeaveService {
 	
 	List<Leave> findLeavesFromEmployeeId(Long id);
 	
+	
 }

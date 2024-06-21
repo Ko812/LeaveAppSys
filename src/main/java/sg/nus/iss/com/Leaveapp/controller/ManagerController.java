@@ -81,6 +81,7 @@ public class ManagerController {
 	    return "index"; // Create a new HTML file for displaying the applications
 	}
 	
+	
 	@GetMapping("/application-details/{id}")
 	public String viewApplicationDetails(@PathVariable("id") Long id, Model model) {
 	    Leave leaveApplication = managerService.getLeaveApplicationById(id);
@@ -88,6 +89,7 @@ public class ManagerController {
 	    model.addAttribute("action", "application-details");
 	    return "index";
 	}
+	
 	
 	@GetMapping("/employeeHistory")
 	public String viewEmployeeLeaveHistory(Model model, HttpSession session) {
@@ -97,30 +99,54 @@ public class ManagerController {
 	    model.addAttribute("action", "employeeHistory");
 	    return "index"; // Create a new HTML file for displaying the employees and their leave history
 	}
+	
+
+	// @PostMapping("/searchEmployee")
+	// public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model) {
+	//     Employee employee = managerService.findEmployeeByName(employeeName);
+	//     if (employee != null) {
+	//         model.addAttribute("employeeFound", true);
+	//         model.addAttribute("employee", employee);
+	//     } else {
+	//         model.addAttribute("employeeFound", false);
+	//     }
+	//     model.addAttribute("action", "employee-leave-history");
+	//     return "index";
+	// }
 
 	@PostMapping("/searchEmployee")
 	public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model) {
-	    Employee employee = managerService.findEmployeeByName(employeeName);
-	    if (employee != null) {
-	        model.addAttribute("employeeFound", true);
-	        model.addAttribute("employee", employee);
-	    } else {
-	        model.addAttribute("employeeFound", false);
-	    }
-	    model.addAttribute("action", "employee-leave-history");
-	    return "index";
+		List<Employee> employees = managerService.findEmployeesByName(employeeName);
+		if (!employees.isEmpty()) {
+			model.addAttribute("employeesFound", true);
+			model.addAttribute("employees", employees);
+		} else {
+			model.addAttribute("employeesFound", false);
+		}
+		model.addAttribute("action", "search-employee-history");
+		return "index";
 	}
 
 	
+	// @GetMapping("/history/{id}")
+	// public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
+	// 	Employee employee = managerService.getEmployeeById(id);
+	// 	List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
+	// 	model.addAttribute("employee", employee);
+	// 	model.addAttribute("employeeFound", employee != null);
+	// 	model.addAttribute("leaveHistory", leaveHistory);
+	// 	model.addAttribute("action", "employee-leave-history");
+	// 	return "index"; // Create a new HTML file for displaying the leave history
+	// }
+
 	@GetMapping("/history/{id}")
 	public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
 		Employee employee = managerService.getEmployeeById(id);
 		List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
 		model.addAttribute("employee", employee);
-		model.addAttribute("employeeFound", employee != null);
 		model.addAttribute("leaveHistory", leaveHistory);
 		model.addAttribute("action", "employee-leave-history");
-		return "index"; // Create a new HTML file for displaying the leave history
+		return "index";
 	}
 
     @GetMapping("/leaveapprove/list")

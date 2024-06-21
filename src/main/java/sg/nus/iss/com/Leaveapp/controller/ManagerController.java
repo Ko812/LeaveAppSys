@@ -183,6 +183,19 @@ public class ManagerController {
             model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());
             return "index";
         }
+        
+
+
+        
+//    	@PostMapping("/approveCurrentClaim")
+//    	public String approveLeave(@ModelAttribute("leave") Leave leave, Model model) {
+//    		leaveApproveService.approveCurrentClaim(leave);
+//
+//	          
+//    		return "redirect:/manager/applications";
+//
+//    	}
+
     }
 }
 

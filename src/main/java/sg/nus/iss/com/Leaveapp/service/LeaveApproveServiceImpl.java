@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.repository.LeaveApproveListRepository;
 
 import java.util.List;
@@ -44,6 +46,31 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     	currentLeave.setComment(leave.getComment());
         leaveApproveListRepository.save(currentLeave);
     }
+    
+//    @Override
+//    public void approveCurrentClaim(Claim claim, Employee employee) {
+//    	Claim currentClaim = leaveApproveListRepository.findById(claim.getId()).get();
+//		Employee employee = leaveApproveListRepository.findByEmployeeId(employee.getId()).get();
+    
+//  	currentClaim.setCurrentClaimTime(LocalDateTime.now());
+//  
+//      //Get the current claimDays and currentClaim values//
+//	    double claimDays = employee.getClaimDays();
+//	    double currentClaimDays = claim.getCurrentClaimDays();
+//	  
+//      //Calculate the updated claimDays//
+//      double updatedClaimDays = claimDays - currentClaim;
+//  
+//  	// update employee claimDays value//
+//  	employee.setClaimDays(updatedClaimDays);
+//  
+//  	// save in database//
+// 		currentClaim.setStatus(LeaveStatus.Approved);
+//  	
+//      leaveApproveListRepository.save(currenClaim);
+//    	leaveApproveListRepository.save(employee);
+//    }
+
 
     
 

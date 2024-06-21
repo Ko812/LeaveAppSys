@@ -105,8 +105,8 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
     }
     
     @Override
-    public LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId) {
-    	return leaveEntitlementRepository.findLeaveEntitlementByType(type, roleId);
+    public LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId, int year) {
+    	return leaveEntitlementRepository.findLeaveEntitlementByType(type, roleId, year);
     }
     
     @Override

@@ -30,6 +30,7 @@ import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.AdminService;
+import sg.nus.iss.com.Leaveapp.validator.EmployeeValidator;
 import sg.nus.iss.com.Leaveapp.validator.LeaveEntitlementValidator;
 import sg.nus.iss.com.Leaveapp.validator.LeaveValidator;
 
@@ -41,13 +42,17 @@ public class AdminController {
     private AdminService adminService;
     
     
-    @Autowired
-	private LeaveEntitlementValidator leaveEntitlementValidator;
-	
-	@InitBinder
-	private void initCourseBinder(WebDataBinder binder) {
-		binder.addValidators(leaveEntitlementValidator);
-	}
+//    @Autowired
+//	private LeaveEntitlementValidator leaveEntitlementValidator;
+//    
+//    @Autowired
+//	private EmployeeValidator employeeValidator;
+//	
+//	@InitBinder
+//	private void initCourseBinder(WebDataBinder binder) {
+//		binder.addValidators(leaveEntitlementValidator);
+//		binder.addValidators(employeeValidator);
+//	}
     
     // Dashboard
     @GetMapping("/dashboard")

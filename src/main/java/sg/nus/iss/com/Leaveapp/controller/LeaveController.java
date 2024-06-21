@@ -3,6 +3,7 @@ package sg.nus.iss.com.Leaveapp.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -86,7 +87,8 @@ public class LeaveController {
 		Employee e = (Employee)session.getAttribute("loggedInEmployee");
 		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.getLeaveEntitlementsTypesByRole(e.getRole().getName());
 		leaveToApply.setEmployee(e);
-		leaveToApply.setEntitlement(leaveEntitlementService.findLeaveEntitlementByType("annual", e.getRole().getId()));
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		leaveToApply.setEntitlement(leaveEntitlementService.findLeaveEntitlementByType("annual", e.getRole().getId(), currentYear));
 		model.addAttribute("leave", leaveToApply);
 		
 		model.addAttribute("leaveEntitlements", leaveEntitlements);

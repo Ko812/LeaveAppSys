@@ -19,7 +19,6 @@ public class LeaveEntitlementValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		LeaveEntitlement leaveEntitlement = (LeaveEntitlement) target;
 		
-		// TODO Auto-generated method stub
 		
 	}
 

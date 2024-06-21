@@ -102,8 +102,9 @@ public class AdminController {
     }
     
     @PostMapping("/leavetypes/save")
-    public String saveLeaveType(@Valid @ModelAttribute("leaveEntitlement") LeaveEntitlement entitlement, BindingResult bindingResult) {
+    public String saveLeaveType(@Valid @ModelAttribute("leaveEntitlement") LeaveEntitlement entitlement, BindingResult bindingResult, Model model) {
     	if(bindingResult.hasErrors()) {
+    		 model.addAttribute("leaveEntitlement", entitlement);
     		return "index";
     	}
     	HashMap<String, Integer> entitlements = new HashMap<String, Integer>();

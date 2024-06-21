@@ -1,6 +1,7 @@
 package sg.nus.iss.com.Leaveapp.model;
 
 import java.util.List;
+import java.util.function.IntPredicate;
 
 import jakarta.persistence.*;
 
@@ -24,13 +25,21 @@ public class Employee {
     @ManyToOne(fetch=FetchType.EAGER)
     private Employee manager;
     
-    @OneToMany(mappedBy="manager", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Employee> reportees;
     
 //    @OneToOne(mappedBy = "employee")
 //	private LeaveEntitlement leaveEntitlements;
     
-    public Employee(String username, String password, String name, Role role) {
+    public List<Employee> getReportees() {
+		return reportees;
+	}
+
+	public void setReportees(List<Employee> reportees) {
+		this.reportees = reportees;
+	}
+
+	public Employee(String username, String password, String name, Role role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -77,4 +86,6 @@ public class Employee {
 	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
+
+	
 }

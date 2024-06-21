@@ -81,7 +81,7 @@
         </div>
         <div>
             <label>Year:</label>
-            <input type="number" th:field="*{year}" th:value="${leaveEntitlement.year}"/>
+            <input type="number" th:field="*{year}" th:value="${leaveEntitlement.year}" required/>
 			<span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
         </div>
         <div>

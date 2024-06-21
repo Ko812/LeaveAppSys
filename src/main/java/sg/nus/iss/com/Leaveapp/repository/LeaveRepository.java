@@ -82,6 +82,7 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 		public List<Leave> findByStatusIn(List<LeaveStatus> asList);
 
 		public List<Leave> findByEmployeeOrderByStartDesc(Employee employee);
+		
 
 		public Leave findById(Long id);
 		

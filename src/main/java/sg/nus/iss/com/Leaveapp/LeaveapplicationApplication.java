@@ -27,7 +27,7 @@ public class LeaveapplicationApplication {
 	CommandLineRunner loadContext(LeaveRepository lr, EmployeeRepository er, RoleRepository rr, LeaveEntitlementRepository ler) {
 		return args -> {
 			if(ddlauto.compareTo("create") == 0) {
-				String path = "C:\\Users\\user\\init-kopico\\Library\\java-spring-workspace\\LeaveAppSystem";
+				String path = "C:\\Users\\kaung\\leaveappsys\\LeaveAppSys";
 				String employeeCsv = "employee_dummy.csv";
 				ContextIO empIO = new ContextIO(path+ "\\" + employeeCsv);
 				empIO.LoadRoles(rr);

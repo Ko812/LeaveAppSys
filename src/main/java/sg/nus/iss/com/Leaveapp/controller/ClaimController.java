@@ -16,7 +16,7 @@ import sg.nus.iss.com.Leaveapp.model.Employee;
 public class ClaimController {
 
 	
-	@Autowired
+	
 	
 	@GetMapping("/make-claim")
     public String makeClaim(Model model, HttpSession session) {
@@ -26,21 +26,21 @@ public class ClaimController {
     	model.addAttribute("action", "make-claim");
     	return "index";
     }
-	
-  @PostMapping("/submitClaim")
-  public String submitClaim(@ModelAttribute("claim") Claim claim, Model model) {
+}
+//  @PostMapping("/submitClaim")
+//  public String submitClaim(@ModelAttribute("claim") Claim claim, Model model) {
 //  	if(bindingResult.hasErrors()) {
 //  		model.addAttribute("action", "make-claim");
 //  		return "index";
 //  	}
-  	Claim submittedClaim = leaveService.saveClaim(claim);
-  	if(submittedClaim != null) {
-  		model.addAttribute("message", "Claim submitted successfully");
-  		model.addAttribute("action", "show-message");
-  	} else {
-  		model.addAttribute("error", "Claim submission failed");
-  		model.addAttribute("action", "error-message");
-  	}
-  	return "index";
-  }
-}
+//  	Claim submittedClaim = leaveService.saveClaim(claim);
+//  	if(submittedClaim != null) {
+//  		model.addAttribute("message", "Claim submitted successfully");
+//  		model.addAttribute("action", "show-message");
+//  	} else {
+//  		model.addAttribute("error", "Claim submission failed");
+//  		model.addAttribute("action", "error-message");
+//  	}
+//  	return "index";
+//  }
+//}

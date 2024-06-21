@@ -183,9 +183,10 @@ public class Leave {
 		return this.status == LeaveStatus.Updated ||this.status == LeaveStatus.Applied || this.status == LeaveStatus.Approved;
 	}
 	
-	public static Integer consumedDaysOfLeave(List<Leave> consumedLeaves) {
+	public static Integer consumedDaysOfLeave(List<Leave> consumedLeaves, String type) {
 		return consumedLeaves
 		.stream()
+		.filter(l -> l.getEntitlement().getLeaveType().compareTo(type) == 0)
 		.map(l -> {
 			System.out.println("Leave from: " + l.getStart() + " to " + l.getEnd() + ". Number of days: " + l.getNumberOfDays());
 			return l.getNumberOfDays();

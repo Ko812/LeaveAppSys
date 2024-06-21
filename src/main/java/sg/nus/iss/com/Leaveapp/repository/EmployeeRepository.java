@@ -21,4 +21,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	public List<Employee> findReporteeEmployeesByManagerId(@Param("manager_id") Long id);
 	
 	public List<Employee> findByRole(Role role);
+
+	@Query("SELECT e FROM Employee e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    	List<Employee> findByNameContainingIgnoreCase(@Param("name") String name);
+
+
+
 }

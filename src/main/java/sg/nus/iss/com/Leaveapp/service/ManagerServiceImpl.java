@@ -82,6 +82,11 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	@Override
+    	public List<Employee> findEmployeesByName(String name) {
+        return employeeRepository.findByNameContainingIgnoreCase(name);
+    }
+
+	@Override
 	public List<Employee> findReporteeEmployeeByManagerId(Long manager_id) {
 		return employeeRepository.findReporteeEmployeesByManagerId(manager_id);
 	}

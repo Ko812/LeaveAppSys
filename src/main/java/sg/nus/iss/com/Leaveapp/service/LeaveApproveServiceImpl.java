@@ -72,10 +72,10 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     }
 
 
-	@Override
-	public List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status) {
-        return leaveApproveListRepository.findByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, type, status);
-    }
+//	@Override
+//	public List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status) {
+//  return leaveApproveListRepository.findByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, type, status);
+//}
 
 
 	@Override

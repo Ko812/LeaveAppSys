@@ -26,10 +26,10 @@ public class RESTController {
 	@Autowired
 	private LeaveApproveService leaveApproveService;
 	
-	@GetMapping("/employee/{employeeId}")
-	public List<Leave> getLeavesByEmployeeId(@PathVariable Long employeeId) {
-        return leaveApproveService.findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, LeaveType.compensation, LeaveStatus.Rejected);
-    }
+//	@GetMapping("/employee/{employeeId}")
+//	public List<Leave> getLeavesByEmployeeId(@PathVariable Long employeeId) {
+//        return leaveApproveService.findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, LeaveType.compensation, LeaveStatus.Rejected);
+//    }
 	
 	@PutMapping("/{id}/reapply")
 	public ResponseEntity<Void> reapply(@PathVariable Long id){

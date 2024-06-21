@@ -26,7 +26,7 @@ public interface LeaveApproveService {
     
     List<Leave> findAllByOrderByIdDesc();
     
-    List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status);
+//    List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status);
 	
 	
 

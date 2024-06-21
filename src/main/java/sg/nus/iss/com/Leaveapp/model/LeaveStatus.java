@@ -28,4 +28,23 @@ public class LeaveStatus {
 			throw new TypeNotFoundException();
 		}
 	}
+	
+	public static String asString(int status) throws TypeNotFoundException{
+		switch(status) {
+		case 1:
+			return "Applied";
+		case 2:
+			return "Cancelled";
+		case 3:
+			return "Approved";
+		case 4:
+			return "Rejected";
+		case 5:
+			return "Deleted";
+		case 6:
+			return "Updated";
+		default:
+			throw new TypeNotFoundException();
+		}
+	}
 }

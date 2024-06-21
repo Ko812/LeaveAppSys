@@ -182,22 +182,22 @@ public class LeaveController {
     	return "index";
     }
     
-    @PostMapping("/submitClaim")
-    public String submitClaim(@Valid @ModelAttribute("claim") Claim claim, BindingResult bindingResult, Model model) {
-    	if(bindingResult.hasErrors()) {
-    		model.addAttribute("action", "make-claim");
-    		return "index";
-    	}
-    	Claim submittedClaim = leaveService.saveClaim(claim);
-    	if(submittedClaim != null) {
-    		model.addAttribute("message", "Claim submitted successfully");
-    		model.addAttribute("action", "show-message");
-    	} else {
-    		model.addAttribute("error", "Claim submission failed");
-    		model.addAttribute("action", "error-message");
-    	}
-    	return "index";
-    }
+//  @PostMapping("/submitClaim")
+//  public String submitClaim(@Valid @ModelAttribute("claim") Claim claim, BindingResult bindingResult, Model model) {
+//  	if(bindingResult.hasErrors()) {
+//  		model.addAttribute("action", "make-claim");
+//  		return "index";
+//  	}
+//  	Claim submittedClaim = leaveService.saveClaim(claim);
+//  	if(submittedClaim != null) {
+//  		model.addAttribute("message", "Claim submitted successfully");
+//  		model.addAttribute("action", "show-message");
+//  	} else {
+//  		model.addAttribute("error", "Claim submission failed");
+//  		model.addAttribute("action", "error-message");
+//  	}
+//  	return "index";
+//  }
     
 }
 

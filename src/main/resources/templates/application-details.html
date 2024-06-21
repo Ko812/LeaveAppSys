@@ -180,8 +180,8 @@
 					<td th:text="${leaveApplication.reasons}"></td>
 					<td th:text="${leaveApplication.entitlement.leaveType}"></td>
 					<td class="button-container">
-						<a href="#" class="button" th:href="@{'/manager/approve/' + ${leaveApplication.id}}">Approve</a>
-						<a href="#" class="button" th:href="@{'/manager/reject/' + ${leaveApplication.id}}">Reject</a>
+						<a href="#" class="button" th:href="@{/manager/approve/{id}(id=${leaveApplication.id})}">Approve</a>
+						<a href="#" class="button" th:href="@{/manager/reject/{id}(id=${leaveApplication.id})}">Reject</a>
 					</td>
 				</tr>
 			</tbody>

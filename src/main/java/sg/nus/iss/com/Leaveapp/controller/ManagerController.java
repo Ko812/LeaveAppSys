@@ -44,31 +44,31 @@ public class ManagerController {
 		return "dashboard";
 	}
 
-	@PatchMapping("/approve/{id}")
-	public String approveLeave(@PathVariable("id") int id, Model model) {
-		Leave approvedLeave = managerService.approveLeaveApplication(Long.valueOf(id + ""), "Approved on " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu")));
-		if(approvedLeave == null) {
-			model.addAttribute("action", "error-message");
-			model.addAttribute("error", "Leave approval failed.");
-		} else {
-			model.addAttribute("action", "show-message");
-			model.addAttribute("message", "Leave approved successfully.");
-		}
-		return "index";
+	@RequestMapping("/approve/{id}")
+	public String approveLeave(@PathVariable("id") Long id, Model model) {
+		leaveApproveService.approveLeave(id);
+//		if(approvedLeave == null) {
+//			model.addAttribute("action", "error-message");
+//			model.addAttribute("error", "Leave approval failed.");
+//		} else {
+//			model.addAttribute("action", "show-message");
+//			model.addAttribute("message", "Leave approved successfully.");
+//		}
+		return "redirect:/manager/applications";
 		//return Applications for Approval
 
 	}
 
-	@PatchMapping("/reject/{id}")
-	public String rejectLeave(@PathVariable("id") int id, Model model) {
-		Leave rejectedLeave = managerService.rejectLeaveApplication(Long.valueOf(id + ""), "Rejected on " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu")));
-		if(rejectedLeave == null) {
-			model.addAttribute("action", "error-message");
-			model.addAttribute("error", "Leave approval failed.");
-		} else {
-			model.addAttribute("action", "show-message");
-			model.addAttribute("message", "Leave approved successfully.");
-		}
+	@GetMapping("/reject/{id}")
+	public String rejectLeave(@PathVariable("id") Long id, Model model) {
+		leaveApproveService.rejectLeave(id);
+//		if(rejectedLeave == null) {
+//			model.addAttribute("action", "error-message");
+//			model.addAttribute("error", "Leave approval failed.");
+//		} else {
+//			model.addAttribute("action", "show-message");
+//			model.addAttribute("message", "Leave approved successfully.");
+//		}
 		return "index";
 	}
 	
@@ -155,11 +155,11 @@ public class ManagerController {
         if (status != 0) {
 
         	model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(status));
-            
-        } else {
-        	model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
-
-        }
+        } 
+//        } else {
+//        	model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+//
+//        }
         
         return "leave-list";
     }

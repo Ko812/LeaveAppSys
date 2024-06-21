@@ -135,8 +135,9 @@ public class Leave {
 	}
 	
 	public Integer getNumberOfDays() {
-		Integer range = end.compareTo(start) + 1;
+		Integer range = Integer.parseInt((end.toEpochDay() - start.toEpochDay() + 1) + "");
 		if(range > 14) {
+			
 			return range;
 		} else {
 			return range - getNumberOfWeekendDaysInLeaveRange(range);

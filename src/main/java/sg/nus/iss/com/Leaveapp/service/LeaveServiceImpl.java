@@ -103,6 +103,9 @@ public class LeaveServiceImpl implements LeaveService {
 
     public Leave save(Leave leave)
     {
+    	if(leave.getStatus() == 0) {
+    		leave.setStatus(LeaveStatus.Applied);
+    	}
     	return leaveRepository.save(leave);
     }
     

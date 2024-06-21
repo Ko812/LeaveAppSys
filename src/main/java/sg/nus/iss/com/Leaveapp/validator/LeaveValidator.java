@@ -46,7 +46,7 @@ public class LeaveValidator implements Validator{
 			errors.rejectValue("end", "error.end", "Leave date overlapped with existing leaves.");
 		}
 		int balance = leave.getEntitlement().getNumberOfDays() - Leave.consumedDaysOfLeave(consumedLeaves, leave.getEntitlement().getLeaveType());
-		System.out.println("Entitlement: " +leave.getEntitlement().getNumberOfDays() + ". Validating leave balance: " + balance);
+		
 		if(balance < leave.getNumberOfDays()) {
 			errors.rejectValue("numberOfDays", "error.numberOfDays", "Number of days applying exceed leave balance.");
 		}

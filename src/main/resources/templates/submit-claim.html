@@ -8,9 +8,9 @@
 
 <div class="container" th:fragment="submitLeaveAppBody">
     <h2>Claim Compensation Application Form</h2>
-    <form th:action="@{/leave/submitClaim}" th:object="${claim}" method="post">
+    <form th:action="@{/claim/submitClaim}" th:object="${claim}" method="post">
 		<input hidden type="number" th:field="*{id}" name="claim_id" id="claim_id" />
-		<input hidden type="number" th:field="*{employee}" value="employee.id" name="employee" id="employee"/>
+		<input hidden type="number" th:field="*{employee}" value="employee.id" />
 		<div class="mb-3">
 			<label for="reasons" class="form-label">Reasons Supporting</label>
 			<textarea class="form-control" id="reasons" th:field="*{reasonSupporting}" rows="3" maxlength="200"></textarea>

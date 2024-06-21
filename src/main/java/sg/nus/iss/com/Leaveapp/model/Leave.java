@@ -33,6 +33,7 @@ public class Leave {
 	
 	private String overseasContact;
 
+	private String comment;
 
 	private int status;
 	
@@ -44,6 +45,7 @@ public class Leave {
 	public Leave() {
 		this.start = LocalDate.now();
 		this.end = LocalDate.now();
+		this.comment = "";
 	}
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, int status) {
@@ -54,7 +56,7 @@ public class Leave {
 		this.entitlement = entitlement;
 		this.reasons = reasons;
 		this.setStatus(status);
-		
+		this.comment = "";
 	}
 
 	public Long getId() {
@@ -218,5 +220,15 @@ public class Leave {
 	public String getLocalEndDate() {
 		return end.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
 	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	
 }
 

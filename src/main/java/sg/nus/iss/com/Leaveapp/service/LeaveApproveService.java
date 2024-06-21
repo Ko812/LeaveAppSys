@@ -9,11 +9,9 @@ import sg.nus.iss.com.Leaveapp.model.LeaveType;
 public interface LeaveApproveService {
 //	List<Leave> findAllLeaves();
 	
-    void approveLeave(Long id);
-    void rejectLeave(Long id);
+    void approveLeave(Leave leave);
+    void rejectLeave(Leave leave);
 
-    void rejectLeave(Long id, String comment);
-    
     void reApplyLeave(Long id);
 
     Leave getById(Long id);

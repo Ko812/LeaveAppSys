@@ -18,10 +18,23 @@ public class Claim {
 	@Positive(message="Days to claim cannot be negative.")
 	private double claimDays;
 	
+//  and getter setter
+//	private double currentClaimDays;
+	
+//	private LocalDateTime CurrentClaimTime;
+//	eg. YYYY-MM-DD HH:MM:SS 
+//	2024-06-23 15:30:00
+	
+	
+	
 	@NotBlank(message="Reason cannot be blank.")
 	private String reasonSupporting;
 	
 	private int status;
+	
+	private String comments;
+	
+	
 
 	public Claim(Employee employee, double claimDays, String reasonSupporting, int status) {
 		super();
@@ -29,10 +42,12 @@ public class Claim {
 		this.claimDays = claimDays;
 		this.reasonSupporting = reasonSupporting;
 		this.status = status;
+		this.comments = "";
 	}
 	
 	public Claim() {
 		this.status = LeaveStatus.Applied;
+		this.comments = "";
 	}
 
 	public Long getId() {
@@ -73,6 +88,14 @@ public class Claim {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	
 	

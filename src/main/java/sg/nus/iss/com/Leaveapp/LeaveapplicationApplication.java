@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import sg.nus.iss.com.Leaveapp.io.ContextIO;
+import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
@@ -24,10 +25,10 @@ public class LeaveapplicationApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadContext(LeaveRepository lr, EmployeeRepository er, RoleRepository rr, LeaveEntitlementRepository ler) {
+	CommandLineRunner loadContext(ClaimRepository cr, LeaveRepository lr, EmployeeRepository er, RoleRepository rr, LeaveEntitlementRepository ler) {
 		return args -> {
 			if(ddlauto.compareTo("create") == 0) {
-				String path = "C:\\Users\\kaung\\leaveappsys\\LeaveAppSys";
+				String path = "C:\\Users\\GenjiSun\\Documents\\workspace-spring-tool-suite-4-4.22.1.RELEASE\\LeaveAppSys";
 				String employeeCsv = "employee_dummy.csv";
 				ContextIO empIO = new ContextIO(path+ "\\" + employeeCsv);
 				empIO.LoadRoles(rr);
@@ -37,6 +38,9 @@ public class LeaveapplicationApplication {
 				String leaveCsv = "leave_dummy.csv";
 				ContextIO leaveIO = new ContextIO(path + "\\" + leaveCsv);
 				leaveIO.LoadLeaves(lr,er,ler,rr);
+				String claimCsv = "claim_dummy.csv";
+				ContextIO claimIO = new ContextIO(path + "\\" + claimCsv);
+				claimIO.LoadClaims(cr,er);
 				return ;
 			}
 			System.out.println("Skipped context load. ddl-auto: " + ddlauto);

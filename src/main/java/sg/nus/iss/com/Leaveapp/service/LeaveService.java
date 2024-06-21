@@ -45,6 +45,8 @@ public interface LeaveService {
 	Leave save(Leave leave);
 	
 	List<Leave> findLeavesFromEmployeeId(Long id);
+
+	Claim saveClaim(Claim claim);
 	
 	
 }

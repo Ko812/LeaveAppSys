@@ -100,18 +100,21 @@ public class LeaveServiceImpl implements LeaveService {
     }
     
     @Override
-
     public Leave save(Leave leave)
     {
-    	if(leave.getStatus() == 0) {
-    		leave.setStatus(LeaveStatus.Applied);
-    	}
+    	leave.setStatus(LeaveStatus.Applied);
     	return leaveRepository.save(leave);
     }
     
     @Override
     public List<Leave> findLeavesFromEmployeeId(Long id) {
     	return leaveRepository.findLeavesFromEmployeeId(id);
+    }
+    
+    @Override
+    public Claim saveClaim(Claim claim) {
+    	claim.setStatus(LeaveStatus.Applied);
+    	return claimRepository.save(claim);
     }
     
 }

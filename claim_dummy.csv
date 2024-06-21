@@ -1,0 +1,155 @@
+Username,NumberOfDays,Reason,Status
+AaroReyn,2,Over time work,Applied
+AaroReyn,2,Continuous work for 3 days,Deleted
+AaroReyn,2.5,Continuous work for 3 days,Approved
+AdamAgui,4.5,Weekend duty,Approved
+AmanDavi,1.5,Over time work,Approved
+AmanDavi,1.5,Continuous work for 3 days,Applied
+AmanDavi,3.5,Over time work,Rejected
+AmanPhil,1,Over night shift,Rejected
+AmbeFrie,4,Over time work,Deleted
+AmbeFrie,3.5,Over time work,Deleted
+AmyBarn,1,Over night shift,Approved
+AmyBarn,1.5,Over time work,Approved
+AndrGray,4.5,Weekend duty,Approved
+AndrGray,2.5,Over night shift,Approved
+AngeFrit,2.5,Over night shift,Deleted
+AnneMitc,2.5,Over time work,Deleted
+AnneMitc,2,Over night shift,Approved
+AnneWest,2,Continuous work for 3 days,Applied
+AnneWest,4,Weekend duty,Deleted
+AnthChan,1,Weekend duty,Approved
+BenjWell,2,Over night shift,Applied
+BobbKlei,1.5,Over night shift,Deleted
+BonnBray,4,Over night shift,Rejected
+BonnBray,2.5,Over time work,Applied
+BranMyer,1,Weekend duty,Approved
+BranRich,0.5,Over night shift,Rejected
+BranRich,2,Over night shift,Rejected
+BriaAnde,4,Over time work,Rejected
+BritWell,2.5,Weekend duty,Approved
+ChelHayn,3.5,Continuous work for 3 days,Approved
+ChelHayn,4.5,Over night shift,Applied
+ChriGome,1,Over time work,Deleted
+ChriGome,3.5,Weekend duty,Rejected
+ChriHern,4.5,Over time work,Rejected
+ChriSand,3,Over time work,Deleted
+ChriThom,4.5,Weekend duty,Rejected
+ChriThom,4.5,Continuous work for 3 days,Rejected
+CindGrah,0.5,Continuous work for 3 days,Deleted
+CindGrah,4.5,Continuous work for 3 days,Applied
+ConnWise,0.5,Continuous work for 3 days,Approved
+CoreFull,2,Weekend duty,Applied
+CoryReed,0.5,Over time work,Applied
+CoryReed,3.5,Weekend duty,Deleted
+DaviBear,1,Weekend duty,Rejected
+DaviKell,4.5,Over night shift,Approved
+DeboMann,3,Continuous work for 3 days,Approved
+DeboMann,3.5,Over night shift,Approved
+DianBrow,0.5,Over night shift,Deleted
+DianBrow,3.5,Over time work,Approved
+DianBrow,4.5,Over time work,Rejected
+DianWalk,0.5,Over time work,Applied
+DianWalk,1,Weekend duty,Approved
+DonaShor,1.5,Continuous work for 3 days,Approved
+DonaShor,1.5,Continuous work for 3 days,Deleted
+DonnJenn,4.5,Weekend duty,Deleted
+DonnJenn,2.5,Over time work,Rejected
+DonnJenn,4.5,Continuous work for 3 days,Rejected
+EmmaGrif,2.5,Weekend duty,Applied
+EmmaGrif,3,Over time work,Rejected
+EmmaTate,4.5,Weekend duty,Approved
+EricJohn,4,Weekend duty,Approved
+EricLope,4.5,Weekend duty,Rejected
+FranRile,1.5,Over night shift,Applied
+GeorBolt,0.5,Continuous work for 3 days,Applied
+GeorBolt,3,Over night shift,Approved
+GeorBolt,3.5,Weekend duty,Rejected
+GlenSand,0.5,Continuous work for 3 days,Approved
+GlenSand,2.5,Continuous work for 3 days,Rejected
+GlenSand,3,Continuous work for 3 days,Rejected
+HeatCars,2.5,Over time work,Applied
+HelePage,1.5,Continuous work for 3 days,Applied
+JacoSoto,1,Continuous work for 3 days,Applied
+JaimChen,2,Over night shift,Deleted
+JaimChen,3,Continuous work for 3 days,Approved
+JaimChen,2.5,Over night shift,Approved
+JameWade,0.5,Over night shift,Deleted
+JamiDunn,4,Weekend duty,Applied
+JaneKell,4.5,Over night shift,Approved
+JaneKell,1,Over time work,Applied
+JasoJame,1.5,Over time work,Deleted
+JeffCamp,3.5,Continuous work for 3 days,Deleted
+JeffCamp,1,Over night shift,Deleted
+JeffFran,0.5,Over night shift,Applied
+JennWrig,2,Over night shift,Deleted
+JennWrig,2.5,Over night shift,Applied
+JessBail,2,Over time work,Deleted
+JessBail,2.5,Continuous work for 3 days,Approved
+JessEspi,4,Over night shift,Applied
+JoanMill,1,Over time work,Applied
+JoanMill,1,Continuous work for 3 days,Rejected
+JohnVega,2.5,Continuous work for 3 days,Applied
+JohnVega,1.5,Continuous work for 3 days,Applied
+JonaChav,3,Weekend duty,Applied
+JoseColl,2.5,Over night shift,Rejected
+JosePric,1.5,Continuous work for 3 days,Applied
+JosePric,1.5,Continuous work for 3 days,Deleted
+JustMill,4,Over time work,Deleted
+JustMill,4.5,Weekend duty,Rejected
+KateFull,2,Over night shift,Deleted
+KellLong,4,Weekend duty,Applied
+KellLong,0.5,Over night shift,Deleted
+KerrGarc,1,Weekend duty,Approved
+KerrGarc,2.5,Weekend duty,Applied
+KeviJohn,4.5,Continuous work for 3 days,Applied
+KeviPerk,4.5,Weekend duty,Applied
+LeeSext,3,Over time work,Rejected
+LeeSext,1,Weekend duty,Applied
+MarcOwen,3,Over night shift,Deleted
+MarcOwen,3.5,Over time work,Applied
+MarcOwen,0.5,Weekend duty,Deleted
+MichLam,1.5,Over time work,Applied
+MichLee,1.5,Over time work,Deleted
+MichWall,3,Over night shift,Rejected
+MichWall,1.5,Over night shift,Approved
+MichWall,4.5,Over night shift,Applied
+NancGarc,4.5,Continuous work for 3 days,Rejected
+NathAnde,2,Continuous work for 3 days,Rejected
+PatrCook,2.5,Weekend duty,Applied
+PatrEdwa,3.5,Over night shift,Applied
+PatrJone,2,Over time work,Deleted
+PatrJone,1,Continuous work for 3 days,Deleted
+PatrJone,0.5,Over time work,Rejected
+PatrPark,4.5,Over night shift,Approved
+PatrPark,4,Continuous work for 3 days,Applied
+PerrHuds,2,Over night shift,Rejected
+PerrHuds,2.5,Continuous work for 3 days,Rejected
+PerrHuds,1.5,Continuous work for 3 days,Applied
+RebeNewt,4,Over time work,Deleted
+ReneLamb,4,Continuous work for 3 days,Applied
+ReneLamb,2.5,Continuous work for 3 days,Deleted
+RichLope,1.5,Over night shift,Deleted
+RichLope,1.5,Over time work,Deleted
+RobeWolf,3.5,Continuous work for 3 days,Deleted
+SamuStew,4.5,Weekend duty,Rejected
+SamuStew,2,Over night shift,Deleted
+ShelBass,4,Weekend duty,Rejected
+ShelBass,3.5,Continuous work for 3 days,Deleted
+ShelBass,3,Continuous work for 3 days,Rejected
+SivaMapo,2,Continuous work for 3 days,Approved
+StepFost,4,Weekend duty,Rejected
+StepFost,4.5,Weekend duty,Deleted
+StepFost,1,Over night shift,Applied
+StepGilb,1,Weekend duty,Approved
+StepGilb,4,Continuous work for 3 days,Applied
+SusaHarv,0.5,Over night shift,Rejected
+TinaBarn,1,Over time work,Applied
+TonyClar,3,Over time work,Approved
+WarrWats,1,Continuous work for 3 days,Rejected
+WarrWats,2,Weekend duty,Applied
+WillTorr,4,Over night shift,Rejected
+WillTorr,4.5,Over time work,Approved
+ZachElli,1,Weekend duty,Rejected
+ZachElli,4.5,Over night shift,Deleted
+ZachKell,4,Over night shift,Rejected

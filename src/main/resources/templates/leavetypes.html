@@ -48,6 +48,15 @@
 </head>
 <body>
     <h1>Leave Types</h1>
+	<form th:action="@{/admin/leavetypes}" method="get">
+	    <label for="year">Select Year:</label>
+	    <select id="year" name="year">
+	        <option value="">All</option>
+	        <option th:each="y : ${years}" th:value="${y}" th:text="${y}"></option>
+	    </select>
+	    <button type="submit">Filter</button>
+	</form>
+
     <table>
         <thead>
             <tr>
@@ -76,3 +85,4 @@
     <a href="/admin/leavetypes/add" class="add-leave-type">Add Entitlement</a>
 </body>
 </html>
+

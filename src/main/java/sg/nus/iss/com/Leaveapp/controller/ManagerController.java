@@ -124,14 +124,15 @@ public class ManagerController {
 	}
 
     @GetMapping("/leaveapprove/list")
-    public String listLeaves(@RequestParam(value = "status", required = false) String status, Model model) {
-        if (status != null && !status.isEmpty()) {
+    public String listLeaves(@RequestParam(value = "status", required = false) int status, Model model) {
+        if (status != 0) {
 
-            model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(status));
+        	model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(status));
             
         } else {
-            model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+        	model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
         }
+        
         return "leave-list";
     }
 

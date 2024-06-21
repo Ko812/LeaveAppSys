@@ -3,7 +3,7 @@ package sg.nus.iss.com.Leaveapp.model;
 import jakarta.persistence.*;
 
 import java.time.*;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -31,7 +31,7 @@ public class Leave {
 	private String overseasContact;
 
 
-	private String status;
+	private int status;
 	
 	
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -43,7 +43,7 @@ public class Leave {
 		this.end = LocalDate.now();
 	}
 
-	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, String status) {
+	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, int status) {
 		super();
 		this.employee = employee;
 		this.start = start;
@@ -94,11 +94,11 @@ public class Leave {
 		this.reasons = reasons;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -180,7 +180,7 @@ public class Leave {
 	}
 	
 	public Boolean isConsumedOrConsuming() {
-		return this.status.compareTo(LeaveStatus.Updated) == 0 ||this.status.compareTo(LeaveStatus.Applied) == 0 || this.status.compareTo(LeaveStatus.Approved) == 0;
+		return this.status == LeaveStatus.Updated ||this.status == LeaveStatus.Applied || this.status == LeaveStatus.Approved;
 	}
 	
 	public static Integer consumedDaysOfLeave(List<Leave> consumedLeaves) {
@@ -195,15 +195,23 @@ public class Leave {
 	}
 	
 	public Boolean isCancellable() {
-		return this.status.compareTo(LeaveStatus.Approved) == 0;
+		return this.status == LeaveStatus.Approved;
 	}
 	
 	public Boolean isUpdateable() {
-		return this.status.compareTo(LeaveStatus.Updated) == 0 ||this.status.compareTo(LeaveStatus.Applied) == 0;
+		return this.status == LeaveStatus.Updated ||this.status == LeaveStatus.Applied;
 	}
 	
 	public Boolean isDeletable() {
 		return this.isUpdateable();
+	}
+	
+	public String getLocalStartDate() {
+		return start.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+	}
+	
+	public String getLocalEndDate() {
+		return end.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
 	}
 }
 

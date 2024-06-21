@@ -12,20 +12,21 @@
 		<input hidden type="number" th:field="*{id}" name="id"/>
 		<div class="mb-3">
 			<label for="leaveType" class="form-label">Leave Type</label>
-			<select class="form-control" id="leaveType" name="leaveType" required>
-				<option th:each="type : ${leaveTypes}" th:text="${type}"></option>
+			<select class="form-control" id="leaveType" name="leaveEntitlement" th:field="*{entitlement}" required>
+				<option th:each="entitlement : ${leaveEntitlements}" th:text="${entitlement.leaveType}"
+					th:value="${entitlement.id}"></option>
 			</select>
 		</div>
 		
 		<div class="form-group">
 			<label for="startDate">Start Date:</label>
-			<input type="date" id="startDate" th:field="*{start}" class="form-control" th:value="${start}" />
+			<input type="date" id="startDate" th:field="*{start}" class="form-control" th:value="${leave.getLocalStartDate()}" />
 			<span th:if="${#fields.hasErrors('start')}" th:errors="*{start}" class="inputErrorMessage"></span>
 		</div>
 		
 		<div class="form-group">
 			<label for="endDate">End Date:</label>
-			<input type="date" id="endDate" th:field="*{end}" class="form-control" th:value="${end}"/>
+			<input type="date" id="endDate" th:field="*{end}" class="form-control" th:value="${leave.getLocalEndDate()}"/>
 			<span th:if="${#fields.hasErrors('end')}" th:errors="*{end}" class="inputErrorMessage"></span>
 		</div>
 		

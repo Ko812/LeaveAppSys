@@ -1,10 +1,31 @@
 package sg.nus.iss.com.Leaveapp.model;
 
+import sg.nus.iss.com.Leaveapp.Exceptions.TypeNotFoundException;
+
 public class LeaveStatus {
-	public static final String Applied = "Applied";
-	public static final String Cancelled = "Cancelled";
-	public static final String Approved = "Approved";
-	public static final String Rejected = "Rejected";
-	public static final String Deleted = "Deleted";
-	public static final String Updated = "Updated";
+	public static final int Applied = 1;
+	public static final int Cancelled = 2;
+	public static final int Approved = 3;
+	public static final int Rejected = 4;
+	public static final int Deleted = 5;
+	public static final int Updated = 6;
+	
+	public static int of(String status) throws TypeNotFoundException {
+		switch(status) {
+		case "Applied":
+			return Applied;
+		case "Cancelled":
+			return Cancelled;
+		case "Approved":
+			return Approved;
+		case "Rejected":
+			return Rejected;
+		case "Deleted":
+			return Deleted;
+		case "Updated":
+			return Updated;
+		default:
+			throw new TypeNotFoundException();
+		}
+	}
 }

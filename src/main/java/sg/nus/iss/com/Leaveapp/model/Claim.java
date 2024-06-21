@@ -1,6 +1,7 @@
 package sg.nus.iss.com.Leaveapp.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 
 @Entity
@@ -14,13 +15,15 @@ public class Claim {
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Employee employee;
 	
+	@Positive(message="Days to claim cannot be negative.")
 	private double claimDays;
 	
+	@NotBlank(message="Reason cannot be blank.")
 	private String reasonSupporting;
 	
-	private String status;
+	private int status;
 
-	public Claim(Employee employee, double claimDays, String reasonSupporting, String status) {
+	public Claim(Employee employee, double claimDays, String reasonSupporting, int status) {
 		super();
 		this.employee = employee;
 		this.claimDays = claimDays;
@@ -64,11 +67,11 @@ public class Claim {
 		this.reasonSupporting = reasonSupporting;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	

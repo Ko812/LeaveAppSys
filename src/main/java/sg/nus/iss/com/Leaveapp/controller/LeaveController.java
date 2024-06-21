@@ -144,7 +144,7 @@ public class LeaveController {
 
     @PostMapping("/update-leave")
     public String updateLeave(@Valid @ModelAttribute("leave") Leave leave, Model model, HttpSession session) {
-    	if (leave != null && (LeaveStatus.Applied.compareTo(leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(leave.getStatus()) == 0)) {
+    	if (leave != null && (LeaveStatus.Applied == leave.getStatus() || LeaveStatus.Updated == leave.getStatus())) {
             leave.setStatus(LeaveStatus.Updated);
             leaveService.save(leave);
         }
@@ -154,7 +154,7 @@ public class LeaveController {
     @RequestMapping(value="/delete-leave/{id}")
     public String deleteLeave(@PathVariable("id") Long id) {
         Leave Leave = leaveService.findById(id);
-        if (Leave != null && (LeaveStatus.Applied.compareTo(Leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(Leave.getStatus()) == 0)) {
+        if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
             Leave.setStatus(LeaveStatus.Deleted);
             leaveService.save(Leave);
         }
@@ -164,7 +164,7 @@ public class LeaveController {
     @RequestMapping(value="/cancel-leave/{id}")
     public String cancelLeave(@PathVariable("id") Long id) {
         Leave Leave = leaveService.findById(id);
-        if (Leave != null && (LeaveStatus.Applied.compareTo(Leave.getStatus()) == 0 || LeaveStatus.Updated.compareTo(Leave.getStatus()) == 0)) {
+        if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
         	Leave.setStatus(LeaveStatus.Cancelled);
             leaveService.save(Leave);
         }

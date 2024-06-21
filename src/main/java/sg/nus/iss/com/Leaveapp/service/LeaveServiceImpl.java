@@ -103,9 +103,6 @@ public class LeaveServiceImpl implements LeaveService {
 
     public Leave save(Leave leave)
     {
-    	if(leave.getStatus() == null) {
-    		leave.setStatus(LeaveStatus.Applied);
-    	}
     	return leaveRepository.save(leave);
     }
     
@@ -116,11 +113,7 @@ public class LeaveServiceImpl implements LeaveService {
     
     @Override
     public Claim saveClaim(Claim claim) {
-    	if(claim.getStatus() == null) {
-    		claim.setStatus(LeaveStatus.Applied);
-    	} else {
-    		claim.setStatus(LeaveStatus.Updated);
-    	}
+    	
     	return claimRepository.save(claim);
     }
 

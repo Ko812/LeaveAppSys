@@ -1,8 +1,5 @@
 <div class="container" th:fragment="actionBody">
-	<div th:if="${action == 'employee'}">
-		<style th:insert="~{employees.html :: style}"></style>
-		<div th:insert="~{employees.html :: body}"></div>
-	</div>
+	
 	<div th:if="${action == 'login' || action == ''}">
 		<div th:insert="~{login.html :: body}"></div>
 	</div>
@@ -22,6 +19,11 @@
 
 	<div th:if="${action == 'view-leave-entitlements'}">
 		<div th:insert="~{leave-entitlement-list.html :: body}"></div>
+	</div>
+	
+	<div th:if="${action == 'employee'}">
+		<style th:insert="~{employees.html :: style}"></style>
+		<div th:insert="~{employees.html :: body}"></div>
 	</div>
 	
 	<div th:if="${action == 'add-employee'}">

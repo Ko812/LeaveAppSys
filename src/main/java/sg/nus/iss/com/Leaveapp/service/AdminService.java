@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +35,9 @@ public class AdminService {
     private RoleRepository roleRepository;
 
     // Employee methods
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public Page<Employee> getAllEmployees(int page, int size) {
+    	Pageable pageable = PageRequest.of(page, size);
+        return employeeRepository.findAll(pageable);
     }
 
     public Employee getEmployeeById(Long id) {
@@ -80,5 +84,9 @@ public class AdminService {
     @Transactional
     public void createOrUpdateLeaveType(LeaveEntitlement entitlement) {
     	leaveEntitlementRepository.save(entitlement);
+    }
+    
+    public List<LeaveEntitlement> getLeaveEntitlementsByYear(Integer year){
+    	return leaveEntitlementRepository.findByYear(year);
     }
 }

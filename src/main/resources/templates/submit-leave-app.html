@@ -10,9 +10,6 @@
     <h2>Leave Application Form</h2>
     <form th:action="@{/leave/submitForm}" th:object="${leave}" method="post">
 		<input hidden th:field="*{employee}" th:value="${leave.employee.id}"/>
-		<div class="mb-3">
-			<span th:text="${employeeName}"></span>
-		</div>
 		
 		<div class="mb-3">
 			<label for="leaveType" class="form-label">Leave Type</label>

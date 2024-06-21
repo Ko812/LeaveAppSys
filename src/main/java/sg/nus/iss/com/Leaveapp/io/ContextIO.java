@@ -141,7 +141,7 @@ public class ContextIO {
 				String[] endStringArray = dat.get(6).split("/");
 				LocalDate end = LocalDate.of(Integer.parseInt(endStringArray[2]), Integer.parseInt(endStringArray[1]), Integer.parseInt(endStringArray[0]));
 				String reasons = dat.get(8);
-				String status = dat.get(9);
+				int status = LeaveStatus.of(dat.get(9));
 				Employee e = er.findEmployeeByUsername(username);
 				LeaveEntitlement employeeEntitlement;
 				if(e.getRole().getName().compareTo("employee") == 0) {

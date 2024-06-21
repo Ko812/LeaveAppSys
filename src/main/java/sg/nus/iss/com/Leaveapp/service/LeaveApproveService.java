@@ -15,7 +15,7 @@ public interface LeaveApproveService {
 
     Leave getById(Long id);
 
-    List<Leave> findLeavesByStatusOrderByStartDesc(String status);
+    List<Leave> findLeavesByStatusOrderByStartDesc(int status);
 
     List<Leave> findLeavesByEmployeeIdOrderByStartDesc(Long id);
     

@@ -78,8 +78,9 @@
         
         <div>
             <label>Year:</label>
-            <input type="number" th:field="*{year}" th:value="${leaveEntitlement.year}"/>
-			<span th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="inputErrorMessage"></span>
+			<select th:field="*{year}">
+				<option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
+			</select>
         </div>
         <div>
             <button type="submit">Save</button>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Use Thymeleaf to iterate over the leaveApplications list -->
+                
                 <tr th:each="leaveApplication,iter : ${leaveApplications}">
                     <td th:text="${leaveApplication.employee.name}"></td>
 					<td th:text="${leaveApplication.id}"></td>
@@ -56,6 +56,84 @@
             </tbody>
         </table>
     </div>
+</body>
+
+</html>
+ -->
+
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Leave Applications for Approval</title>
+	<style th:fragment="style">
+		/* CSS styles */
+		table {
+			border-collapse: collapse;
+			width: 40%;
+			margin: 0 auto;
+		}
+
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+			/* Light gray background for column names */
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+			/* Light gray background for even rows */
+		}
+
+		.blank-row {
+			background-color: #ffffff;
+			/* White background for blank rows */
+		}
+
+		.view-link {
+			color: #0000FF;
+			/* Light blue color for "view" hyperlink */
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Leave Applications for Approval</h1>
+		<table>
+			<thead>
+				<tr>
+					<th style="background-color: #9090c0;">Employee Name</th>
+					<th style="background-color: #9090c0;">Leave ID</th>
+					<th style="background-color: #9090c0;">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${leaveApplications.size() == 0}">
+					<td colspan="3" style="text-align: center;">No employees found</td>
+				</tr>
+				<!-- Use Thymeleaf to iterate over the leaveApplications list -->
+				<tr th:each="leaveApplication,iter : ${leaveApplications}">
+					<td th:text="${leaveApplication.employee.name}"></td>
+					<td th:text="${leaveApplication.id}"></td>
+					<td>
+						<a th:href="@{/manager/application-details/{id}(id=${leaveApplication.id})}"
+							class="view-link">View</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 
 </html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create/Update Leave Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h2>Create/Update Leave Application</h2>
+    <form th:action="@{/leave-application}" th:object="${leaveApplication}" method="post">
+        <div>
+            <label>Reason:</label>
+            <input type="text" th:field="*{reason}" />
+        </div>
+        <div>
+            <label>Start Date:</label>
+            <input type="date" th:field="*{startDate}" />
+        </div>
+        <div>
+            <label>End Date:</label>
+            <input type="date" th:field="*{endDate}" />
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</body>
+</html>

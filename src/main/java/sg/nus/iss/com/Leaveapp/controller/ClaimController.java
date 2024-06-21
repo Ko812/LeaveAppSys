@@ -20,30 +20,35 @@ public class ClaimController {
 	
 	@Autowired
 	private LeaveService leaveService;
+
 	
 	@GetMapping("/make-claim")
-    public String makeClaim(Model model, HttpSession session) {
+    public String makeClaim(Model model) {
     	Claim claim = new Claim();
-    	claim.setEmployee((Employee)session.getAttribute("loggedInEmployee"));
+    	
     	model.addAttribute("claim", claim);
     	model.addAttribute("action", "make-claim");
     	return "index";
     }
+
 	
-  @PostMapping("/submitClaim")
-  public String submitClaim(@ModelAttribute("claim") Claim claim, Model model) {
-//	if(bindingResult.hasErrors()) {
-//	model.addAttribute("action", "make-claim");
-//	return "index";
-//}
-//leaveService.saveClaim(claim);
-//if(submittedClaim != null) {
-//	model.addAttribute("message", "Claim submitted successfully");
-//	model.addAttribute("action", "show-message");
-//} else {
-//	model.addAttribute("error", "Claim submission failed");
-//	model.addAttribute("action", "error-message");
-//}
-  	return "index";
-  }
+	@PostMapping("/submitClaim")
+	public String submitClaim(@ModelAttribute("claim") Claim claim, Model model, HttpSession session) {
+//		if (bindingResult.hasErrors()) {
+//			model.addAttribute("action", "make-claim");
+//			return "index";
+//		}
+		claim.setEmployee((Employee)session.getAttribute("loggedInEmployee"));
+		Claim submittedClaim = leaveService.saveClaim(claim);
+		if (submittedClaim != null) {
+			model.addAttribute("message", "Claim submitted successfully");
+			model.addAttribute("action", "show-message");
+		} else {
+			model.addAttribute("error", "Claim submission failed");
+			model.addAttribute("action", "error-message");
+		}
+		return "index";
+	}
 }
+
+

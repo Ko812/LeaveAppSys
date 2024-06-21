@@ -1,18 +1,15 @@
 <header th:fragment="header">
 	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
 		style="background: linear-gradient(rgb(150,150,230), white) ">
-		<div class="container-fluid">
-			<a class="navbar-brand">Leave Application System</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div style="justify-content: space-between;">
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-				</div>
-				<div th:if="${isLoggedIn}"><a href="/logout" style="text-decoration: none; color: black;">Log out</a></div>	
+		<div class="container d-flex flex-row justify-content-between align-items-center">
+
+			<div class="navbar-collapse collapse d-sm-inline-flex justify-content-start flex-row align-items-center">
+				<a class="navbar-brand" th:href="@{/}">Leave Application System</a>
+				<span class="nav-item mt-4" th:text="${employeeName}"></span>
 			</div>
-			
+			<div th:if="${isLoggedIn}" class="mt-4"><a href="/logout" style="text-decoration: none; color: black;">Log out</a></div>
+
+
 		</div>
 	</nav>
 </header>

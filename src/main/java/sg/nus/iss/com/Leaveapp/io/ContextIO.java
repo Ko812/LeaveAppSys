@@ -9,11 +9,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.Role;
+import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
@@ -166,6 +168,27 @@ public class ContextIO {
 				lr.save(el);
 			}
 			System.out.println("Leaves loaded.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void LoadClaims(ClaimRepository cr, EmployeeRepository er) {
+		try {
+			BufferedReader br = PrepareToRead();
+			String x;
+			br.readLine();
+			while((x = br.readLine()) != null) {
+				List<String> dat = List.of(x.split(","));
+				String username = dat.get(0);
+				double numberOfDays = Double.parseDouble(dat.get(1));
+				String reasons = dat.get(2);
+				int status = LeaveStatus.of(dat.get(3));
+				Employee e = er.findEmployeeByUsername(username);
+				Claim c = new Claim(e, numberOfDays, reasons, status);
+				cr.save(c);
+			}
+			System.out.println("Claims loaded.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

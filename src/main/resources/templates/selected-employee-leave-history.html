@@ -7,10 +7,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Selected Employee Leave History</title>
 	<style th:fragment="style">
-		/* CSS styles */
 		table {
 			border-collapse: collapse;
-			width: 100%;
+			width: 40%;
+			margin: auto;
 		}
 
 		th,
@@ -21,42 +21,53 @@
 		}
 
 		th {
-			background-color: #f2f2f2;
-			/* Light gray background for column names */
+			background-color: #c0c0c0;
+		}
+
+		tr:nth-child(odd) {
+			background-color: #ffe6f0;
 		}
 
 		tr:nth-child(even) {
-			background-color: #f2f2f2;
-			/* Light gray background for even rows */
+			background-color: #c6e2ff;
 		}
 
 		.blank-row {
 			background-color: #ffffff;
-			/* White background for blank rows */
-		}
-
-		.nav-link {
-			display: inline-block;
-			margin-top: 20px;
-			text-decoration: none;
-			color: #0000FF;
-			font-size: 16px;
-		}
-
-		.nav-link:hover {
-			color: #00587a;
 		}
 
 		.view-link {
 			color: #0000FF;
+			text-decoration: none;
 		}
 
 		.view-link:hover {
 			color: #00587a;
 		}
 
-		form {
+		input[type="text"] {
+			margin-bottom: 15px;
+			background-color: #f0f0f0;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 20px;
 			margin-bottom: 20px;
+			font-size: 30px;
+			color: #0000FF;
+		}
+
+		form {
+			margin-bottom: 40px;
+			background-color: #f9f9f9;
+		}
+
+		.nav-link {
+			margin-top: 20px;
+			text-decoration: none;
+			color: #0000FF;
+			font-size: 16px;
 		}
 	</style>
 </head>
@@ -65,15 +76,15 @@
 	<div class="container">
 		<h1>Selected Employee Leave History</h1>
 		<form th:action="@{/manager/searchEmployee}" method="post">
-			<label for="employeeName">Employee Name:</label>
+			<label for="employeeName">Employee Name</label>
 			<input type="text" id="employeeName" name="employeeName">
 			<button type="submit">Search</button>
 		</form>
 		<table>
 			<thead>
 				<tr>
-					<th style="background-color: #c0c0c0;">Employee Name</th>
-					<th style="background-color: #c0c0c0;">Leave History</th>
+					<th class="th-header">Employee Name</th>
+					<th class="th-header">Leave History</th>
 				</tr>
 			</thead>
 			<tbody>

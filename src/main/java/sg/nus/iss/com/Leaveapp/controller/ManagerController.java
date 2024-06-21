@@ -4,7 +4,7 @@ package sg.nus.iss.com.Leaveapp.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -116,17 +116,21 @@ public class ManagerController {
 	// }
 
 	@PostMapping("/searchEmployee")
-	public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model) {
-		List<Employee> employees = managerService.findEmployeesByName(employeeName);
-		if (!employees.isEmpty()) {
-			model.addAttribute("employeesFound", true);
-			model.addAttribute("employees", employees);
-		} else {
-			model.addAttribute("employeesFound", false);
-		}
-		model.addAttribute("action", "search-employee-history");
-		return "index";
+	public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model, HttpSession session) {
+	    Employee manager = (Employee) session.getAttribute("loggedInEmployee");
+	    List<Employee> reporteeEmployee = managerService.findReporteeEmployeeByManagerId(manager.getId());
+
+	    List<Employee> filteredEmployees = managerService.findEmployeesByName(employeeName).stream()
+	            .filter(reporteeEmployee::contains)
+	            .collect(Collectors.toList());
+
+	    model.addAttribute("employeesFound", !filteredEmployees.isEmpty());
+	    model.addAttribute("employees", filteredEmployees);
+	    model.addAttribute("action", "search-employee-history");
+
+	    return "index";
 	}
+
 
 	
 	// @GetMapping("/history/{id}")

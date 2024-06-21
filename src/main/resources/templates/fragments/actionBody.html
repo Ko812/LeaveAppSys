@@ -70,7 +70,7 @@
 
 	<div th:if="${action == 'search-employee-history'}">
 		<div th:insert="selected-employee-leave-history.html :: style"></div>
-		<div th:insert="selected-employee-leave-history :: body"></div>
+		<div th:insert="selected-employee-leave-history.html :: body"></div>
 	</div>
 	
 	<div th:if="${action == 'employeeHistory'}">

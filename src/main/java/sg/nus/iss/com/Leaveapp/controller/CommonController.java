@@ -23,10 +23,9 @@ public class CommonController {
 		if(session.getAttribute("loggedInEmployee") == null) {
 			Employee employee = new Employee();
 			model.addAttribute("employee", employee);
-			model.addAttribute("action", "");
-			return "index";
+			model.addAttribute("action", "login");
 		}
-		return "";
+		return "index";
 	}
 	
 	@PostMapping("/login")
@@ -34,15 +33,16 @@ public class CommonController {
 		Employee employeeLogging = loginService.login(employee.getUsername(), employee.getPassword());
 		if(employeeLogging != null) {
 			session.setAttribute("loggedInEmployee", employeeLogging);
+			return "redirect:/leave/viewleaveHistory";
 		} 
-		model.addAttribute("action", "home");
-		return "index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session, Model model) {
 		session.invalidate();
 		model.addAttribute("action", "login");
+		model.addAttribute("employee", new Employee());
 		return "index";
 	}
 }

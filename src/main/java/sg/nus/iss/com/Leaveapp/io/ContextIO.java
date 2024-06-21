@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -130,9 +131,9 @@ public class ContextIO {
 			Role admin = rr.findRoleByName("admin");
 			Role manager = rr.findRoleByName("manager");
 //			System.out.println("Employee role id: " + employee.getId() +". Admin role id: " + admin.getId() + ". Manager role id: " + manager.getId());
-			LeaveEntitlement employeeAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", employee.getId());
-			LeaveEntitlement adminAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", admin.getId());
-			LeaveEntitlement managerAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", manager.getId());
+			LeaveEntitlement employeeAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", employee.getId(), 2024);
+			LeaveEntitlement adminAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", admin.getId(), 2024);
+			LeaveEntitlement managerAnnualLeaveEntitlement = ler.findLeaveEntitlementByType("annual", manager.getId(), 2024);
 			while((x = br.readLine()) != null) {
 				List<String> dat = List.of(x.split(","));
 				String username = dat.get(1);
@@ -141,7 +142,7 @@ public class ContextIO {
 				String[] endStringArray = dat.get(6).split("/");
 				LocalDate end = LocalDate.of(Integer.parseInt(endStringArray[2]), Integer.parseInt(endStringArray[1]), Integer.parseInt(endStringArray[0]));
 				String reasons = dat.get(8);
-				LeaveStatus status = LeaveStatus.valueOf(dat.get(9));
+				int status = LeaveStatus.of(dat.get(9));
 				Employee e = er.findEmployeeByUsername(username);
 				LeaveEntitlement employeeEntitlement;
 				if(e.getRole().getName().compareTo("employee") == 0) {
@@ -154,9 +155,17 @@ public class ContextIO {
 					throw new TypeNotFoundException();
 				}
 				Leave el = new Leave(e, start, end, employeeEntitlement, reasons, status);
-				lr.save(el);
+				el.setOverseas(Integer.parseInt(dat.get(10)) == 1);
+				el.setNameOfSupportingCoworker(dat.get(11));
+				if(dat.size() >=13) {
+					el.setOverseasContact(dat.get(12));
+				} else {
+					el.setOverseasContact("");
+				}
 				
+				lr.save(el);
 			}
+			System.out.println("Leaves loaded.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

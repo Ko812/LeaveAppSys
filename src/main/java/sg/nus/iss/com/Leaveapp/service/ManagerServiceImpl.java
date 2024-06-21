@@ -58,7 +58,7 @@ public class ManagerServiceImpl implements ManagerService{
     	List<Employee> reportees = employeeRepository.findReporteeEmployeesByManagerId(managerId);
     	List<Long> reporteesId = reportees.stream().map(e -> e.getId()).toList();
     	System.out.println(reporteesId);
-        List<Leave> allAppliedLeaves = leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
+    	List<Leave> allAppliedLeaves = leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
         return allAppliedLeaves
         		.stream()
         		.filter(l -> reporteesId.contains(l.getEmployee().getId()))
@@ -88,19 +88,23 @@ public class ManagerServiceImpl implements ManagerService{
 
 
     //approve and reject leave
-//    @Override
-//    public void approveLeaveApplication(Long leaveApplicationId, String comment) {
-//        Leave leaveApplication = LeaveRepository.findById(leaveApplicationId)
-//                .orElseThrow(() -> new IllegalArgumentException("Leave application not found"));
-//        
-//        LeaveStatus leaveStatus = new LeaveStatus();
-//        leaveStatus.setLeaveApplication(leaveApplication);
-//        leaveStatus.setStatus("Approved");
-//        leaveStatus.setComment(comment);
-//        
-//        leaveStatusRepository.save(leaveStatus);
-//        
-//        leaveApplication.setStatus("Approved");
-//        leaveApplicationRepository.save(leaveApplication);
-//    }
+    @Override
+    public Leave approveLeaveApplication(Long leaveApplicationId, String comment) {
+        Leave leaveApplication = leaveRepository.findById(leaveApplicationId);
+        if(leaveApplication == null) {
+        	return null;
+        }
+        leaveApplication.setStatus(LeaveStatus.Approved);
+        return leaveRepository.save(leaveApplication);
+    }
+    
+    @Override
+    public Leave rejectLeaveApplication(Long leaveApplicationId, String comment) {
+        Leave leaveApplication = leaveRepository.findById(leaveApplicationId);
+        if(leaveApplication == null) {
+        	return null;
+        }
+        leaveApplication.setStatus(LeaveStatus.Rejected);
+        return leaveRepository.save(leaveApplication);
+    }
 }

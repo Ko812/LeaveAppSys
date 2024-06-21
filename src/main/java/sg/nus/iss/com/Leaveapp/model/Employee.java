@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.function.IntPredicate;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 
@@ -19,7 +22,9 @@ public class Employee {
     @ManyToOne(fetch=FetchType.EAGER, cascade={})
     private Role role;
     
+    @NotBlank
     private String username;
+    
     private String password;
     
     @ManyToOne(fetch=FetchType.EAGER)
@@ -28,8 +33,8 @@ public class Employee {
     @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Employee> reportees;
     
-//    @OneToOne(mappedBy = "employee")
-//	private LeaveEntitlement leaveEntitlements;
+    @OneToMany(mappedBy = "employee", fetch=FetchType.EAGER)
+	private List<Claim> claims;
     
     public List<Employee> getReportees() {
 		return reportees;

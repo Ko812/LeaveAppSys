@@ -60,8 +60,8 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     }
 
     @Override
-    public List<Leave> findLeavesByStatusOrderByStartDesc(LeaveStatus status) {
-        return leaveApproveListRepository.findLeavesByStatusOrderByStartDesc(status);
+    public List<Leave> findLeavesByStatusOrderByStartDesc(int status) {
+    	return leaveApproveListRepository.findLeavesByStatusOrderByStartDesc(status);
     }
 
     @Override

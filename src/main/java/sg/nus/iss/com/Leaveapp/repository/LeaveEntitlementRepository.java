@@ -19,10 +19,19 @@ public interface LeaveEntitlementRepository extends JpaRepository<LeaveEntitleme
 	Optional<LeaveEntitlement> findById(Long id);
 	void deleteById(Long id);
 	
-	@Query("SELECT e FROM LeaveEntitlement e WHERE e.leaveType = :type AND e.role.id =:role_id")
-	public LeaveEntitlement findLeaveEntitlementByType(@Param("type") String type, @Param("role_id") Long role_id);
+	@Query("SELECT e FROM LeaveEntitlement e WHERE e.leaveType = :type AND e.role.id =:role_id and e.year = :year")
+	public LeaveEntitlement findLeaveEntitlementByType(@Param("type") String type, @Param("role_id") Long role_id,  @Param("year") int year);
 	
 	@Query("SELECT e.leaveType FROM LeaveEntitlement e WHERE e.role.name= :role")
 	public List<String> getLeaveTypesByRole(@Param("role") String role);
+	
+	@Query("SELECT le FROM LeaveEntitlement le WHERE le.role = :role AND le.leaveType = :type AND le.year = :year")
+	public LeaveEntitlement findLeaveEntitlementByRoleTypeAndYear(@Param("role") Role role, @Param("type") String type, @Param("year") Integer year);
+	
+	@Query("SELECT le FROM LeaveEntitlement le WHERE le.role.name = :roleName")
+	public List<LeaveEntitlement> getLeaveEntitlementsTypesByRole(@Param("roleName") String roleName);
+	
+	
+	public List<LeaveEntitlement> findByYear(Integer year);
 }
 

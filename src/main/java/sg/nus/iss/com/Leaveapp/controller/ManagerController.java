@@ -1,6 +1,8 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -33,28 +35,40 @@ public class ManagerController {
 	@Autowired
 	private ManagerService managerService;
   
-  @Autowired
-  private LeaveApproveService leaveApproveService;
+	@Autowired
+	private LeaveApproveService leaveApproveService;
 	
 	@GetMapping("/dashboard")
 	public String managerDashboard(Model model) {
-		// different from admin
 		return "dashboard";
 	}
 
 	@PatchMapping("/approve/{id}")
-	public String approveLeave(@PathVariable("id") int id) {
-		//managerService.approveLeave(id);
-		return "redirect:/manager/dashboard";
+	public String approveLeave(@PathVariable("id") int id, Model model) {
+		Leave approvedLeave = managerService.approveLeaveApplication(Long.valueOf(id + ""), "Approved on " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+		if(approvedLeave == null) {
+			model.addAttribute("action", "error-message");
+			model.addAttribute("error", "Leave approval failed.");
+		} else {
+			model.addAttribute("action", "show-message");
+			model.addAttribute("message", "Leave approved successfully.");
+		}
+		return "index";
 		//return Applications for Approval
 
 	}
 
 	@PatchMapping("/reject/{id}")
-	public String rejectLeave(@PathVariable("id") int id) {
-		//managerService.rejectLeave(id);
-		return "redirect:/manager/dashboard";
-		//return Applications for Approval
+	public String rejectLeave(@PathVariable("id") int id, Model model) {
+		Leave rejectedLeave = managerService.rejectLeaveApplication(Long.valueOf(id + ""), "Rejected on " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+		if(rejectedLeave == null) {
+			model.addAttribute("action", "error-message");
+			model.addAttribute("error", "Leave approval failed.");
+		} else {
+			model.addAttribute("action", "show-message");
+			model.addAttribute("message", "Leave approved successfully.");
+		}
+		return "index";
 	}
 	
 
@@ -99,25 +113,26 @@ public class ManagerController {
 
 	
 	@GetMapping("/history/{id}")
-  public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
-        Employee employee = managerService.getEmployeeById(id);
-        List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
-        model.addAttribute("employee", employee);
-        model.addAttribute("employeeFound", employee != null);
-        model.addAttribute("leaveHistory", leaveHistory);
-        model.addAttribute("action", "employee-leave-history");
-        return "index"; // Create a new HTML file for displaying the leave history
-  }
+	public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
+		Employee employee = managerService.getEmployeeById(id);
+		List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
+		model.addAttribute("employee", employee);
+		model.addAttribute("employeeFound", employee != null);
+		model.addAttribute("leaveHistory", leaveHistory);
+		model.addAttribute("action", "employee-leave-history");
+		return "index"; // Create a new HTML file for displaying the leave history
+	}
 
     @GetMapping("/leaveapprove/list")
-    public String listLeaves(@RequestParam(value = "status", required = false) String status, Model model) {
-        if (status != null && !status.isEmpty()) {
-            LeaveStatus value = LeaveStatus.valueOf(status);
-            model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(value));
+    public String listLeaves(@RequestParam(value = "status", required = false) int status, Model model) {
+        if (status != 0) {
+
+        	model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(status));
             
         } else {
-            model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+        	model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
         }
+        
         return "leave-list";
     }
 

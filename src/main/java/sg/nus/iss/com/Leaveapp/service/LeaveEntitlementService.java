@@ -22,7 +22,9 @@ public interface LeaveEntitlementService {
 
 	boolean isValidLeavePeriod(LocalDate startDate, LocalDate endDate);
 	
-	LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId);
+	LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId, int year);
 	
 	List<String> getLeaveTypesByRole(String roleName);
+	
+	List<LeaveEntitlement> getLeaveEntitlementsTypesByRole(String roleName);
 }

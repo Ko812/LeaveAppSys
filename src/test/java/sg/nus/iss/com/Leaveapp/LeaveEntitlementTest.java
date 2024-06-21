@@ -25,12 +25,12 @@ public class LeaveEntitlementTest {
         assertEquals(5, leaveEntitlement.getSickLeave());
     }
 
-    @Test
-    public void testSetAndGetCompensationLeave() {
-        LeaveEntitlement leaveEntitlement = new LeaveEntitlement();
-        leaveEntitlement.setCompensationLeave(2);
-        assertEquals(2, leaveEntitlement.getCompensationLeave());
-    }
+//    @Test
+//    public void testSetAndGetCompensationLeave() {
+//        LeaveEntitlement leaveEntitlement = new LeaveEntitlement();
+//        leaveEntitlement.setCompensationLeave(2);
+//        assertEquals(2, leaveEntitlement.getCompensationLeave());
+//    }
 
     @Test
     public void testSetAndGetYear() {

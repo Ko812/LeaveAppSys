@@ -19,7 +19,7 @@ public interface ManagerService {
 	Leave getLeaveApplicationById(Long id);
     
     //approve or reject Leave
-//    void approveLeaveApplication(Long leavaApplicationId, String comment);
-//    void rejectLeaveApplication(Long leavaApplicationId, String comment);
+    Leave approveLeaveApplication(Long leaveApplicationId, String comment);
+    Leave rejectLeaveApplication(Long leaveApplicationId, String comment);
 
 }

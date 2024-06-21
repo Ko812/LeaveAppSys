@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.core.util.StringUtil;
 import sg.nus.iss.com.Leaveapp.model.*;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 
@@ -104,12 +105,17 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
     }
     
     @Override
-    public LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId) {
-    	return leaveEntitlementRepository.findLeaveEntitlementByType(type, roleId);
+    public LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId, int year) {
+    	return leaveEntitlementRepository.findLeaveEntitlementByType(type, roleId, year);
     }
     
     @Override
     public List<String> getLeaveTypesByRole(String roleName){
     	return leaveEntitlementRepository.getLeaveTypesByRole(roleName).stream().map(t -> t.substring(0, 1).toUpperCase() + t.substring(1)).toList();
+    }
+    
+    @Override
+    public List<LeaveEntitlement> getLeaveEntitlementsTypesByRole(String roleName){
+    	return leaveEntitlementRepository.getLeaveEntitlementsTypesByRole(roleName);
     }
 }

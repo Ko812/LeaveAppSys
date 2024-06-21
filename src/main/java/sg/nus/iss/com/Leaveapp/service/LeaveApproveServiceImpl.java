@@ -18,6 +18,7 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     @Autowired
     private LeaveApproveListRepository leaveApproveListRepository;
 
+    
 //    @Override
 //    public List<Leave> findAllLeaves() {
 //        return leaveApproveListRepository.findAll();
@@ -30,30 +31,21 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     
 
     @Override
-    public void approveLeave(Long id) {
-        Leave leave = leaveApproveListRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
-
-        leave.setStatus(LeaveStatus.Approved);
-        leaveApproveListRepository.save(leave);
+    public void approveLeave(Leave leave) {
+    	Leave currentLeave = leaveApproveListRepository.findById(leave.getId()).get();
+    	currentLeave.setStatus(LeaveStatus.Approved);
+        leaveApproveListRepository.save(currentLeave);
     }
 
     @Override
-    public void rejectLeave(Long id) {
-        Leave leave = leaveApproveListRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
-
-        leave.setStatus(LeaveStatus.Rejected);
-        leaveApproveListRepository.save(leave);
+    public void rejectLeave(Leave leave) {
+    	Leave currentLeave = leaveApproveListRepository.findById(leave.getId()).get();
+    	currentLeave.setStatus(LeaveStatus.Rejected);
+    	currentLeave.setComment(leave.getComment());
+        leaveApproveListRepository.save(currentLeave);
     }
 
-    @Override
-    public void rejectLeave(Long id, String comment) {
-        Leave leave = leaveApproveListRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
-        leave.setStatus(LeaveStatus.Rejected);
-        leaveApproveListRepository.save(leave);
-    }
+    
 
     @Override
     public Leave getById(Long id) {

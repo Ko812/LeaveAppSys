@@ -67,6 +67,11 @@
 		<div th:insert="~{applications-approval.html :: style}"></div>
 		<div th:insert="~{applications-approval.html :: body}"></div>
 	</div>
+	
+	<div th:if="${action == 'show-leave-details'}">
+		<div th:insert="~{leave-details.html :: style}"></div>
+		<div th:insert="~{leave-details.html :: body}"></div>
+	</div>
 
 	<div th:if="${action == 'search-employee-history'}">
 		<div th:insert="selected-employee-leave-history.html :: style"></div>

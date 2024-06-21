@@ -182,22 +182,15 @@ public class LeaveController {
     	return "index";
     }
     
-//  @PostMapping("/submitClaim")
-//  public String submitClaim(@Valid @ModelAttribute("claim") Claim claim, BindingResult bindingResult, Model model) {
-//  	if(bindingResult.hasErrors()) {
-//  		model.addAttribute("action", "make-claim");
-//  		return "index";
-//  	}
-//  	Claim submittedClaim = leaveService.saveClaim(claim);
-//  	if(submittedClaim != null) {
-//  		model.addAttribute("message", "Claim submitted successfully");
-//  		model.addAttribute("action", "show-message");
-//  	} else {
-//  		model.addAttribute("error", "Claim submission failed");
-//  		model.addAttribute("action", "error-message");
-//  	}
-//  	return "index";
-//  }
+
+    public int ComputeLeaveBalance(Employee employee, Leave leave) {
+    	List<Leave> existingLeaves = leaveService.findLeavesFromEmployeeId(leave.getEmployee().getId());
+		List<Leave> consumedLeaves = existingLeaves
+				.stream()
+				.filter(l -> l.isConsumedOrConsuming())
+				.toList();
+		return leave.getEntitlement().getNumberOfDays() - Leave.consumedDaysOfLeave(consumedLeaves, leave.getEntitlement().getLeaveType());
+    }
     
 }
 

@@ -1,5 +1,6 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
+import sg.nus.iss.com.Leaveapp.service.LeaveService;
 
 @Controller
 @RequestMapping("/claim")
@@ -17,6 +19,7 @@ public class ClaimController {
 
 	
 	@Autowired
+	private LeaveService leaveService;
 	
 	@GetMapping("/make-claim")
     public String makeClaim(Model model, HttpSession session) {
@@ -29,18 +32,18 @@ public class ClaimController {
 	
   @PostMapping("/submitClaim")
   public String submitClaim(@ModelAttribute("claim") Claim claim, Model model) {
-//  	if(bindingResult.hasErrors()) {
-//  		model.addAttribute("action", "make-claim");
-//  		return "index";
-//  	}
-  	Claim submittedClaim = leaveService.saveClaim(claim);
-  	if(submittedClaim != null) {
-  		model.addAttribute("message", "Claim submitted successfully");
-  		model.addAttribute("action", "show-message");
-  	} else {
-  		model.addAttribute("error", "Claim submission failed");
-  		model.addAttribute("action", "error-message");
-  	}
+//	if(bindingResult.hasErrors()) {
+//	model.addAttribute("action", "make-claim");
+//	return "index";
+//}
+//leaveService.saveClaim(claim);
+//if(submittedClaim != null) {
+//	model.addAttribute("message", "Claim submitted successfully");
+//	model.addAttribute("action", "show-message");
+//} else {
+//	model.addAttribute("error", "Claim submission failed");
+//	model.addAttribute("action", "error-message");
+//}
   	return "index";
   }
 }

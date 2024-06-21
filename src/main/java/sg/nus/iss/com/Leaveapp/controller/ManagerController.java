@@ -44,9 +44,9 @@ public class ManagerController {
 		return "dashboard";
 	}
 
-	@RequestMapping("/approve/{id}")
-	public String approveLeave(@PathVariable("id") Long id, Model model) {
-		leaveApproveService.approveLeave(id);
+	@PostMapping("/approve")
+	public String approveLeave(@ModelAttribute("leave") Leave leave, Model model) {
+		leaveApproveService.approveLeave(leave);
 //		if(approvedLeave == null) {
 //			model.addAttribute("action", "error-message");
 //			model.addAttribute("error", "Leave approval failed.");
@@ -59,9 +59,9 @@ public class ManagerController {
 
 	}
 
-	@GetMapping("/reject/{id}")
-	public String rejectLeave(@PathVariable("id") Long id, Model model) {
-		leaveApproveService.rejectLeave(id);
+	@PostMapping("/reject")
+	public String rejectLeave(@ModelAttribute("leave") Leave leave) {
+		leaveApproveService.rejectLeave(leave);
 //		if(rejectedLeave == null) {
 //			model.addAttribute("action", "error-message");
 //			model.addAttribute("error", "Leave approval failed.");
@@ -69,7 +69,7 @@ public class ManagerController {
 //			model.addAttribute("action", "show-message");
 //			model.addAttribute("message", "Leave approved successfully.");
 //		}
-		return "index";
+		return "redirect:/manager/applications";
 	}
 	
 
@@ -169,31 +169,20 @@ public class ManagerController {
         return "leave-applications";
     }
 
-    @GetMapping("/leaveapprove/detail")
-    public String getDetail(@RequestParam Long id, Model model) {
+    @GetMapping("/leaveapprove/details/{id}")
+    public String getDetail(@PathVariable("id") Long id, Model model) {
         Leave leave = leaveApproveService.getById(id);
+        System.out.println("view details");
         if (leave != null) {
             model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByIdDesc(leave.getEmployee().getId()));
             model.addAttribute("leave", leave);
-            return "leave-details";
+            model.addAttribute("action", "show-leave-details");
+            
+            return "index";
         } else {
             model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());
-            return "leave-list";
+            return "index";
         }
-    }
-
-    @PostMapping("/leaveapprove/approve")
-    public String approveLeave(@RequestParam Long id) {
-        // Approve
-        leaveApproveService.approveLeave(id);
-        return "redirect:/leaveapprove/list";
-    }
-
-    @PostMapping("/leaveapprove/reject")
-    public String rejectLeave(@RequestParam Long id, @RequestParam String comment) {
-        // reject and comment
-        leaveApproveService.rejectLeave(id, comment);
-        return "redirect:/leaveapprove/list";
     }
 }
 

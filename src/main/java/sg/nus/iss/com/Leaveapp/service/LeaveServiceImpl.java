@@ -114,14 +114,4 @@ public class LeaveServiceImpl implements LeaveService {
     	return leaveRepository.findLeavesFromEmployeeId(id);
     }
     
-    @Override
-    public Claim saveClaim(Claim claim) {
-    	
-    	return claimRepository.save(claim);
-    }
-
-	@Override
-	public List<Claim> findClaimsByEmployee(Employee employee) {
-		return claimRepository.findClaimsByEmployee(employee);
-	}
 }

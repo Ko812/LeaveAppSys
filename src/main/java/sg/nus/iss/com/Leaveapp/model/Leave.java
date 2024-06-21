@@ -6,6 +6,8 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="leaves")
 public class Leave {
@@ -15,6 +17,7 @@ public class Leave {
 	private Long id;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.REFRESH})
+	@JsonIgnoreProperties("manager")
 	private Employee employee;
 	
 	LocalDate start;

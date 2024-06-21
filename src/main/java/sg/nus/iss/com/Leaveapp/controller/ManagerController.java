@@ -30,6 +30,7 @@ import sg.nus.iss.com.Leaveapp.service.ManagerService;
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
+
 	//extends StaffController 
 	
 	@Autowired
@@ -157,6 +158,7 @@ public class ManagerController {
             
         } else {
         	model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+
         }
         
         return "leave-list";
@@ -171,11 +173,11 @@ public class ManagerController {
     public String getDetail(@RequestParam Long id, Model model) {
         Leave leave = leaveApproveService.getById(id);
         if (leave != null) {
-            model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByStartDesc(leave.getEmployee().getId()));
+            model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByIdDesc(leave.getEmployee().getId()));
             model.addAttribute("leave", leave);
             return "leave-details";
         } else {
-            model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
+            model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());
             return "leave-list";
         }
     }

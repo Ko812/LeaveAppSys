@@ -14,6 +14,7 @@ public interface ManagerService {
     List<Leave> getEmployeeLeaveHistory(Employee employee);
 	Employee findEmployeeByName(String employeeName);
 	List<Employee> findReporteeEmployeeByManagerId(Long manager_id);
+	List<Employee> findEmployeesByName(String name);
 	
     // Leave methods
 	Leave getLeaveApplicationById(Long id);
@@ -21,5 +22,8 @@ public interface ManagerService {
     //approve or reject Leave
     Leave approveLeaveApplication(Long leaveApplicationId, String comment);
     Leave rejectLeaveApplication(Long leaveApplicationId, String comment);
+
+	
+	
 
 }

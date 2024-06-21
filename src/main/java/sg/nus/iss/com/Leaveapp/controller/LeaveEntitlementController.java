@@ -30,9 +30,11 @@ public class LeaveEntitlementController {
 	{
 		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.findAllLeaveEntitlements();
 		model.addAttribute("leaveEntitlements", leaveEntitlements);
+
 		model.addAttribute("action", "view-leave-entitlements");
+
 		model.addAttribute("actions", Action.getAllActions());
-		return "index";
+		return "leave-entitlement-form";
 	
 	}
 	
@@ -51,7 +53,7 @@ public class LeaveEntitlementController {
 	
 	@GetMapping("/leave-entitlements/new")
 	  public String showLeaveEntitlementById(Model model) {
-	    LeaveEntitlement leaveEntitlement = new LeaveEntitlement();
+	    LeaveEntitlement leaveEntitlement = new LeaveEntitlement(0,0);
 	    model.addAttribute("leaveEntitlement", leaveEntitlement);
 	    return "leave-entitlement-form";
 	}

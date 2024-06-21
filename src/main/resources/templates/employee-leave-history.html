@@ -1,0 +1,155 @@
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Employee Leave History List</title>
+	<style th:fragment="style">
+		/* CSS styles */
+		table {
+			border-collapse: collapse;
+			width:100%;
+		}
+
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+			/* Light gray background for column names */
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+			/* Light gray background for even rows */
+		}
+
+		.blank-row {
+			background-color: #ffffff;
+			/* White background for blank rows */
+		}
+	</style>
+</head>
+
+<body th:fragment="body">
+	<div class="container">
+		<h1>Employee Leave History List</h1>
+		<h3 th:text="${employee.name}"></h3>
+		<table>
+			<thead>
+				<tr>
+					<th style="background-color: #c0c0c0;">Start</th>
+					<th style="background-color: #c0c0c0;">End</th>
+					<th style="background-color: #c0c0c0;">Type</th>
+					<th style="background-color: #c0c0c0;">Reason</th>
+					<th style="background-color: #c0c0c0;">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:if="${employeeFound}" th:each="leave : ${leaveHistory}">
+					<td th:text="${leave.start}"></td>
+					<td th:text="${leave.end}"></td>
+					<td th:text="${leave.entitlement.leaveType}"></td>
+					<td th:text="${leave.reasons}"></td>
+					<td th:text="${leave.status}"></td>
+				</tr>
+				<tr th:if="${!employeeFound}">
+					<td colspan="2" style="text-align: center;">No such employee found</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/manager/employeeHistory" class="nav-link">Back to Employee History List Page</a>
+	</div>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Employee Leave History</title>
+	<style th:fragment="style">
+		/* CSS styles */
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin: auto;
+		}
+
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+			/* Light gray background for column names */
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+			/* Light gray background for even rows */
+		}
+
+		.blank-row {
+			background-color: #ffffff;
+			/* White background for blank rows */
+		}
+
+		.nav-link {
+			display: inline-block;
+			margin-top: 20px;
+			text-decoration: none;
+			color: #0000FF;
+			font-size: 16px;
+		}
+
+		.nav-link:hover {
+			color: #00587a;
+		}
+	</style>
+</head>
+
+<body th:fragment="body">
+	<div class="container">
+		<h1>Employee Leave History</h1>
+		<table>
+			<thead>
+				<tr>
+					<th style="background-color: #c0c0c0;">Name</th>
+					<th style="background-color: #c0c0c0;">Start</th>
+					<th style="background-color: #c0c0c0;">End</th>
+					<th style="background-color: #c0c0c0;">Type</th>
+					<th style="background-color: #c0c0c0;">Reason</th>
+					<th style="background-color: #c0c0c0;">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="leave : ${leaveHistory}">
+					<td th:text="${employee.name}"></td>
+					<td th:text="${leave.start}"></td>
+					<td th:text="${leave.end}"></td>
+					<td th:text="${leave.entitlement.leaveType}"></td>
+					<td th:text="${leave.reasons}"></td>
+					<td th:text="${leave.status}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/manager/employeeHistory" class="nav-link">Back to Employee History List Page</a>
+	</div>
+</body>
+
+</html>

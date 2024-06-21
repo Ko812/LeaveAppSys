@@ -1,9 +1,13 @@
 package sg.nus.iss.com.Leaveapp.model;
 
 import java.util.List;
+import java.util.function.IntPredicate;
 
 import jakarta.persistence.*;
-import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 
 @Entity
@@ -14,20 +18,33 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String role;
+    
+    @ManyToOne(fetch=FetchType.EAGER, cascade={})
+    private Role role;
+    
+    @NotBlank
     private String username;
+    
     private String password;
     
-    @ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch=FetchType.EAGER)
     private Employee manager;
     
-    @OneToMany(mappedBy="manager", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Employee> reportees;
     
-    @OneToMany(mappedBy = "employee")
-	private List<LeaveEntitlement> leaveEntitlements;
+    @OneToMany(mappedBy = "employee", fetch=FetchType.EAGER)
+	private List<Claim> claims;
     
-    public Employee(String username, String password, String name, String role) {
+    public List<Employee> getReportees() {
+		return reportees;
+	}
+
+	public void setReportees(List<Employee> reportees) {
+		this.reportees = reportees;
+	}
+
+	public Employee(String username, String password, String name, Role role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -47,9 +64,9 @@ public class Employee {
     
     public void setName(String name) { this.name = name; }
 
-    public String getRole() { return role; }
+    public Role getRole() { return role; }
     
-    public void setRole(String role) { this.role = role; }
+    public void setRole(Role role) { this.role = role; }
 
 	public String getUsername() {
 		return username;
@@ -74,4 +91,6 @@ public class Employee {
 	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
+
+	
 }

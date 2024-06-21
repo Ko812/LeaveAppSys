@@ -1,25 +1,41 @@
 package sg.nus.iss.com.Leaveapp.controller;
 
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import sg.nus.iss.com.Leaveapp.model.Action;
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
+import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
+import sg.nus.iss.com.Leaveapp.service.LeaveEntitlementServiceImpl;
 import sg.nus.iss.com.Leaveapp.service.LeaveService;
+import sg.nus.iss.com.Leaveapp.validator.LeaveValidator;
 
 @Controller
 @RequestMapping("/leave")
@@ -34,30 +50,51 @@ public class LeaveController {
 	
 	//No service layer for leaveType?
 	@Autowired
-	private LeaveTypeRepository leaveTypeService;
+	private LeaveEntitlementServiceImpl leaveEntitlementService;
 	
+	@Autowired
+	private LeaveValidator leaveValidator;
+	
+	@InitBinder
+	private void initCourseBinder(WebDataBinder binder) {
+		binder.addValidators(leaveValidator);
+	}
 	
 	@PostMapping("/submitForm")
-	public String submitLeaveApplication(@ModelAttribute("leave") Leave leave,@RequestParam("employeeId") Long employeeId, 
-            @RequestParam("leaveType") Long leaveTypeId) {
+	public String submitLeave(@Valid @ModelAttribute("leave") Leave leave, BindingResult bindingResult, HttpSession session, Model model) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("action", "leaveSubmitForm");
+			List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.getLeaveEntitlementsTypesByRole(leave.getEmployee().getRole().getName());
+			model.addAttribute("leaveEntitlements", leaveEntitlements);
+			return "index";
+		}
 		
-		Employee e = employeeService.findEmployeeRoleById(employeeId);
-		LeaveType t = leaveTypeService.findLeaveTypeById(leaveTypeId);
+		Leave leaveSaved = leaveService.save(leave);
+		if(leaveSaved == null) {
+			model.addAttribute("action", "error-message");
+			model.addAttribute("error", "Leave submission failed.");
+		} else {
+			model.addAttribute("action", "show-message");
+			model.addAttribute("message", "Leave saved successfully.");
+		}
 		
-		leave.setEmployee(e);
-		leave.setType(t);
-		
-		leaveService.save(leave);
-
-		return "redirect:/saveForm"; 
+		return "index";
 	}
 	
 	@GetMapping("/saveForm")
-	public String leaveForm(Model model) {
-		model.addAttribute("leave", new Leave());
+	public String leaveForm(Model model, HttpSession session) {
+		Leave leaveToApply = new Leave();
+		Employee e = (Employee)session.getAttribute("loggedInEmployee");
+		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.getLeaveEntitlementsTypesByRole(e.getRole().getName());
+		leaveToApply.setEmployee(e);
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		leaveToApply.setEntitlement(leaveEntitlementService.findLeaveEntitlementByType("annual", e.getRole().getId(), currentYear));
+		model.addAttribute("leave", leaveToApply);
+		
+		model.addAttribute("leaveEntitlements", leaveEntitlements);
 		model.addAttribute("action", "leaveSubmitForm");
-		List<Action> actions = Action.getAllActions();
-		model.addAttribute("actions", actions);
+		model.addAttribute("employeeName", e.getName());
+		model.addAttribute("employeeId", e.getId());
 		return "index"; // 
 	}
 	
@@ -77,16 +114,90 @@ public class LeaveController {
 	
 	
 	@GetMapping("/viewleaveHistory")
-	public String leaveHistoryChecker(@RequestParam("id") Long employeeId, Model model)
+	public String leaveHistoryChecker(Model model, HttpSession session)
 	{
-		List<Leave> leaveList = leaveService.findLeavesFromEmployeeId(employeeId);
-		model.addAttribute("leaveList", leaveList);
-		List<Action> actions = Action.getAllActions();
-		model.addAttribute("actions", actions);
+		Employee loggedInEmployee = (Employee) session.getAttribute("loggedInEmployee");
+		List<Leave> leaveHistory = leaveService.findLeavesFromEmployeeId(loggedInEmployee.getId());
+		model.addAttribute("leaveHistory", leaveHistory);
 		model.addAttribute("action", "viewleaveHistory");
 		return "index";
 	}
 	
+	@GetMapping("/manage-leave")
+    public String manageLeave(Model model, HttpSession session) {
+		Employee loggedInEmployee = (Employee) session.getAttribute("loggedInEmployee");
+        List<Leave> Leaves = leaveService.findLeavesFromEmployeeId(loggedInEmployee.getId());
+        
+        model.addAttribute("leaves", Leaves);
+        model.addAttribute("action", "manage-leave");
+        return "index";
+    }
+	
+	@GetMapping("/update-leave/{id}")
+    public String updateLeave(@PathVariable("id") Long id, Model model) {
+        Leave leave = leaveService.findById(id);
+		List<LeaveEntitlement> leaveEntitlements = leaveEntitlementService.getLeaveEntitlementsTypesByRole(leave.getEmployee().getRole().getName());
+		
+		model.addAttribute("leaveEntitlements", leaveEntitlements);
+        model.addAttribute("leave", leave);
+        model.addAttribute("action", "update-leave");
+        return "index";
+    }
 
+    @PostMapping("/update-leave")
+    public String updateLeave(@Valid @ModelAttribute("leave") Leave leave, Model model, HttpSession session) {
+    	if (leave != null && (LeaveStatus.Applied == leave.getStatus() || LeaveStatus.Updated == leave.getStatus())) {
+            leave.setStatus(LeaveStatus.Updated);
+            leaveService.save(leave);
+        }
+        return "redirect:/leave/viewleaveHistory";
+    }
+
+    @RequestMapping(value="/delete-leave/{id}")
+    public String deleteLeave(@PathVariable("id") Long id) {
+        Leave Leave = leaveService.findById(id);
+        if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
+            Leave.setStatus(LeaveStatus.Deleted);
+            leaveService.save(Leave);
+        }
+        return "redirect:/leave/viewleaveHistory";
+    }
+
+    @RequestMapping(value="/cancel-leave/{id}")
+    public String cancelLeave(@PathVariable("id") Long id) {
+        Leave Leave = leaveService.findById(id);
+        if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
+        	Leave.setStatus(LeaveStatus.Cancelled);
+            leaveService.save(Leave);
+        }
+        return "redirect:/leave/viewleaveHistory";
+    }
+	
+    @GetMapping("/make-claim")
+    public String makeClaim(Model model, HttpSession session) {
+    	Claim claim = new Claim();
+    	claim.setEmployee((Employee)session.getAttribute("loggedInEmployee"));
+    	model.addAttribute("claim", claim);
+    	model.addAttribute("action", "make-claim");
+    	return "index";
+    }
+    
+    @PostMapping("/submitClaim")
+    public String submitClaim(@Valid @ModelAttribute("claim") Claim claim, BindingResult bindingResult, Model model) {
+    	if(bindingResult.hasErrors()) {
+    		model.addAttribute("action", "make-claim");
+    		return "index";
+    	}
+    	Claim submittedClaim = leaveService.saveClaim(claim);
+    	if(submittedClaim != null) {
+    		model.addAttribute("message", "Claim submitted successfully");
+    		model.addAttribute("action", "show-message");
+    	} else {
+    		model.addAttribute("error", "Claim submission failed");
+    		model.addAttribute("action", "error-message");
+    	}
+    	return "index";
+    }
+    
 }
 

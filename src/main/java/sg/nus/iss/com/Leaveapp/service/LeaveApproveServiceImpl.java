@@ -52,7 +52,6 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
         Leave leave = leaveApproveListRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Leave not found for id: " + id));
         leave.setStatus(LeaveStatus.Rejected);
-        leave.setComment(comment);
         leaveApproveListRepository.save(leave);
     }
 
@@ -62,8 +61,9 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     }
 
     @Override
-    public List<Leave> findLeavesByStatusOrderByIdDesc(LeaveStatus status) {
-        return leaveApproveListRepository.findLeavesByStatusOrderByIdDesc(status);
+
+    public List<Leave> findLeavesByStatusOrderByStartDesc(int status) {
+    	return leaveApproveListRepository.findLeavesByStatusOrderByStartDesc(status);
     }
 
     @Override

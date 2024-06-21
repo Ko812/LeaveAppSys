@@ -1,27 +1,43 @@
 package sg.nus.iss.com.Leaveapp.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.nus.iss.com.Leaveapp.model.Employee;
-import sg.nus.iss.com.Leaveapp.model.LeaveType;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
+
+import sg.nus.iss.com.Leaveapp.model.Role;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
-import sg.nus.iss.com.Leaveapp.repository.LeaveTypeRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
+
+import sg.nus.iss.com.Leaveapp.repository.RoleRepository;
 
 @Service
 public class AdminService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-
+    
     @Autowired
-    private LeaveTypeRepository leaveTypeRepository;
+    private LeaveEntitlementRepository leaveEntitlementRepository;
+    
+    @Autowired
+    private RoleRepository roleRepository;
 
     // Employee methods
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public Page<Employee> getAllEmployees(int page, int size) {
+    	Pageable pageable = PageRequest.of(page, size);
+        return employeeRepository.findAll(pageable);
     }
 
     public Employee getEmployeeById(Long id) {
@@ -29,27 +45,48 @@ public class AdminService {
     }
 
     public void createOrUpdateEmployee(Employee employee) {
+    	Role role = roleRepository.findRoleByName(employee.getRole().getName());
+    	employee.setRole(role);
         employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(Long id) {
+    @Transactional
+    public void deleteEmployee(Long id) throws DataIntegrityViolationException{
         employeeRepository.deleteById(id);
     }
-
-    // LeaveType methods
-    public List<LeaveType> getAllLeaveTypes() {
-        return leaveTypeRepository.findAll();
+    
+    public List<Employee> getManagers() {
+        Role managerRole = roleRepository.findRoleByName("manager");
+        return employeeRepository.findByRole(managerRole);
+    }
+    
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+    
+    public List<LeaveEntitlement> getAllLeaveEntitlements() {
+        return leaveEntitlementRepository.findAll();
+    }
+    
+    public LeaveEntitlement getLeaveEntitlementById(Long id) {
+        return leaveEntitlementRepository.findById(id).orElse(null);
+    }
+    
+    public LeaveEntitlement findLeaveEntitlementByRoleTypeAndYear(Role role, String type, Integer year) {
+    	return leaveEntitlementRepository.findLeaveEntitlementByRoleTypeAndYear(role,type,year);
     }
 
-    public LeaveType getLeaveTypeById(Long id) {
-        return leaveTypeRepository.findById(id).orElse(null);
+    @Transactional
+    public void deleteLeaveEntitlement(Long id) throws DataIntegrityViolationException{
+    	leaveEntitlementRepository.deleteById(id);
     }
-
-    public void createOrUpdateLeaveType(LeaveType leaveType) {
-        leaveTypeRepository.save(leaveType);
+    
+    @Transactional
+    public void createOrUpdateLeaveType(LeaveEntitlement entitlement) {
+    	leaveEntitlementRepository.save(entitlement);
     }
-
-    public void deleteLeaveType(Long id) {
-        leaveTypeRepository.deleteById(id);
+    
+    public List<LeaveEntitlement> getLeaveEntitlementsByYear(Integer year){
+    	return leaveEntitlementRepository.findByYear(year);
     }
 }

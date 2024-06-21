@@ -3,8 +3,10 @@ package sg.nus.iss.com.Leaveapp.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
@@ -22,7 +24,9 @@ public interface LeaveService {
 	
 	LeaveStatus findLeaveStatus(Long id);
 	
-	LeaveType findLeaveType(Long id);
+	Leave findById(Long id);
+	
+	LeaveEntitlement findLeaveEntitlement(Long id);
 	
 	Long findIdByEmpId(Long empId);
 	
@@ -38,7 +42,7 @@ public interface LeaveService {
 	
 	String findEmpRoleByLeaveId(Long empId);
 	
-	void save(Leave leave);
+	Leave save(Leave leave);
 	
 	List<Leave> findLeavesFromEmployeeId(Long id);
 	

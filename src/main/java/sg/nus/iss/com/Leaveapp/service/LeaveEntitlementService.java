@@ -21,4 +21,10 @@ public interface LeaveEntitlementService {
 	boolean isWithinMedicalLeaveLimit(int employeeId, LocalDate startDate, LocalDate endDate);
 
 	boolean isValidLeavePeriod(LocalDate startDate, LocalDate endDate);
+	
+	LeaveEntitlement findLeaveEntitlementByType(String type, Long roleId, int year);
+	
+	List<String> getLeaveTypesByRole(String roleName);
+	
+	List<LeaveEntitlement> getLeaveEntitlementsTypesByRole(String roleName);
 }

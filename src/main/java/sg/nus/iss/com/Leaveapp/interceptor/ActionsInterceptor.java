@@ -6,7 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import sg.nus.iss.com.Leaveapp.Exceptions.TypeNotFoundException;
 import sg.nus.iss.com.Leaveapp.model.Action;
+import sg.nus.iss.com.Leaveapp.model.Employee;
 
 @Component
 public class ActionsInterceptor implements HandlerInterceptor {
@@ -22,8 +24,15 @@ public class ActionsInterceptor implements HandlerInterceptor {
 			ModelAndView modelAndView) {
 			
 		if(modelAndView != null) {
-//			modelAndView.addObject("action", request.getRequestURI());
-			modelAndView.addObject("actions", Action.getAllActions());
+			Employee loggedInEmployee = (Employee) request.getSession().getAttribute("loggedInEmployee");
+			if(loggedInEmployee != null && modelAndView != null) {
+				try {
+					modelAndView.addObject("actions", Action.getActionByRole(loggedInEmployee.getRole().getName()));
+				} catch (TypeNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 	}
 

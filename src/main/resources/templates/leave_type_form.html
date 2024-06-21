@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Leave Type Form</title>
+    <title>Leave Entitlement Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
             margin-bottom: 8px;
             font-weight: bold;
         }
-        input[type="text"] {
+        input[type="text"], select, input[type="number"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 20px;
@@ -56,17 +56,38 @@
     </style>
 </head>
 <body>
-    <h1>Leave Type Form</h1>
-    <form th:action="@{/admin/leavetypes/save}" th:object="${leaveType}" method="post">
-        <input type="hidden" th:field="*{id}" />
+    <h1>Leave Entitlement Form</h1>
+    <form th:action="@{/admin/leavetypes/save}" th:object="${leaveEntitlement}" method="post">
+        <input hidden th:field="*{id}" />
+		<div>
+            <label>Role:</label>
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}" ></option>
+            </select>
+        </div>
         <div>
-            <label>Type:</label>
-            <input type="text" th:field="*{type}" />
+            <label>No. of Annual Leave:</label>
+            <input type="number" th:field="*{annualLeave}" th:value="${leaveEntitlement.annualLeave}" />
+			<span th:if="${#fields.hasErrors('annualLeave')}" th:errors="*{annualLeave}" class="inputErrorMessage"></span>
+        </div>
+        <div>
+            <label>No. of Sick Leave:</label>
+            <input type="number" th:field="*{sickLeave}" th:value="${leaveEntitlement.sickLeave}"/>
+			<span th:if="${#fields.hasErrors('sickLeave')}" th:errors="*{sickLeave}" class="inputErrorMessage"></span>
+        </div>
+        
+        <div>
+            <label>Year:</label>
+
+			<select th:field="*{year}">
+				<option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
+			</select>
+
         </div>
         <div>
             <button type="submit">Save</button>
         </div>
     </form>
-    <a href="/admin/leavetypes">Back to Leave Types List</a>
+    <a href="/admin/leavetypes">Back to Leave Entitlements</a>
 </body>
 </html>

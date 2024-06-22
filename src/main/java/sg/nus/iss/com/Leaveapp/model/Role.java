@@ -61,6 +61,7 @@ public class Role {
 	public static final Role employeeRole = new Role(1L, "employee");
 	public static final Role adminRole = new Role(2L, "admin");
 	public static final Role managerRole = new Role(3L, "manager");
+	public static final Role anyRole = new Role(4L, "any");
 	
 	public static final Role getRoleByString(String role) {
 		if(role=="employee") {

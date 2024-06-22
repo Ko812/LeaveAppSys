@@ -37,6 +37,9 @@ public class Leave {
 
 	private int status;
 	
+	private boolean isHalfDayLeave;
+	
+	private Integer halfOfDay;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	private LeaveEntitlement entitlement;
@@ -46,6 +49,7 @@ public class Leave {
 		this.start = LocalDate.now();
 		this.end = LocalDate.now();
 		this.comment = "";
+		this.isHalfDayLeave = false;
 	}
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, int status) {
@@ -57,6 +61,7 @@ public class Leave {
 		this.reasons = reasons;
 		this.setStatus(status);
 		this.comment = "";
+		this.isHalfDayLeave = false;
 	}
 
 	public Long getId() {
@@ -227,6 +232,26 @@ public class Leave {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	public String displayStatus() {
+		return LeaveStatus.asString(status);
+	}
+
+	public boolean getIsHalfDayLeave() {
+		return isHalfDayLeave;
+	}
+
+	public void setHalfDayLeave(boolean isHalfDayLeave) {
+		this.isHalfDayLeave = isHalfDayLeave;
+	}
+
+	public Integer getHalfOfDay() {
+		return halfOfDay;
+	}
+
+	public void setHalfOfDay(Integer halfOfDay) {
+		this.halfOfDay = halfOfDay;
 	}
 	
 	

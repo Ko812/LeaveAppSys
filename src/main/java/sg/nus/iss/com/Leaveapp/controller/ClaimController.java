@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
+import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.service.LeaveService;
 
 @Controller
@@ -20,6 +23,9 @@ public class ClaimController {
 	
 	@Autowired
 	private LeaveService leaveService;
+	
+	@Autowired
+	private LeaveEntitlementRepository leaveEntitlementRepository;
 
 	
 	@GetMapping("/make-claim")
@@ -49,6 +55,40 @@ public class ClaimController {
 		}
 		return "index";
 	}
+	
+	@GetMapping("/consume")
+    public String consumeClaim(Model model, HttpSession session) {
+    	Leave leaveUsingClaim = new Leave();
+    	Employee e = (Employee)session.getAttribute("loggedInEmployee");
+    	
+    	leaveUsingClaim.setEmployee(e);
+    	model.addAttribute("leave", leaveUsingClaim);
+    	model.addAttribute("action", "consume-claim");
+    	return "index";
+    }
+	
+	@PostMapping("/applyConsumption")
+    public String applyConsumption(@Valid @ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model, HttpSession session) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("action", "consume-claim");
+			return "index";
+		}
+		LeaveEntitlement compensationEntitlement = leaveEntitlementRepository.getCompensationEntitlement();
+		Employee e = (Employee)session.getAttribute("loggedInEmployee");
+		
+		leave.setEmployee(e);
+		leave.setEntitlement(compensationEntitlement);
+    	
+		Leave leaveSaved = leaveService.save(leave);
+    	if(leaveSaved == null) {
+			model.addAttribute("action", "error-message");
+			model.addAttribute("error", "Leave submission failed.");
+		} else {
+			model.addAttribute("action", "show-message");
+			model.addAttribute("message", "Leave saved successfully.");
+		}
+    	return "index";
+    }
 }
 
 

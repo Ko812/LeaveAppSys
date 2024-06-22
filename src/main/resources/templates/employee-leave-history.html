@@ -144,7 +144,7 @@
 					<td th:text="${leave.end}"></td>
 					<td th:text="${leave.entitlement.leaveType}"></td>
 					<td th:text="${leave.reasons}"></td>
-					<td th:text="${leave.status}"></td>
+					<td th:text="${leave.displayStatus()}"></td>
 				</tr>
 			</tbody>
 		</table>

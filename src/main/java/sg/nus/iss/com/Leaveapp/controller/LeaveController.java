@@ -120,6 +120,9 @@ public class LeaveController {
 		List<Leave> leaveHistory = leaveService.findLeavesFromEmployeeId(loggedInEmployee.getId());
 		model.addAttribute("leaveHistory", leaveHistory);
 		model.addAttribute("action", "viewleaveHistory");
+		
+		List<Claim> claimHistory = leaveService.findClaimsByEmployee(loggedInEmployee);
+		model.addAttribute("claimHistory", claimHistory);
 		return "index";
 	}
 	

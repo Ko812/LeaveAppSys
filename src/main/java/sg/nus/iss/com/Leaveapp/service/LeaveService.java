@@ -48,5 +48,9 @@ public interface LeaveService {
 
 	Claim saveClaim(Claim claim);
 	
+	List<Claim> findClaimsByEmployee(Employee employee);
 	
+	List<Claim> findApprovedClaimsByEmployee(Employee employee);
+	
+	Boolean hasUnconsumeClaimedLeaves(Employee employee);
 }

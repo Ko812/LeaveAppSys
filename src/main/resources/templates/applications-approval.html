@@ -133,6 +133,31 @@
 				</tr>
 			</tbody>
 		</table>
+		<h1>Claim Requests for Approval</h1>
+		<table>
+			<thead>
+				<tr>
+					<th style="background-color: #9090c0;">Date Submitted</th>
+					<th style="background-color: #9090c0;">Employee Name</th>
+					<th style="background-color: #9090c0;">Leave ID</th>
+					<th style="background-color: #9090c0;">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${claimRequests.size() == 0}">
+					<td colspan="3" style="text-align: center;">No employees found</td>
+				</tr>
+				<!-- Use Thymeleaf to iterate over the leaveApplications list -->
+				<tr th:each="claim,iter : ${claimRequests}">
+					<td th:text="${claim.dateOfSubmission}"></td>
+					<td th:text="${claim.employee.name}"></td>
+					<td th:text="${claim.id}"></td>
+					<td>
+						<a th:href="@{/manager/claim-details/{id}(id=${claim.id})}" class="view-link">View</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 

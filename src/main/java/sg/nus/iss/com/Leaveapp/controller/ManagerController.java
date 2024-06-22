@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.service.LeaveApproveService;
-
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
@@ -47,28 +47,24 @@ public class ManagerController {
 	@PostMapping("/approve")
 	public String approveLeave(@ModelAttribute("leave") Leave leave, Model model) {
 		leaveApproveService.approveLeave(leave);
-//		if(approvedLeave == null) {
-//			model.addAttribute("action", "error-message");
-//			model.addAttribute("error", "Leave approval failed.");
-//		} else {
-//			model.addAttribute("action", "show-message");
-//			model.addAttribute("message", "Leave approved successfully.");
-//		}
 		return "redirect:/manager/applications";
-		//return Applications for Approval
-
 	}
 
 	@PostMapping("/reject")
 	public String rejectLeave(@ModelAttribute("leave") Leave leave) {
 		leaveApproveService.rejectLeave(leave);
-//		if(rejectedLeave == null) {
-//			model.addAttribute("action", "error-message");
-//			model.addAttribute("error", "Leave approval failed.");
-//		} else {
-//			model.addAttribute("action", "show-message");
-//			model.addAttribute("message", "Leave approved successfully.");
-//		}
+		return "redirect:/manager/applications";
+	}
+	
+	@PostMapping("/approveClaim")
+	public String approveClaim(@ModelAttribute("claim") Claim claim, Model model) {
+		leaveApproveService.approveClaim(claim);
+		return "redirect:/manager/applications";
+	}
+
+	@PostMapping("/rejectClaim")
+	public String rejectLeave(@ModelAttribute("claim") Claim claim) {
+		leaveApproveService.rejectClaim(claim);
 		return "redirect:/manager/applications";
 	}
 	
@@ -78,9 +74,22 @@ public class ManagerController {
 		Employee manager = (Employee) session.getAttribute("loggedInEmployee");
 	    List<Leave> leaveApplications = managerService.getLeaveApplicationsForApproval(manager.getId());
 	    model.addAttribute("leaveApplications", leaveApplications);
+	    
+	    List<Claim> claimRequests = managerService.getClaimRequestsForApproval(manager.getId());
+	    model.addAttribute("claimRequests", claimRequests);
 	    model.addAttribute("action", "leaveApplications");
 	    return "index"; // Create a new HTML file for displaying the applications
 	}
+	
+	
+	@GetMapping("/claim-details/{id}")
+	public String viewClaimDetails(@PathVariable("id") Long id, Model model) {
+	    Claim claim = managerService.getClaimById(id);
+	    model.addAttribute("claim", claim);
+	    model.addAttribute("action", "claim-details");
+	    return "index";
+	}
+	
 	
 	
 	@GetMapping("/application-details/{id}")

@@ -1,5 +1,7 @@
 package sg.nus.iss.com.Leaveapp.model;
 
+import java.util.List;
+
 import sg.nus.iss.com.Leaveapp.Exceptions.TypeNotFoundException;
 
 public class LeaveStatus {
@@ -29,7 +31,7 @@ public class LeaveStatus {
 		}
 	}
 	
-	public static String asString(int status) throws TypeNotFoundException{
+	public static String asString(int status){
 		switch(status) {
 		case 1:
 			return "Applied";
@@ -44,7 +46,11 @@ public class LeaveStatus {
 		case 6:
 			return "Updated";
 		default:
-			throw new TypeNotFoundException();
+			return "";
 		}
+	}
+	
+	public static final List<Integer> getConsumedStatus() {
+		return List.of(new Integer[] {Applied, Approved, Updated});
 	}
 }

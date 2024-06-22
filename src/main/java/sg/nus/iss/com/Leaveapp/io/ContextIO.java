@@ -107,6 +107,7 @@ public class ContextIO {
 		rr.save(Role.employeeRole);
 		rr.save(Role.adminRole);
 		rr.save(Role.managerRole);
+		
 	}
 	
 	public void LoadLeaveEntitlement(LeaveEntitlementRepository ler) {	
@@ -116,12 +117,14 @@ public class ContextIO {
 		LeaveEntitlement adminSickLeaveEntitlement = new LeaveEntitlement("medical", 7, Role.adminRole, 2024);
 		LeaveEntitlement managerAnnualLeaveEntitlement = new LeaveEntitlement("annual", 16, Role.managerRole, 2024);
 		LeaveEntitlement managerSickLeaveEntitlement = new LeaveEntitlement("medical", 8, Role.managerRole, 2024);
+		LeaveEntitlement compensationEntitlement = new LeaveEntitlement("compensation", 0, Role.managerRole, 2020);
 		ler.save(employeeAnnualLeaveEntitlement);
 		ler.save(employeeSickLeaveEntitlement);
 		ler.save(adminAnnualLeaveEntitlement);
 		ler.save(adminSickLeaveEntitlement);
 		ler.save(managerAnnualLeaveEntitlement);
 		ler.save(managerSickLeaveEntitlement);
+		ler.save(compensationEntitlement);
 	}
 	
 	public void LoadLeaves(LeaveRepository lr, EmployeeRepository er, LeaveEntitlementRepository ler, RoleRepository rr) {
@@ -181,11 +184,19 @@ public class ContextIO {
 			while((x = br.readLine()) != null) {
 				List<String> dat = List.of(x.split(","));
 				String username = dat.get(0);
+				Employee e = er.findEmployeeByUsername(username);
 				double numberOfDays = Double.parseDouble(dat.get(1));
 				String reasons = dat.get(2);
 				int status = LeaveStatus.of(dat.get(3));
-				Employee e = er.findEmployeeByUsername(username);
+				String[] submitDateStringArray = dat.get(4).split("/");
+				LocalDate submitDate = LocalDate.of(Integer.parseInt(submitDateStringArray[2]), Integer.parseInt(submitDateStringArray[1]), Integer.parseInt(submitDateStringArray[0]));
 				Claim c = new Claim(e, numberOfDays, reasons, status);
+				c.setDateOfSubmission(submitDate);
+				if(dat.size() > 5) {
+					String[] approvedDateStringArray = dat.get(5).split("/");
+					LocalDate approveDate = LocalDate.of(Integer.parseInt(approvedDateStringArray[2]), Integer.parseInt(approvedDateStringArray[1]), Integer.parseInt(approvedDateStringArray[0]));
+					c.setDateApproved(approveDate);
+				}
 				cr.save(c);
 			}
 			System.out.println("Claims loaded.");

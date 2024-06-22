@@ -33,5 +33,8 @@ public interface LeaveEntitlementRepository extends JpaRepository<LeaveEntitleme
 	
 	
 	public List<LeaveEntitlement> findByYear(Integer year);
+	
+	@Query("SELECT e FROM LeaveEntitlement e WHERE e.leaveType = 'compensation'")
+	public LeaveEntitlement getCompensationEntitlement();
 }
 

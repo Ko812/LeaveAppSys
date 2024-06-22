@@ -13,6 +13,7 @@ import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
+import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 
 @Service
@@ -23,6 +24,9 @@ public class LeaveServiceImpl implements LeaveService {
 	
     @Autowired
     private LeaveRepository leaveRepository;
+    
+    @Autowired 
+    private LeaveEntitlementRepository leaveEntitlementRepository;
 
     @Override
     public Employee findEmployee(Long id) {
@@ -115,6 +119,34 @@ public class LeaveServiceImpl implements LeaveService {
     public Claim saveClaim(Claim claim) {
     	claim.setStatus(LeaveStatus.Applied);
     	return claimRepository.save(claim);
+    }
+    
+    @Override
+    public List<Claim> findClaimsByEmployee(Employee employee) {
+    	return claimRepository.findClaimsByEmployee(employee);
+    }
+    
+    @Override
+    public List<Claim> findApprovedClaimsByEmployee(Employee employee) {
+    	return claimRepository.findApprovedClaimsByEmployee(LeaveStatus.Approved, employee.getId());
+    }
+    
+    @Override
+    public Boolean hasUnconsumeClaimedLeaves(Employee employee) {
+    	List<Claim> claimedLeaves = claimRepository.findApprovedClaimsByEmployee(employee.getId());
+    	double totalClaimedLeaves = claimedLeaves
+    			.stream()
+    			.map(cl -> cl.getClaimDays())
+    			.reduce((cd1, cd2) -> cd1 + cd2)
+    			.get();
+    	LeaveEntitlement compensationEntitlement = leaveEntitlementRepository.getCompensationEntitlement();
+    	double totalConsumedClaimedLeaves = leaveRepository.findCompensationLeavesByEmployee(employee.getId(), compensationEntitlement.getId())
+    			.stream()
+    			.filter(cl -> LeaveStatus.getConsumedStatus().contains(cl.getStatus()))
+    			.map(cl -> cl.getNumberOfDays())
+    			.reduce((d1, d2) -> d1 + d2)
+    			.get();
+    	return totalClaimedLeaves > totalConsumedClaimedLeaves;
     }
     
 }

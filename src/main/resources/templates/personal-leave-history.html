@@ -53,18 +53,39 @@
 			<tbody>
 				<!-- Use Thymeleaf to display the found employee -->
 				<tr th:each="leave : ${leaveHistory}">
-					<td th:text="${leave.start}"></td>
-					<td th:text="${leave.end}"></td>
+					<td th:text="${leave.getLocalStartDate()}"></td>
+					<td th:text="${leave.displayEnd()}"></td>
 					<td th:text="${leave.entitlement.leaveType}"></td>
 					<td th:text="${leave.reasons}"></td>
-					<td th:text="${leave.status}"></td>
-					<!--<td>
-						<a th:href="@{/manager/history/{employeeId}(id=${employee.id})}">View</a>
-					</td>-->
+					<td th:text="${leave.displayStatus()}"></td>
 				</tr>
 				
 			</tbody>
 		</table>
+		<br/><br/>
+		<h1>My Claim History</h1>
+				<table>
+					<thead>
+						<tr>
+							<th style="background-color: #c0c0c0;">Date of Claim Submission</th>
+							<th style="background-color: #c0c0c0;">Claim (Days)</th>
+							<th style="background-color: #c0c0c0;">Reason</th>
+							<th style="background-color: #c0c0c0;">Status</th>
+							<th style="background-color: #c0c0c0;">Date Approved</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr th:each="claim : ${claimHistory}">
+							<td th:text="${claim.dateOfSubmission}"></td>
+							<td th:text="${claim.claimDays}"></td>
+							<td th:text="${claim.reasonSupporting}"></td>
+							<td th:text="${claim.displayStatus()}"></td>
+							<td th:text="${claim.showDateApproved()}"></td>
+						</tr>
+						
+					</tbody>
+				</table>
 		<a href="/" class="nav-link">Back to Employee History List Page</a>
 	</div>
 </body>

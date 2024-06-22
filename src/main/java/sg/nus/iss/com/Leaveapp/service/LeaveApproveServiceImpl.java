@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
-import sg.nus.iss.com.Leaveapp.model.Claim;
+import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
+
 import sg.nus.iss.com.Leaveapp.repository.LeaveApproveListRepository;
 
 import java.util.List;
@@ -20,11 +23,9 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     @Autowired
     private LeaveApproveListRepository leaveApproveListRepository;
 
+    @Autowired
+    private ClaimRepository claimRepository;
     
-//    @Override
-//    public List<Leave> findAllLeaves() {
-//        return leaveApproveListRepository.findAll();
-//    }
     
     @Override
     public List<Leave> findAllByOrderByIdDesc() {
@@ -46,6 +47,7 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     	currentLeave.setComment(leave.getComment());
         leaveApproveListRepository.save(currentLeave);
     }
+
     
 //    @Override
 //    public void approveCurrentClaim(Claim claim, Employee employee) {
@@ -72,15 +74,30 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
 //    }
 
 
-    
 
+    
+    @Override
+    public void approveClaim(Claim claim) {
+    	Claim currentClaim = claimRepository.findById(claim.getId()).get();
+    	currentClaim.setStatus(LeaveStatus.Approved);
+    	claimRepository.save(currentClaim);
+    }
+
+    @Override
+    public void rejectClaim(Claim claim) {
+    	Claim currentClaim = claimRepository.findById(claim.getId()).get();
+    	currentClaim.setStatus(LeaveStatus.Approved);
+    	currentClaim.setComments(claim.getComments());
+    	claimRepository.save(currentClaim);
+    }
+
+   
     @Override
     public Leave getById(Long id) {
         return leaveApproveListRepository.getReferenceById(id);
     }
 
     @Override
-
     public List<Leave> findLeavesByStatusOrderByStartDesc(int status) {
     	return leaveApproveListRepository.findLeavesByStatusOrderByStartDesc(status);
     }

@@ -31,11 +31,11 @@
         <div class="col-md-6">
             <strong>Status:</strong>
 			<span th:switch="${leave.status}">
-			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Applied}" class="status-applied" th:text="${leave.status}"></span>
-					<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Cancelled}" class="status-cancelled" th:text="${leave.status}"></span>
-			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Rejected}" class="status-rejected" th:text="${leave.status}"></span>
-			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Approved}" class="status-approved" th:text="${leave.status}"></span>
-			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Deleted}" class="status-deleted" th:text="${leave.status}"></span>
+			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Applied}" class="status-applied" th:text="${leave.displayStatus()}"></span>
+					<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Cancelled}" class="status-cancelled" th:text="${leave.displayStatus()}"></span>
+			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Rejected}" class="status-rejected" th:text="${leave.displayStatus()}"></span>
+			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Approved}" class="status-approved" th:text="${leave.displayStatus()}"></span>
+			        <span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Deleted}" class="status-deleted" th:text="${leave.displayStatus()}"></span>
 			        
 			</span>
         </div>
@@ -63,8 +63,8 @@
             <button class="btn btn-danger" type="submit">Reject</button>
         </form>
     </div>
+	<br/>
 
-    <a class="btn btn-link" th:href="@{/leaveapprove/list}">Back to list</a>
 
     <!-- History Table -->
     <h2 class="mt-5"><span th:text="${leave.employee.name}"></span> History Leave</h2>
@@ -83,15 +83,16 @@
             <td th:text="${leave.end}"></td>
             <td th:text="${leave.reasons}"></td>
 			<td th:switch="${leave.status}">
-				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Applied}" class="status-applied" th:text="${leave.status}"></span>
-				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Rejected}" class="status-rejected" th:text="${leave.status}"></span>
-				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Approved}" class="status-approved" th:text="${leave.status}"></span>
-				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Deleted}" class="status-deleted" th:text="${leave.status}"></span>
-				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Cancelled}" class="status-cancelled" th:text="${leave.status}"></span>
+				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Applied}" class="status-applied" th:text="${leave.displayStatus()}"></span>
+				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Rejected}" class="status-rejected" th:text="${leave.displayStatus()}"></span>
+				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Approved}" class="status-approved" th:text="${leave.displayStatus()}"></span>
+				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Deleted}" class="status-deleted" th:text="${leave.displayStatus()}"></span>
+				<span th:case="${T(sg.nus.iss.com.Leaveapp.model.LeaveStatus).Cancelled}" class="status-cancelled" th:text="${leave.displayStatus()}"></span>
 			</td>
         </tr>
         </tbody>
     </table>
+	<a class="btn btn-link" th:href="@{/manager/applications}">Back to View Leave Applications</a>
 </div>
 </body>
 </html>

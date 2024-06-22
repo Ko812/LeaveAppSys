@@ -90,4 +90,7 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 		
 		@Query("SELECT l.employee FROM Leave l WHERE l.employee.name = :name")
 		public Employee findEmployeeName(@Param("name") String name);
+		
+		@Query("SELECT l FROM Leave l WHERE l.employee.id = :employee_id AND l.entitlement.id = :compensation_id")
+		public List<Leave> findCompensationLeavesByEmployee(@Param("employee_id") Long employee_id, @Param("compensation_id") int compensation_id);
 }

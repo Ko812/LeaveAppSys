@@ -6,11 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
-
+import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
@@ -29,6 +30,9 @@ public class ManagerServiceImpl implements ManagerService{
         
     @Autowired
     private LeaveRepository leaveRepository;
+    
+    @Autowired
+    private ClaimRepository claimRepository;
     
     // Employee methods
     public List<Employee> getAllEmployees() {
@@ -57,12 +61,23 @@ public class ManagerServiceImpl implements ManagerService{
     public List<Leave> getLeaveApplicationsForApproval(Long managerId) {
     	List<Employee> reportees = employeeRepository.findReporteeEmployeesByManagerId(managerId);
     	List<Long> reporteesId = reportees.stream().map(e -> e.getId()).toList();
-    	System.out.println(reporteesId);
     	List<Leave> allAppliedLeaves = leaveRepository.findByStatusIn(Arrays.asList(LeaveStatus.Applied));
         return allAppliedLeaves
         		.stream()
         		.filter(l -> reporteesId.contains(l.getEmployee().getId()))
         		.toList();
+    }
+    
+    @Override
+    public List<Claim> getClaimRequestsForApproval(Long managerId) {
+    	List<Employee> reportees = employeeRepository.findReporteeEmployeesByManagerId(managerId);
+    	List<Long> reportee_ids = reportees.stream().map(e -> e.getId()).toList();
+
+    	List<Claim> claimsRequestedByReportees = claimRepository.findClaimsByStatusAndReportees(LeaveStatus.Applied, reportee_ids);
+        claimsRequestedByReportees
+        		.stream()
+        		.forEach(System.out::println);
+        return claimsRequestedByReportees;
     }
     
     
@@ -76,6 +91,11 @@ public class ManagerServiceImpl implements ManagerService{
 		return leaveRepository.findById(id);
 	}
 
+	@Override
+	public Claim getClaimById(Long id) {
+		return claimRepository.findById(id).get();
+	}
+	
 	@Override
 	public Employee findEmployeeByName(String employeeName) {
 		return leaveRepository.findEmployeeName(employeeName);

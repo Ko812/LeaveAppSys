@@ -25,7 +25,7 @@ public class CommonController {
 			model.addAttribute("employee", employee);
 			model.addAttribute("action", "login");
 		}
-		return "index";
+		return "login";
 	}
 	
 	@PostMapping("/login")
@@ -43,6 +43,6 @@ public class CommonController {
 		session.invalidate();
 		model.addAttribute("action", "login");
 		model.addAttribute("employee", new Employee());
-		return "index";
+		return "login";
 	}
 }

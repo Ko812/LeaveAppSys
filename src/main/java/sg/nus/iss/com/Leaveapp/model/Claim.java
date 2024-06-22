@@ -19,8 +19,9 @@ public class Claim {
 	
 	@Positive(message="Days to claim cannot be negative.")
 	private double claimDays;
-	
+
 	private double approvedDays;
+
 	
 	@NotBlank(message="Reason cannot be blank.")
 	private String reasonSupporting;
@@ -32,6 +33,8 @@ public class Claim {
 	private int status;
 	
 	private String comments;
+	
+	
 
 	public Claim(Employee employee, double claimDays, String reasonSupporting, int status) {
 		super();

@@ -1,73 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Employee Leave History List</title>
-	<style th:fragment="style">
-		/* CSS styles */
-		table {
-			border-collapse: collapse;
-			width: 100%;
-		}
-
-		th,
-		td {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-
-		th {
-			background-color: #f2f2f2;
-			/* Light gray background for column names */
-		}
-
-		tr:nth-child(even) {
-			background-color: #f2f2f2;
-			/* Light gray background for even rows */
-		}
-
-		.blank-row {
-			background-color: #ffffff;
-			/* White background for blank rows */
-		}
-	</style>
-</head>
-
-<body>
-	<div class="container">
-		<h1>Employee Leave History List</h1>
-		<form th:action="@{/leave/searchEmployee}" method="post">
-			<label for="employeeName">Employee Name:</label>
-			<input type="text" id="employeeName" name="employeeName">
-			<button type="submit">Search</button>
-		</form>
-		<br/><br/>
-		<table>
-			<thead>
-				<tr>
-					<th style="background-color: #c0c0c0;">Employee Name</th>
-					<th style="background-color: #c0c0c0;">Leave History</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="employee : ${employees}">
-					<td th:text="${employee.name}"></td>
-					<td>
-						<a th:href="@{/manager/history/{id}(id=${employee.id})}">View</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</body>
-
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -77,11 +7,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Employee Leave History List</title>
 	<style th:fragment="style">
-		/* CSS styles */
 		table {
 			border-collapse: collapse;
 			width: 40%;
-			margin: 0 auto;
+			margin: auto;
 		}
 
 		th,
@@ -92,23 +21,46 @@
 		}
 
 		th {
-			background-color: #f2f2f2;
-			/* Light gray background for column names */
+			background-color: #c0c0c0;
+		}
+
+		tr:nth-child(odd) {
+			background-color: #ffe6f0;
 		}
 
 		tr:nth-child(even) {
-			background-color: #f2f2f2;
-			/* Light gray background for even rows */
+			background-color: #c6e2ff;
 		}
 
 		.blank-row {
 			background-color: #ffffff;
-			/* White background for blank rows */
 		}
-		
+
 		.view-link {
-		    color: #0000FF; /* Light blue color for "view" hyperlink */
-		    text-decoration: none;
+			color: #0000FF;
+			text-decoration: none;
+		}
+
+		.view-link:hover {
+			color: #00587a;
+		}
+
+		input[type="text"] {
+			margin-bottom: 15px;
+			background-color: #f0f0f0;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			font-size: 30px;
+			color: #0000FF;
+		}
+
+		form {
+			margin-bottom: 40px;
+			background-color: #f9f9f9;
 		}
 	</style>
 </head>
@@ -117,16 +69,15 @@
 	<div class="container">
 		<h1>Employee Leave History List</h1>
 		<form th:action="@{/manager/searchEmployee}" method="post">
-			<label for="employeeName">Employee Name:</label>
+			<label for="employeeName">Employee Name</label>
 			<input type="text" id="employeeName" name="employeeName">
 			<button type="submit">Search</button>
 		</form>
-		<br/><br/>
 		<table>
 			<thead>
 				<tr>
-					<th style="background-color: #c0c0c0;">Employee Name</th>
-					<th style="background-color: #c0c0c0;">Leave History</th>
+					<th>Employee Name</th>
+					<th>Leave History</th>
 				</tr>
 			</thead>
 			<tbody>

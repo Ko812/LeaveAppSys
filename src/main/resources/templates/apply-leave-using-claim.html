@@ -8,9 +8,9 @@
 
 <div class="container" th:fragment="submitLeaveAppBody">
     <h2>Consume Claim Application Form</h2>
-    <form th:action="@{/claim/applyConsumption}" th:object="${leave}" method="post">
+    <form th:action="@{/leave/applyConsumption}" th:object="${leave}" method="post">
 		<input hidden th:field="*{employee}" th:value="${leave.employee.id}"/>
-		
+		<input hidden th:field="*{entitlement}" th:value="${leave.entitlement.id}"/>
 		<div class="form-group">
 			<label for="startDate">Start Date:</label>
 			<input type="date" id="startDate" th:field="*{start}" class="form-control" />
@@ -36,6 +36,7 @@
 				</div>
 			</div>
 		</div>
+		<span th:if="${#fields.hasErrors('halfDayLeave')}" th:errors="*{halfDayLeave}" class="inputErrorMessage"></span>
 		
 		<div class="form-group">
 			<label for="endDate">End Date:</label>
@@ -59,11 +60,12 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<script>
-	
-	var isHalfDay = false;
+<script th:inline="javascript">
+	var isHalfDay = /*[[${leave.halfDayLeave}]]*/ false;
+
 	function toggleHalfDay(){
 		isHalfDay = !isHalfDay;
+
 		const morningHalfTag = document.getElementById("morningHalf");
 		const afternoonHalfTag = document.getElementById("afternoonHalf");
 		const endTag = document.getElementById("endDate");
@@ -78,6 +80,25 @@
 			afternoonHalfTag.setAttribute("disabled", true);
 			endTag.removeAttribute("disabled");
 		}
+	}
+	window.onload = function(e){
+		const morningHalfTag = document.getElementById("morningHalf");
+		const afternoonHalfTag = document.getElementById("afternoonHalf");
+		const endTag = document.getElementById("endDate");
+		const startTag = document.getElementById("startDate");
+
+		var hd = /*[[${leave.halfDayLeave}]]*/ false;
+		if(hd){
+			
+			morningHalfTag.removeAttribute("disabled");
+			afternoonHalfTag.removeAttribute("disabled");
+			endTag.setAttribute("disabled", true);
+			endTag.setAttribute("value", startTag.getAttribute("value"));
+		}
+		var start = /*[[${leave.start}]]*/ Date.now;
+		var end = /*[[${leave.end}]]*/ Date.now;
+		startTag.setAttribute("value", start);
+		endTag.setAttribute("value", end);
 	}
 </script>
 

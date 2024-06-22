@@ -42,7 +42,8 @@
 		</div>
 		
 		<div class="d-flex flex-row p-2">
-			<input type="checkbox" id="overseasLeave" th:field="*{overseas}" name="overseasLeave" onchange="updateContactField()"><label for="overseasLeave" class="mt-1">Overseas Leave</label>
+			<input type="checkbox" id="overseasLeave" th:field="*{overseas}" name="overseasLeave" onchange="updateContactField()">
+			<label for="overseasLeave" class="ms-2 p-2">Overseas Leave</label>
 		</div>
 		
 		<div class="mb-3">
@@ -68,6 +69,19 @@
 		} else {
 			contactField.setAttribute("disabled", true);
 		}
+	}
+	window.onload = function(e){
+		const endTag = document.getElementById("endDate");
+		const startTag = document.getElementById("startDate");
+
+		var ov = /*[[${leave.overseas}]]*/ false;
+		if(ov){
+			document.getElementById("overseasContact").removeAttribute("disabled");
+		}
+		var start = /*[[${leave.start}]]*/ Date.now;
+		var end = /*[[${leave.end}]]*/ Date.now;
+		startTag.setAttribute("value", start);
+		endTag.setAttribute("value", end);
 	}
 </script>
 

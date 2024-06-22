@@ -82,7 +82,7 @@ public class Action {
 //	public static final Action actionApproveRejectClaim = new Action(9L, "approve_reject_claim", "/leave/manage/approve-claim", List.of("manager"));
 	public static final Action actionManageLeaveEntitlement = new Action(10L, "manage_leave_entitlement", "/admin/leavetypes", List.of("admin"));
 	public static final Action actionManageStaff = new Action(11L, "manage_staff", "/admin/employees", List.of("admin"));
-	public static final Action actionConsumeClaim = new Action(12L, "consume_claim", "/claim/consume", List.of("employee", "admin", "manager"));
+	public static final Action actionConsumeClaim = new Action(12L, "consume_claim", "/leave/consume", List.of("employee", "admin", "manager"));
 //	public static final Action actionManageLeaveEntitlement = new Action(12L, "manage_leave_entitlement", "/admin/leave-entitlements", List.of("admin"));
 //	public static final Action actionManageApprovalHierarchy = new Action(13L, "manage_hierarchy", "/admin/manage-approver", List.of("admin"));
 	
@@ -91,6 +91,7 @@ public class Action {
 		allActions.add(actionSubmitApplication);
 		allActions.add(actionManageLeave);
 		allActions.add(actionClaimCompensation);
+		allActions.add(actionConsumeClaim);
 		allActions.add(actionLeaveHistory);
 //		allActions.add(actionViewApplications);
 		allActions.add(actionViewEmployeeApplications);
@@ -101,7 +102,7 @@ public class Action {
 		allActions.add(actionManageStaff);
 //		allActions.add(actionManageLeaveEntitlement);
 //		allActions.add(actionManageApprovalHierarchy);
-		allActions.add(actionConsumeClaim);
+		
 		return allActions;
 	}
 	

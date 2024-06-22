@@ -192,11 +192,12 @@ public class ContextIO {
 				LocalDate submitDate = LocalDate.of(Integer.parseInt(submitDateStringArray[2]), Integer.parseInt(submitDateStringArray[1]), Integer.parseInt(submitDateStringArray[0]));
 				Claim c = new Claim(e, numberOfDays, reasons, status);
 				c.setDateOfSubmission(submitDate);
-				if(dat.size() > 5) {
-					String[] approvedDateStringArray = dat.get(5).split("/");
+				String[] approvedDateStringArray = dat.get(5).split("/");
+				if(approvedDateStringArray.length > 2) {
 					LocalDate approveDate = LocalDate.of(Integer.parseInt(approvedDateStringArray[2]), Integer.parseInt(approvedDateStringArray[1]), Integer.parseInt(approvedDateStringArray[0]));
 					c.setDateApproved(approveDate);
 				}
+				c.setApprovedDays(Double.parseDouble(dat.get(6)));
 				cr.save(c);
 			}
 			System.out.println("Claims loaded.");

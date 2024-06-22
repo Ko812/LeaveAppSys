@@ -118,4 +118,9 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
     public List<LeaveEntitlement> getLeaveEntitlementsTypesByRole(String roleName){
     	return leaveEntitlementRepository.getLeaveEntitlementsTypesByRole(roleName);
     }
+    
+    @Override
+    public LeaveEntitlement getCompensationEntitlement(){
+    	return leaveEntitlementRepository.getCompensationEntitlement();
+    }
 }

@@ -106,9 +106,9 @@ public class LeaveServiceImpl implements LeaveService {
     @Override
     public Leave save(Leave leave)
     {
-    	leave.setStatus(LeaveStatus.Applied);
     	return leaveRepository.save(leave);
     }
+    
     
     @Override
     public List<Leave> findLeavesFromEmployeeId(Long id) {
@@ -138,14 +138,17 @@ public class LeaveServiceImpl implements LeaveService {
     			.stream()
     			.map(cl -> cl.getClaimDays())
     			.reduce((cd1, cd2) -> cd1 + cd2)
-    			.get();
+    			.orElse(0.0);
+    	if(totalClaimedLeaves == 0.0) {
+    		return false;
+    	}
     	LeaveEntitlement compensationEntitlement = leaveEntitlementRepository.getCompensationEntitlement();
     	double totalConsumedClaimedLeaves = leaveRepository.findCompensationLeavesByEmployee(employee.getId(), compensationEntitlement.getId())
     			.stream()
     			.filter(cl -> LeaveStatus.getConsumedStatus().contains(cl.getStatus()))
     			.map(cl -> cl.getNumberOfDays())
     			.reduce((d1, d2) -> d1 + d2)
-    			.get();
+    			.orElse(0.0);
     	return totalClaimedLeaves > totalConsumedClaimedLeaves;
     }
     

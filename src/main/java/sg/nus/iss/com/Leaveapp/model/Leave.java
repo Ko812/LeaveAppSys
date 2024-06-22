@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -144,13 +145,15 @@ public class Leave {
 		this.overseasContact = overseasContact;
 	}
 	
-	public Integer getNumberOfDays() {
+	public Double getNumberOfDays() {
+		if(halfDayLeave) {
+			return 0.5;
+		}
 		Integer range = Integer.parseInt((end.toEpochDay() - start.toEpochDay() + 1) + "");
 		if(range > 14) {
-			
-			return range;
+			return range * 1.0;
 		} else {
-			return range - getNumberOfWeekendDaysInLeaveRange(range);
+			return range - getNumberOfWeekendDaysInLeaveRange(range) * 1.0;
 		}
 	}
 	
@@ -194,16 +197,22 @@ public class Leave {
 		return this.status == LeaveStatus.Updated ||this.status == LeaveStatus.Applied || this.status == LeaveStatus.Approved;
 	}
 	
-	public static Integer consumedDaysOfLeave(List<Leave> consumedLeaves, String type) {
-		return consumedLeaves
+	public static Double consumedDaysOfLeave(List<Leave> consumedLeaves, String type) {
+		List<Leave> consumedLeavesOfGivenType = consumedLeaves
 		.stream()
-		.filter(l -> l.getEntitlement().getLeaveType().compareTo(type) == 0)
-		.map(l -> {
-			System.out.println("Leave from: " + l.getStart() + " to " + l.getEnd() + ". Number of days: " + l.getNumberOfDays());
-			return l.getNumberOfDays();
-		})
-		.reduce((d1, d2) -> d1 + d2)
-		.get();
+		.filter(l -> l.getEntitlement().getLeaveType().compareTo(type) == 0).toList();
+		
+		if(consumedLeavesOfGivenType.isEmpty()) {
+			return 0.0;
+		}
+		return consumedLeavesOfGivenType
+				.stream()
+				.map(l -> {
+					System.out.println("Leave from: " + l.getStart() + " to " + l.getEnd() + ". Number of days: " + l.getNumberOfDays());
+					return l.getNumberOfDays();
+				})
+				.reduce((d1, d2) -> d1 + d2)
+				.get();
 	}
 	
 	public Boolean isCancellable() {

@@ -58,6 +58,7 @@ public class ManagerController {
 	
 	@PostMapping("/approveClaim")
 	public String approveClaim(@ModelAttribute("claim") Claim claim, Model model) {
+		claim.setDateApproved(LocalDate.now());
 		leaveApproveService.approveClaim(claim);
 		return "redirect:/manager/applications";
 	}

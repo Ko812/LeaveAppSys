@@ -68,7 +68,7 @@ public class LeaveController {
 			model.addAttribute("leaveEntitlements", leaveEntitlements);
 			return "index";
 		}
-		
+		leave.setStatus(LeaveStatus.Applied);
 		Leave leaveSaved = leaveService.save(leave);
 		if(leaveSaved == null) {
 			model.addAttribute("action", "error-message");
@@ -156,7 +156,7 @@ public class LeaveController {
         return "redirect:/leave/viewleaveHistory";
     }
 
-    @RequestMapping(value="/delete-leave/{id}")
+    @RequestMapping("/delete-leave/{id}")
     public String deleteLeave(@PathVariable("id") Long id) {
         Leave Leave = leaveService.findById(id);
         if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
@@ -166,7 +166,7 @@ public class LeaveController {
         return "redirect:/leave/viewleaveHistory";
     }
 
-    @RequestMapping(value="/cancel-leave/{id}")
+    @RequestMapping("/cancel-leave/{id}")
     public String cancelLeave(@PathVariable("id") Long id) {
         Leave Leave = leaveService.findById(id);
         if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
@@ -186,13 +186,55 @@ public class LeaveController {
     }
     
 
-    public int ComputeLeaveBalance(Employee employee, Leave leave) {
+    public Double ComputeLeaveBalance(Employee employee, Leave leave) {
     	List<Leave> existingLeaves = leaveService.findLeavesFromEmployeeId(leave.getEmployee().getId());
 		List<Leave> consumedLeaves = existingLeaves
 				.stream()
 				.filter(l -> l.isConsumedOrConsuming())
 				.toList();
 		return leave.getEntitlement().getNumberOfDays() - Leave.consumedDaysOfLeave(consumedLeaves, leave.getEntitlement().getLeaveType());
+    }
+    
+    @GetMapping("/consume")
+    public String consumeClaim(Model model, HttpSession session) {
+    	LeaveEntitlement compensationEntitlement = leaveEntitlementService.getCompensationEntitlement();
+    	Employee e = (Employee)session.getAttribute("loggedInEmployee");
+    	Leave leaveUsingClaim = new Leave();
+    	
+    	if(leaveService.hasUnconsumeClaimedLeaves(e)) {
+    		leaveUsingClaim.setEmployee(e);
+    		leaveUsingClaim.setEntitlement(compensationEntitlement);
+        	model.addAttribute("leave", leaveUsingClaim);
+        	model.addAttribute("action", "consume-claim");
+    	} else {
+    		model.addAttribute("error", "You do not have approved claim");
+        	model.addAttribute("action", "error-message");
+    	}
+    	return "index";
+    	
+    }
+	
+	@PostMapping("/applyConsumption")
+    public String applyConsumption(@Valid @ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model, HttpSession session) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("action", "consume-claim");
+			return "index";
+		}
+		LeaveEntitlement compensationEntitlement = leaveEntitlementService.getCompensationEntitlement();
+		Employee e = (Employee)session.getAttribute("loggedInEmployee");
+		
+		leave.setEmployee(e);
+		leave.setEntitlement(compensationEntitlement);
+    	
+		Leave leaveSaved = leaveService.save(leave);
+    	if(leaveSaved == null) {
+			model.addAttribute("action", "error-message");
+			model.addAttribute("error", "Leave submission failed.");
+		} else {
+			model.addAttribute("action", "show-message");
+			model.addAttribute("message", "Leave saved successfully.");
+		}
+    	return "index";
     }
     
 }

@@ -26,13 +26,13 @@ public class LoginInterceptor implements HandlerInterceptor{
 			return true;
 		}
 		Employee loggedInEmployee = (Employee) request.getSession().getAttribute("loggedInEmployee");
-		if(loggedInEmployee == null) {
-			try {
-				response.sendRedirect("/");
-			} catch(IOException e) {
-				System.out.println("IOException: Cannot send redirect to /");
-			}
-		}
+//		if(loggedInEmployee == null) {
+//			try {
+//				response.sendRedirect("/");
+//			} catch(IOException e) {
+//				System.out.println("IOException: Cannot send redirect to /");
+//			}
+//		}
 		
 		return true;
 	}

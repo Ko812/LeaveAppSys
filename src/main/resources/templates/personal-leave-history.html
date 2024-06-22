@@ -53,8 +53,8 @@
 			<tbody>
 				<!-- Use Thymeleaf to display the found employee -->
 				<tr th:each="leave : ${leaveHistory}">
-					<td th:text="${leave.start}"></td>
-					<td th:text="${leave.end}"></td>
+					<td th:text="${leave.getLocalStartDate()}"></td>
+					<td th:text="${leave.displayEnd()}"></td>
 					<td th:text="${leave.entitlement.leaveType}"></td>
 					<td th:text="${leave.reasons}"></td>
 					<td th:text="${leave.displayStatus()}"></td>

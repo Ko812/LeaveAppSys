@@ -37,7 +37,7 @@ public class Leave {
 
 	private int status;
 	
-	private boolean isHalfDayLeave;
+	private boolean halfDayLeave;
 	
 	private Integer halfOfDay;
 	
@@ -49,7 +49,7 @@ public class Leave {
 		this.start = LocalDate.now();
 		this.end = LocalDate.now();
 		this.comment = "";
-		this.isHalfDayLeave = false;
+		this.halfDayLeave = false;
 	}
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, int status) {
@@ -61,7 +61,7 @@ public class Leave {
 		this.reasons = reasons;
 		this.setStatus(status);
 		this.comment = "";
-		this.isHalfDayLeave = false;
+		this.halfDayLeave = false;
 	}
 
 	public Long getId() {
@@ -238,12 +238,19 @@ public class Leave {
 		return LeaveStatus.asString(status);
 	}
 
-	public boolean getIsHalfDayLeave() {
-		return isHalfDayLeave;
+	public String displayEnd() {
+		if(halfDayLeave) {
+			return HalfOfDay.asString(halfOfDay);
+		}
+		return getLocalEndDate();
 	}
 
-	public void setHalfDayLeave(boolean isHalfDayLeave) {
-		this.isHalfDayLeave = isHalfDayLeave;
+	public boolean isHalfDayLeave() {
+		return halfDayLeave;
+	}
+
+	public void setHalfDayLeave(boolean halfDayLeave) {
+		this.halfDayLeave = halfDayLeave;
 	}
 
 	public Integer getHalfOfDay() {

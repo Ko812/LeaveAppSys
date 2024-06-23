@@ -59,7 +59,7 @@
     </form>
 	<a th:href="@{/leave/viewleaveHistory}">Back to View Leave History</a>
 </div>
-<script>
+<script th:inline="javascript">
 	var isOverseas = false;
 	
 	function updateContactField(){

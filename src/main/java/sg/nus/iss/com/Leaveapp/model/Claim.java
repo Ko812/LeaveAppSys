@@ -1,6 +1,7 @@
 package sg.nus.iss.com.Leaveapp.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -105,6 +106,10 @@ public class Claim {
 	public LocalDate getDateOfSubmission() {
 		return dateOfSubmission;
 	}
+	
+	public String displayDateOfSubmission() {
+		return dateOfSubmission.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+	}
 
 	public void setDateOfSubmission(LocalDate dateOfSubmission) {
 		this.dateOfSubmission = dateOfSubmission;
@@ -112,6 +117,10 @@ public class Claim {
 
 	public LocalDate getDateApproved() {
 		return dateApproved;
+	}
+	
+	public String displayDateApproved() {
+		return dateApproved.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
 	}
 
 	public void setDateApproved(LocalDate dateApproved) {

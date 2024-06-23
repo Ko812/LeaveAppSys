@@ -158,8 +158,10 @@ public class ManagerController {
 	public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
 		Employee employee = managerService.getEmployeeById(id);
 		List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
+		List<Claim> claimHistory = managerService.getEmployeeClaimHistory(employee);
 		model.addAttribute("employee", employee);
 		model.addAttribute("leaveHistory", leaveHistory);
+		model.addAttribute("claimHistory", claimHistory);
 		model.addAttribute("action", "employee-leave-history");
 		return "index";
 	}

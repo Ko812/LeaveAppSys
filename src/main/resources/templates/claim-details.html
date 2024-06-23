@@ -50,8 +50,8 @@
     <div class="mb-3" th:if="${claim.status== 1 ||claim.status==6}">
         <form method="post" th:action="@{/manager/approveClaim}" th:object="${claim}">
 			<input hidden th:field="*{id}"/>
-			<label for="approvedDays">Approve:</label>
-			<input name="approvedDays" type="number" th:field="*{approvedDays}" step="0.5" th:value="${claim.claimDays}" class="form-input" required/>
+			<label >Approve:</label>
+			<input type="number" th:field="*{approvedDays}" step="0.5" th:value="${claim.claimDays}" class="form-input" required/>
 			<button class="btn btn-success" type="submit">Approve</button>
         </form>
 

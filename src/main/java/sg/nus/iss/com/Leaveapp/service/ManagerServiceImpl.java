@@ -85,6 +85,11 @@ public class ManagerServiceImpl implements ManagerService{
     public List<Leave> getEmployeeLeaveHistory(Employee employee) {
         return leaveRepository.findByEmployeeOrderByStartDesc(employee);
     }
+    
+    @Override
+    public List<Claim> getEmployeeClaimHistory(Employee employee) {
+        return claimRepository.findClaimsByEmployee(employee.getId());
+    }
 
 	@Override
 	public Leave getLeaveApplicationById(Long id) {

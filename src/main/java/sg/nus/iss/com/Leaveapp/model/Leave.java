@@ -270,6 +270,12 @@ public class Leave {
 		this.halfOfDay = halfOfDay;
 	}
 	
+	public String getStartDateISO() {
+		return start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	}
 	
+	public String getEndDateISO() {
+		return end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	}
 }
 

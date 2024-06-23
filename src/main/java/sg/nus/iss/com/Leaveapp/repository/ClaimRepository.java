@@ -21,4 +21,7 @@ public interface ClaimRepository extends JpaRepository<Claim, Long>{
 	
 	@Query("SELECT c FROM Claim c WHERE c.status = :approvedStatus AND c.employee.id = :employee_id")
 	List<Claim> findApprovedClaimsByEmployee(@Param("approvedStatus") int approvedStatus, @Param("employee_id") Long employee_id);
+	
+	@Query("SELECT c FROM Claim c WHERE c.employee.id = :employee_id")
+	List<Claim> findClaimsByEmployee(@Param("employee_id") Long employee_id);
 }

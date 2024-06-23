@@ -56,12 +56,16 @@ public class AdminService {
     }
     
     public List<Employee> getManagers() {
-        Role managerRole = roleRepository.findRoleByName("manager");
+        Role managerRole = roleRepository.findRoleByName(Role.managerRole.getName());
         return employeeRepository.findByRole(managerRole);
     }
     
     public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+        List<Role> allRoles = roleRepository.findAll();
+        return allRoles
+        		.stream()
+        		.filter(r -> r.getName().compareTo(Role.anyRole.getName()) != 0)
+        		.toList();
     }
     
     public List<LeaveEntitlement> getAllLeaveEntitlements() {

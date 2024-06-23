@@ -14,7 +14,8 @@ public interface ManagerService {
     List<Leave> getLeaveApplicationsForApproval(Long managerId);
     List<Claim> getClaimRequestsForApproval(Long managerId);
     List<Leave> getEmployeeLeaveHistory(Employee employee);
-	Employee findEmployeeByName(String employeeName);
+	List<Claim> getEmployeeClaimHistory(Employee employee);
+    Employee findEmployeeByName(String employeeName);
 	List<Employee> findReporteeEmployeeByManagerId(Long manager_id);
 	List<Employee> findEmployeesByName(String name);
 	

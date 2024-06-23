@@ -7,7 +7,7 @@
 <body>
 
 <div class="container" th:fragment="submitLeaveAppBody">
-    <h2>Consume Claim Application Form</h2>
+    <h2 style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 30px; color: #0000FF;">Consume Claim Application Form</h2>
     <form th:action="@{/leave/applyConsumption}" th:object="${leave}" method="post">
 		<input hidden th:field="*{employee}" th:value="${leave.employee.id}"/>
 		<input hidden th:field="*{entitlement}" th:value="${leave.entitlement.id}"/>
@@ -38,7 +38,7 @@
 		</div>
 		<span th:if="${#fields.hasErrors('halfDayLeave')}" th:errors="*{halfDayLeave}" class="inputErrorMessage"></span>
 		
-		<div class="form-group">
+		<div class="form-group mb-3">
 			<label for="endDate">End Date:</label>
 			<input type="date" id="endDate" th:field="*{end}" class="form-control" />
 			<span th:if="${#fields.hasErrors('end')}" th:errors="*{end}" class="inputErrorMessage"></span>
@@ -55,7 +55,6 @@
 			<input type="text" class="form-control" id="SupportingCoworker" th:field="*{nameOfSupportingCoworker}" maxlength="30" required>
 		</div>
 		
-		<br/>
 		<br/>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

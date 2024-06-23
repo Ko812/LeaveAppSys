@@ -83,8 +83,8 @@
 		<table>
 			<thead>
 				<tr>
-					<th class="th-header">Employee Name</th>
-					<th class="th-header">Leave History</th>
+					<th>Employee Name</th>
+					<th>Leave History</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -95,7 +95,7 @@
 					</td>
 				</tr>
 				<tr th:if="${!employeesFound}">
-					<td colspan="2" style="text-align: center;">No employees found</td>
+					<td colspan="2" style="text-align: center; color:darkred">No employees found</td>
 				</tr>
 			</tbody>
 		</table>

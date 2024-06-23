@@ -10,7 +10,8 @@
 		/* CSS styles */
 		table {
 			border-collapse: collapse;
-			width:100%;
+			width: 70%;
+			margin: auto;
 		}
 
 		th,
@@ -20,19 +21,31 @@
 			padding: 8px;
 		}
 
-		th {
-			background-color: #f2f2f2;
-			/* Light gray background for column names */
+		tr:nth-child(odd) {
+			background-color: #ffe6f0;
 		}
 
 		tr:nth-child(even) {
-			background-color: #f2f2f2;
-			/* Light gray background for even rows */
+			background-color: #c6e2ff;
 		}
 
 		.blank-row {
 			background-color: #ffffff;
-			/* White background for blank rows */
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			font-size: 30px;
+			color: #0000FF;
+		}
+
+		.nav-link {
+			margin-top: 20px;
+			text-decoration: none;
+			color: #0000FF;
+			font-size: 16px;
 		}
 	</style>
 </head>
@@ -59,34 +72,33 @@
 					<td th:text="${leave.reasons}"></td>
 					<td th:text="${leave.displayStatus()}"></td>
 				</tr>
-				
+
 			</tbody>
 		</table>
-		<br/><br/>
+		<br /><br />
 		<h1>My Claim History</h1>
-				<table>
-					<thead>
-						<tr>
-							<th style="background-color: #c0c0c0;">Date of Claim Submission</th>
-							<th style="background-color: #c0c0c0;">Claim (Days)</th>
-							<th style="background-color: #c0c0c0;">Reason</th>
-							<th style="background-color: #c0c0c0;">Status</th>
-							<th style="background-color: #c0c0c0;">Date Approved</th>
-						</tr>
-					</thead>
-					<tbody>
+		<table>
+			<thead>
+				<tr>
+					<th style="background-color: #c0c0c0;">Date of Claim Submission</th>
+					<th style="background-color: #c0c0c0;">Claim (Days)</th>
+					<th style="background-color: #c0c0c0;">Reason</th>
+					<th style="background-color: #c0c0c0;">Status</th>
+					<th style="background-color: #c0c0c0;">Date Approved</th>
+				</tr>
+			</thead>
+			<tbody>
 
-						<tr th:each="claim : ${claimHistory}">
-							<td th:text="${claim.dateOfSubmission}"></td>
-							<td th:text="${claim.claimDays}"></td>
-							<td th:text="${claim.reasonSupporting}"></td>
-							<td th:text="${claim.displayStatus()}"></td>
-							<td th:text="${claim.showDateApproved()}"></td>
-						</tr>
-						
-					</tbody>
-				</table>
-		<a href="/" class="nav-link">Back to Employee History List Page</a>
+				<tr th:each="claim : ${claimHistory}">
+					<td th:text="${claim.dateOfSubmission}"></td>
+					<td th:text="${claim.claimDays}"></td>
+					<td th:text="${claim.reasonSupporting}"></td>
+					<td th:text="${claim.displayStatus()}"></td>
+					<td th:text="${claim.showDateApproved()}"></td>
+				</tr>
+
+			</tbody>
+		</table>
 	</div>
 </body>
 

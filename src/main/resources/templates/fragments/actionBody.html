@@ -27,6 +27,7 @@
 	</div>
 	
 	<div th:if="${action == 'add-employee'}">
+		<div th:insert="~{employee_form.html :: style}"></div>
 		<div th:insert="~{employee_form.html :: body}"></div>
 	</div>
 	
@@ -34,6 +35,7 @@
 		<div th:insert="~{employee_form.html :: body}"></div>
 	</div> 
 	<div th:if="${action == 'add-leave-type'}">
+		<div th:insert="~{leave_type_form.html :: style}"></div>
 		<div th:insert="~{leave_type_form.html :: body}"></div>
 	</div>
 	<div th:if="${action == 'edit-leave-type'}">

@@ -7,7 +7,7 @@
 <body>
 
 <div class="container" th:fragment="submitLeaveAppBody">
-    <h2>Claim Compensation Application Form</h2>
+    <h2 style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 30px; color: #0000FF;">Claim Compensation Application Form</h2>
     <form th:action="@{/claim/submitClaim}" th:object="${claim}" method="post">
 		<div class="mb-3">
 			<label for="reasons" class="form-label">Reasons Supporting</label>
@@ -22,7 +22,7 @@
 		</div>
 		
 		<br/>
-		<br/>
+		
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

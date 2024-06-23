@@ -20,11 +20,6 @@
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 		}
 
-		h1 {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
 		table {
 			width: 100%;
 			border-collapse: collapse;
@@ -85,14 +80,44 @@
 			/* Add space between date and weekday */
 			text-align: left;
 		}
+
+		h1,
+		h2 {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			font-size: 30px;
+			color: #0000FF;
+		}
+
+		.view-years-container {
+			display: flex;
+			justify-content: center;
+			padding: 0 20%;
+		}
+
+		ul {
+			padding: 0;
+			margin-bottom: 20px;
+		}
+
+		.view-year {
+			display: block;
+			margin: 10px 0;
+			text-decoration: none;
+			font-size: 16px;
+			text-align: center;
+		}
+
+		.view-year:hover {
+			color: blue;
+		}
 	</style>
-	
-	
-	
+
 	<script>
-	    function confirmDelete() {
-	        return confirm("Are you sure you want to delete this holiday?");
-	    }
+		function confirmDelete() {
+			return confirm("Are you sure you want to delete this holiday?");
+		}
 	</script>
 </head>
 
@@ -100,21 +125,16 @@
 	<div class="container">
 		<h1>Public Holidays</h1>
 
-
 		<div>
-
-
-			<div>
+			<div class="view-years-container">
 				<ul>
 					<li th:each="year : ${availableYears}">
-						<a th:href="@{'/holidays/' + ${year}}">View Holidays for <span th:text="${year}"></span></a>
+						<a th:href="@{'/holidays/' + ${year}}" class="view-year">View Holidays for <span
+								th:text="${year}"></span></a>
 					</li>
 				</ul>
 			</div>
 		</div>
-
-
-
 
 		<table>
 			<tr>
@@ -133,14 +153,14 @@
 				</td>
 				<td class="holiday-name" th:text="${holiday.name}"></td>
 				<td>
-					<form id="deleteForm" th:action="@{/holidays/delete/{id}(id=${holiday.id})}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
-					        <button type="submit">Delete</button>
-					    </form>
+					<form id="deleteForm" th:action="@{/holidays/delete/{id}(id=${holiday.id})}" method="post"
+						style="display:inline;" onsubmit="return confirmDelete();">
+						<button type="submit">Delete</button>
+					</form>
 				</td>
 			</tr>
 		</table>
-	
-		
+
 		<div th:if="${canAdd}">
 			<h2>Add New Holiday</h2>
 			<form action="/holidays/add" method="post">
@@ -156,7 +176,7 @@
 					<button type="submit">Add Holiday</button>
 				</div>
 			</form>
-		</div>	
+		</div>
 	</div>
 </body>
 

@@ -9,7 +9,7 @@
 	<style th:fragment="style">
 		table {
 			border-collapse: collapse;
-			width: 30%;
+			width: 40%;
 			margin: 0 auto;
 		}
 
@@ -52,6 +52,10 @@
 			font-size: 30px;
 			color: #0000FF;
 		}
+
+		table+.second-table-heading {
+			margin-top: 100px;
+		}
 	</style>
 </head>
 
@@ -80,21 +84,21 @@
 				</tr>
 			</tbody>
 		</table>
-		<h1>Claim Requests for Approval</h1>
+
+		<h1 class="second-table-heading">Claim Requests for Approval</h1>
 		<table>
 			<thead>
 				<tr>
-					<th style="background-color: #9090c0;">Date Submitted</th>
-					<th style="background-color: #9090c0;">Employee Name</th>
-					<th style="background-color: #9090c0;">Leave ID</th>
-					<th style="background-color: #9090c0;">Details</th>
+					<th>Date Submitted</th>
+					<th>Employee Name</th>
+					<th>Leave ID</th>
+					<th>Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:if="${claimRequests.size() == 0}">
 					<td colspan="3" style="text-align: center;">No employees found</td>
 				</tr>
-				<!-- Use Thymeleaf to iterate over the leaveApplications list -->
 				<tr th:each="claim,iter : ${claimRequests}">
 					<td th:text="${claim.dateOfSubmission}"></td>
 					<td th:text="${claim.employee.name}"></td>

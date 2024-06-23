@@ -24,8 +24,11 @@ public class CommonController {
 			Employee employee = new Employee();
 			model.addAttribute("employee", employee);
 			model.addAttribute("action", "login");
+			return "login";
+		} else {
+			return "index";
 		}
-		return "login";
+		
 	}
 	
 	@PostMapping("/login")

@@ -92,15 +92,14 @@
 			</div>
 		</div>
 
-		<!-- Approval and Rejection Form -->
-		<div class="mb-3" th:if="${claim.status == 1 ||claim.status == 6}">
-			<form method="post" th:action="@{/manager/approveClaim}" th:object="${claim}">
-				<input hidden th:field="*{id}" />
-				<label for="approvedDays">Approve:</label>
-				<input name="approvedDays" type="number" th:field="*{approvedDays}" step="0.5"
-					th:value="${claim.claimDays}" class="form-input" required />
-				<button class="btn btn-success mt-2" type="submit">Approve</button>
-			</form>
+    <!-- Approval and Rejection Form -->
+    <div class="mb-3" th:if="${claim.status== 1 ||claim.status==6}">
+        <form method="post" th:action="@{/manager/approveClaim}" th:object="${claim}">
+			<input hidden th:field="*{id}"/>
+			<label >Approve:</label>
+			<input type="number" th:field="*{approvedDays}" step="0.5" th:value="${claim.claimDays}" class="form-input" required/>
+			<button class="btn btn-success mt-2" type="submit">Approve</button>
+        </form>
 
 			<form method="post" th:action="@{/manager/rejectClaim}" th:object="${claim}">
 				<input hidden th:field="*{id}" />

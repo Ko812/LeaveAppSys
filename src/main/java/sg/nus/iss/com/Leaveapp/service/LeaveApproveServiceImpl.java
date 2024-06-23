@@ -14,6 +14,7 @@ import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 
 import sg.nus.iss.com.Leaveapp.repository.LeaveApproveListRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -80,13 +81,15 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     public void approveClaim(Claim claim) {
     	Claim currentClaim = claimRepository.findById(claim.getId()).get();
     	currentClaim.setStatus(LeaveStatus.Approved);
+    	currentClaim.setApprovedDays(claim.getApprovedDays());
+    	currentClaim.setDateApproved(LocalDate.now());
     	claimRepository.save(currentClaim);
     }
 
     @Override
     public void rejectClaim(Claim claim) {
     	Claim currentClaim = claimRepository.findById(claim.getId()).get();
-    	currentClaim.setStatus(LeaveStatus.Approved);
+    	currentClaim.setStatus(LeaveStatus.Rejected);
     	currentClaim.setComments(claim.getComments());
     	claimRepository.save(currentClaim);
     }

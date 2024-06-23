@@ -107,7 +107,7 @@ public class ContextIO {
 		rr.save(Role.employeeRole);
 		rr.save(Role.adminRole);
 		rr.save(Role.managerRole);
-		
+		rr.save(Role.anyRole);
 	}
 	
 	public void LoadLeaveEntitlement(LeaveEntitlementRepository ler) {	
@@ -117,7 +117,7 @@ public class ContextIO {
 		LeaveEntitlement adminSickLeaveEntitlement = new LeaveEntitlement("medical", 7, Role.adminRole, 2024);
 		LeaveEntitlement managerAnnualLeaveEntitlement = new LeaveEntitlement("annual", 16, Role.managerRole, 2024);
 		LeaveEntitlement managerSickLeaveEntitlement = new LeaveEntitlement("medical", 8, Role.managerRole, 2024);
-		LeaveEntitlement compensationEntitlement = new LeaveEntitlement("compensation", 0, Role.managerRole, 2020);
+		LeaveEntitlement compensationEntitlement = new LeaveEntitlement("compensation", 0, Role.anyRole, 2020);
 		ler.save(employeeAnnualLeaveEntitlement);
 		ler.save(employeeSickLeaveEntitlement);
 		ler.save(adminAnnualLeaveEntitlement);

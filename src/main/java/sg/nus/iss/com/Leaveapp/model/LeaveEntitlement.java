@@ -1,5 +1,7 @@
 package sg.nus.iss.com.Leaveapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,6 +34,7 @@ public class LeaveEntitlement {
 
     private String leaveType;
     
+    @JsonIgnoreProperties(value = {"employees", "entitlements"})
     @ManyToOne(fetch=FetchType.EAGER)
     private Role role;
 
@@ -42,7 +45,7 @@ public class LeaveEntitlement {
     @Min(value = 2020, message = "Year must be greater than or equal to 2020")
     private int year;
 
-    public LeaveEntitlement(int annual, int sick) {
+    public LeaveEntitlement(Integer annual, Integer sick) {
     	this.annualLeave = annual;
     	this.sickLeave = sick;
     }
@@ -96,19 +99,19 @@ public class LeaveEntitlement {
 		this.numberOfDays = numberOfDays;
 	}
 
-	public int getAnnualLeave() {
+	public Integer getAnnualLeave() {
 		return annualLeave;
 	}
 
-	public void setAnnualLeave(int annualLeave) {
+	public void setAnnualLeave(Integer annualLeave) {
 		this.annualLeave = annualLeave;
 	}
 
-	public int getSickLeave() {
+	public Integer getSickLeave() {
 		return sickLeave;
 	}
 
-	public void setSickLeave(int sickLeave) {
+	public void setSickLeave(Integer sickLeave) {
 		this.sickLeave = sickLeave;
 	}
 	

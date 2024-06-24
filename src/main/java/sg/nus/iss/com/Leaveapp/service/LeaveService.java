@@ -3,12 +3,14 @@ package sg.nus.iss.com.Leaveapp.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
+import sg.nus.iss.com.Leaveapp.model.LeaveVo;
 
 public interface LeaveService {
 	
@@ -53,4 +55,19 @@ public interface LeaveService {
 	List<Claim> findApprovedClaimsByEmployee(Employee employee);
 	
 	Boolean hasUnconsumeClaimedLeaves(Employee employee);
+	
+    // Restful
+
+    void saveOrUpdate(Leave leave);
+
+    void removeBatchByIds(List<Integer> ids);
+
+   
+    List<LeaveVo> getList(Leave leave);
+
+
+    Page<Leave> getPage(Leave leave);
+
+  
+    Leave getOne(Leave leave);
 }

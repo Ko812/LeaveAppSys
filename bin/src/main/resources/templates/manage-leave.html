@@ -54,11 +54,11 @@
 			<tbody>
 				<!-- Use Thymeleaf to display the found employee -->
 				<tr th:each="leave : ${leaves}">
-					<td th:text="${leave.start}"></td>
-					<td th:text="${leave.end}"></td>
+					<td th:text="${leave.getLocalStartDate()}"></td>
+					<td th:text="${leave.displayEnd()}"></td>
 					<td th:text="${leave.entitlement.leaveType}"></td>
 					<td th:text="${leave.reasons}"></td>
-					<td th:text="${leave.status}"></td>
+					<td th:text="${leave.displayStatus()}"></td>
 					<td>
 						<a th:if="${leave.isUpdateable()}" th:href="@{/leave/update-leave/{id}(id=${leave.id})}">Update</a>
 						<span th:if="${!leave.isUpdateable()}" style="color: lightgrey">Update</span> |

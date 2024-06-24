@@ -159,21 +159,25 @@ public class AdminController {
         LeaveEntitlement existingSickLeaveEntitlement = adminService.findLeaveEntitlementByRoleTypeAndYear(entitlement.getRole(), "medical", entitlement.getYear());
 
         if (existingAnnualLeaveEntitlement != null && entitlement.getAnnualLeave() != 0 &&
+
         	    (existingAnnualLeaveEntitlement.getRole().getName().compareTo(entitlement.getRole().getName()) == 0 &&
         	      existingAnnualLeaveEntitlement.getYear() == entitlement.getYear())) {
         	model.addAttribute("action", "error-message");
         	model.addAttribute("error", "Annual leave entitlement for this role and year already exists.");
         	return "index";
 //        	    bindingResult.rejectValue("annualLeave", "error.leaveEntitlement", "Annual leave entitlement for this role and year already exists.");
+
         	}
 
         if (existingSickLeaveEntitlement != null && entitlement.getSickLeave() != 0 &&
         	    (existingSickLeaveEntitlement.getRole().getName().compareTo(entitlement.getRole().getName()) == 0 &&
         	      existingSickLeaveEntitlement.getYear() == entitlement.getYear())) {
+
         	model.addAttribute("action", "error-message");
         	model.addAttribute("error", "Sick leave entitlement for this role and year already exists.");
         	return "index";
 //        	bindingResult.rejectValue("sickLeave", "error.leaveEntitlement", "Sick leave entitlement for this role and year already exists.");
+
         	}
 
 //        if (bindingResult.hasErrors()) {

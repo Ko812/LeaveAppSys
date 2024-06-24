@@ -1,6 +1,7 @@
 package sg.nus.iss.com.Leaveapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +18,7 @@ import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
 import sg.nus.iss.com.Leaveapp.model.Leave;
 
-public interface LeaveRepository extends JpaRepository<Leave, Integer>{
+public interface LeaveRepository extends JpaRepository<Leave, Integer>, JpaSpecificationExecutor<Leave>{
 	
 		//Find the employee from leaveApplication id
 		@Query("SELECT l.employee FROM Leave l WHERE l.id = :id")

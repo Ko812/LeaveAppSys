@@ -225,7 +225,7 @@ public class LeaveController {
 		
 		leave.setEmployee(e);
 		leave.setEntitlement(compensationEntitlement);
-    	
+    	leave.setStatus(LeaveStatus.Applied);
 		Leave leaveSaved = leaveService.save(leave);
     	if(leaveSaved == null) {
 			model.addAttribute("action", "error-message");

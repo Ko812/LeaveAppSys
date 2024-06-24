@@ -9,11 +9,12 @@
 		<version>3.3.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>sg.nus.iss.javaspring.las</groupId>
+	<groupId>sg.nus.iss.com.leaveapp</groupId>
 	<artifactId>LeaveAppSystem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>LeaveAppSystem</name>
 	<description>Leave Application System (Java Spring CA)</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -89,6 +90,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>
+			Team 05 Leave Application System
+		</finalName>
 	</build>
 
 </project>

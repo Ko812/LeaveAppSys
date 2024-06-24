@@ -29,7 +29,7 @@ public class HolidayController {
 	     } else {
 	         holidays = holidayService.getAllHolidays();
 	     }
-	     
+	     holidays.sort((h1, h2) -> h1.getDate().isBefore(h2.getDate()) ? -1 : 1);
 	     model.addAttribute("holidays", holidays);
 	     model.addAttribute("availableYears", availableYears);
 	     model.addAttribute("selectedYear", selectedYear);

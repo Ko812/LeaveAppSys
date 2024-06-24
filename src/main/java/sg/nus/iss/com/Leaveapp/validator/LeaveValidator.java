@@ -32,10 +32,23 @@ public class LeaveValidator implements Validator{
 		
 		List<Leave> existingLeaves = leaveService.findLeavesFromEmployeeId(leave.getEmployee().getId());
 		List<Claim> approvedClaims = leaveService.findApprovedClaimsByEmployee(leave.getEmployee());
-		List<Leave> consumedLeaves = existingLeaves
+		List<Leave> consumedLeaves = existingLeaves;
+		if(leave.getId() == null) 
+		{
+			consumedLeaves = existingLeaves
 				.stream()
-				.filter(l -> l.isConsumedOrConsuming())
+				.filter(l -> l.isConsumedOrConsuming() )
 				.toList();
+		}
+		else
+		{
+			consumedLeaves = existingLeaves
+				.stream()
+				.filter(l -> l.isConsumedOrConsuming() && l.getId().compareTo(leave.getId()) != 0)
+				.toList();
+		}
+				
+
 		if(leave.getStart().getDayOfWeek().compareTo(DayOfWeek.SATURDAY) == 0 || leave.getStart().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) {
 			errors.rejectValue("start", "error.start", "Start date must be working day.");
 		}

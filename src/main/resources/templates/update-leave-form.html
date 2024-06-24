@@ -10,6 +10,7 @@
     <h2>Update Leave Application</h2>
     <form th:action="@{/leave/submitForm}" th:object="${leave}" method="post">
 		<input hidden type="number" th:field="*{id}" name="id"/>
+		<input hidden th:field="*{employee}" th:value="${leave.employee.id}"/>
 		<div class="mb-3">
 			<label for="leaveType" class="form-label">Leave Type</label>
 			<select class="form-control" id="leaveType" name="leaveEntitlement" th:field="*{entitlement}" required>

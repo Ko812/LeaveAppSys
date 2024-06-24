@@ -52,11 +52,7 @@ public class HolidayService {
     
     public List<Holiday> getHolidaysByYear(int year) {
         return holidayRepository.findAll().stream()
-                .filter(holiday -> {
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(holiday.getDate());
-                    return cal.get(Calendar.YEAR) == year;
-                })
+                .filter(holiday -> holiday.getDate().getYear() == year)
                 .collect(Collectors.toList());
     }
     
@@ -64,11 +60,7 @@ public class HolidayService {
     
     public List<Integer> getAvailableYears() {
         return holidayRepository.findAll().stream()
-                .map(holiday -> {
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(holiday.getDate());
-                    return cal.get(Calendar.YEAR);
-                })
+                .map(holiday -> holiday.getDate().getYear())
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
@@ -77,12 +69,6 @@ public class HolidayService {
     public void deleteHoliday1(Long id) {
         holidayRepository.deleteById(id);
     }
-
-//	public Holiday getHolidayById(Long id) {
-//		
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	
 	
 	

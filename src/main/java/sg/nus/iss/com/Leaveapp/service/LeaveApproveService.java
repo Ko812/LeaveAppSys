@@ -4,6 +4,7 @@ import java.util.List;
 
 import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
@@ -26,6 +27,6 @@ public interface LeaveApproveService {
     
     List<Leave> findAllByOrderByIdDesc();
     
-//    List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status);
+    List<Leave> findLeavesByEmployeeIdAndEntitlementAndStatusOrderByIdDesc(Long employeeId, LeaveEntitlement entitlement, int status);
 
 }

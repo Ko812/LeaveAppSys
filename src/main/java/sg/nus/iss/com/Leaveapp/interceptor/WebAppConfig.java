@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Component
 public class WebAppConfig implements WebMvcConfigurer{
+
 	@Autowired
 	ActionsInterceptor actionInterceptor;
 	
@@ -14,10 +15,16 @@ public class WebAppConfig implements WebMvcConfigurer{
 	@Autowired
 	LoginInterceptor loginInterceptor;
 	
+	
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(loginInterceptor);
+		registry.addInterceptor(loginInterceptor)
+		.addPathPatterns("/**")
+		.excludePathPatterns("/api/**", "/login", "/static/**");
 
-		registry.addInterceptor(actionInterceptor);
+		registry.addInterceptor(actionInterceptor)
+		.addPathPatterns("/**")
+		.excludePathPatterns("/api/**","/login", "/static/**");
 	}
 }

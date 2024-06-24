@@ -1,11 +1,11 @@
-CREATE DATABASE calendar_db;
 
-use calendar_db;
-CREATE TABLE public_holidays (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    date DATE NOT NULL
-);
+
+use leaveapp;
+-- CREATE TABLE public_holidays (
+--     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--     name VARCHAR(255) NOT NULL,
+--     date DATE NOT NULL
+-- );
 INSERT INTO public_holidays (name, date) VALUES
 ('New Year''s Day', '2024-01-01'),
 ('Chinese New Year', '2024-02-10'),

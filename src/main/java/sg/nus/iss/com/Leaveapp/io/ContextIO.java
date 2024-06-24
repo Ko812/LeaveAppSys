@@ -6,17 +6,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Employee;
+import sg.nus.iss.com.Leaveapp.model.Holiday;
 import sg.nus.iss.com.Leaveapp.model.Leave;
 import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.Role;
 import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
+import sg.nus.iss.com.Leaveapp.repository.HolidayRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 import sg.nus.iss.com.Leaveapp.repository.RoleRepository;
@@ -206,4 +209,24 @@ public class ContextIO {
 		}
 	}
 	
+	public void LoadHolidays(HolidayRepository hr) {
+		try {
+			BufferedReader br = PrepareToRead();
+			String x;
+			br.readLine();
+			while((x = br.readLine()) != null) {
+				List<String> dat = List.of(x.split(","));
+				String name = dat.get(0);
+				String[] dateStringArray = dat.get(2).split("-");
+				Integer year = Integer.parseInt(dateStringArray[2]);
+				Integer month = Integer.parseInt(dateStringArray[1]);
+				Integer day = Integer.parseInt(dateStringArray[0]);
+				LocalDate date = LocalDate.of(year, month, day);
+				Holiday holiday = new Holiday(name, date);
+				hr.save(holiday);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
 }

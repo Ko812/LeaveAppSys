@@ -43,7 +43,12 @@
 		<div th:insert="~{holiday.html :: style}"></div>
 		<div th:insert="~{holiday.html :: body}"></div>
 	</div>
-		
+	<div th:if="${action == 'view-holidays'}">
+		<div th:insert="~{holiday.html :: style}"></div>
+		<div th:insert="~{holiday.html :: body}"></div>
+	</div>
+	
+	
 	<!-- Employee Use Cases -->
 	<div th:if="${action == 'leaveSubmitForm'}">
 		<div th:insert="~{submit-leave-app.html :: body}"></div>

@@ -43,7 +43,7 @@ public class HolidayController {
 	        List<Holiday> holidays = holidayService.getHolidaysByYear(year);
 	        model.addAttribute("holidays", holidays);
 	        model.addAttribute("canAdd", false);
-	        model.addAttribute("action", "add-holidays");
+	        model.addAttribute("action", "view-holidays");
 		    return "index";
 	    }
 
@@ -52,13 +52,13 @@ public class HolidayController {
 	    @PostMapping("/holidays/add")
 	    public String addHoliday(@ModelAttribute("holiday") Holiday holiday ) {
 	        holidayService.addHoliday(holiday);
-	        return "redirect:/holidays";
+	        return "redirect:/admin/holidays";
 	    }
  
 	    
 	    @PostMapping("/holidays/delete/{id}")
 	    public String deleteHoliday(@PathVariable("id") Long id) {
 	        holidayService.deleteHoliday(id);
-	        return "redirect:/holidays"; // Redirect to the holiday list page after deletion
+	        return "redirect:/admin/holidays"; // Redirect to the holiday list page after deletion
 	    }
 }

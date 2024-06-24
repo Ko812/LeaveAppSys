@@ -193,7 +193,6 @@ public class ManagerController {
             model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByIdDesc(leave.getEmployee().getId()));
             model.addAttribute("leave", leave);
             model.addAttribute("action", "show-leave-details");
-            
             return "index";
         } else {
             model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.nus.iss.com.Leaveapp.model.Claim;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
@@ -111,10 +112,11 @@ public class LeaveApproveServiceImpl implements LeaveApproveService {
     }
 
 
-//	@Override
-//	public List<Leave> findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status) {
-//  return leaveApproveListRepository.findByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, type, status);
-//}
+	@Override
+	public List<Leave> findLeavesByEmployeeIdAndEntitlementAndStatusOrderByIdDesc(Long employeeId, LeaveEntitlement entitlement,
+			int status) {
+		return leaveApproveListRepository.findByEmployeeIdAndEntitlementAndStatusOrderByIdDesc(employeeId, entitlement, status);
+	}
 
 
 	@Override

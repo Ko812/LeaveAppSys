@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import sg.nus.iss.com.Leaveapp.io.ContextIO;
 import sg.nus.iss.com.Leaveapp.repository.ClaimRepository;
 import sg.nus.iss.com.Leaveapp.repository.EmployeeRepository;
+import sg.nus.iss.com.Leaveapp.repository.HolidayRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveEntitlementRepository;
 import sg.nus.iss.com.Leaveapp.repository.LeaveRepository;
 import sg.nus.iss.com.Leaveapp.repository.RoleRepository;
@@ -25,7 +26,7 @@ public class LeaveapplicationApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadContext(ClaimRepository cr, LeaveRepository lr, EmployeeRepository er, RoleRepository rr, LeaveEntitlementRepository ler) {
+	CommandLineRunner loadContext(HolidayRepository hr, ClaimRepository cr, LeaveRepository lr, EmployeeRepository er, RoleRepository rr, LeaveEntitlementRepository ler) {
 		return args -> {
 			if(ddlauto.compareTo("create") == 0) {
 				String path = "C:\\Users\\user\\init-kopico\\Library\\java-spring-workspace\\LeaveAppSystem";
@@ -41,6 +42,9 @@ public class LeaveapplicationApplication {
 				String claimCsv = "claim_dummy.csv";
 				ContextIO claimIO = new ContextIO(path + "\\" + claimCsv);
 				claimIO.LoadClaims(cr,er);
+				String holidayCsv = "holiday.csv";
+				ContextIO holidayIO = new ContextIO(path + "\\" + holidayCsv);
+				holidayIO.LoadHolidays(hr);
 				return ;
 			}
 			System.out.println("Skipped context load. ddl-auto: " + ddlauto);

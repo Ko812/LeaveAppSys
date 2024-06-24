@@ -191,7 +191,7 @@ public class AdminController {
     private List<Integer> getYears() {
         List<Integer> years = new ArrayList<>();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = currentYear - 1; i <= currentYear + 5; i++) {
+        for (int i = currentYear; i <= currentYear + 5; i++) {
             years.add(i);
         }
         return years;

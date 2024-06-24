@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.LeaveApproveService;
+import sg.nus.iss.com.Leaveapp.service.LeaveEntitlementService;
 
 @RestController
 @RequestMapping("/api/leaves")
@@ -26,10 +28,14 @@ public class RESTController {
 	@Autowired
 	private LeaveApproveService leaveApproveService;
 	
-//	@GetMapping("/employee/{employeeId}")
-//	public List<Leave> getLeavesByEmployeeId(@PathVariable Long employeeId) {
-//        return leaveApproveService.findLeavesByEmployeeIdAndTypeAndStatusOrderByIdDesc(employeeId, LeaveType.compensation, LeaveStatus.Rejected);
-//    }
+	@Autowired
+	private LeaveEntitlementService leaveEntitlementService;
+	
+	@GetMapping("/employee/{employeeId}")
+	public List<Leave> getLeavesByEmployeeId(@PathVariable Long employeeId) {
+		LeaveEntitlement compensationEntitlement = leaveEntitlementService.getCompensationEntitlement();
+        return leaveApproveService.findLeavesByEmployeeIdAndEntitlementAndStatusOrderByIdDesc(employeeId, compensationEntitlement, LeaveStatus.Rejected);
+    }
 	
 	@PutMapping("/{id}/reapply")
 	public ResponseEntity<Void> reapply(@PathVariable Long id){

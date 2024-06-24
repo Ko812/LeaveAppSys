@@ -169,7 +169,7 @@ public class LeaveController {
     @RequestMapping("/cancel-leave/{id}")
     public String cancelLeave(@PathVariable("id") Long id) {
         Leave Leave = leaveService.findById(id);
-        if (Leave != null && (LeaveStatus.Applied == Leave.getStatus() || LeaveStatus.Updated == Leave.getStatus())) {
+        if (Leave != null && LeaveStatus.Approved == Leave.getStatus()) {
         	Leave.setStatus(LeaveStatus.Cancelled);
             leaveService.save(Leave);
         }

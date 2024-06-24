@@ -1,5 +1,7 @@
 package sg.nus.iss.com.Leaveapp.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,12 +25,12 @@ public class Holiday {
     private Long id;
     private String name;
     
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date date;
+    
+    private LocalDate date;
 
     public Holiday() {}
 
-    public Holiday(String name, Date date) {
+    public Holiday(String name, LocalDate date) {
         this.name = name;
         this.date = date;
     }
@@ -49,13 +51,20 @@ public class Holiday {
 		this.name = name;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
-   
+	
+	public String getHolidayDate() {
+		return date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+	}
+	
+	public String getHolidayDay() {
+		return date.getDayOfWeek().name();
+	}
 }

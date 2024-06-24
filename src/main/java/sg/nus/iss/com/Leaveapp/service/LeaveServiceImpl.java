@@ -117,7 +117,6 @@ public class LeaveServiceImpl implements LeaveService {
     
     @Override
     public Claim saveClaim(Claim claim) {
-    	claim.setStatus(LeaveStatus.Applied);
     	return claimRepository.save(claim);
     }
     

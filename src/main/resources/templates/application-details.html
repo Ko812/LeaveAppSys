@@ -83,24 +83,21 @@
 					<th>End Date</th>
 					<th>Reasons</th>
 					<th>Leave Type</th>
-					<th>Actions</th>
+					
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td th:text="${leaveApplication.employee.name}"></td>
+					<td >
+						<a th:href="@{/manager/leaveapprove/details/{id}(id=${leaveApplication.id})}" th:text="${leaveApplication.employee.name}"></a>
+					</td>
 					<td th:text="${leaveApplication.employee.id}"></td>
 					<td th:text="${leaveApplication.id}"></td>
 					<td th:text="${leaveApplication.start}"></td>
 					<td th:text="${leaveApplication.end}"></td>
 					<td th:text="${leaveApplication.reasons}"></td>
 					<td th:text="${leaveApplication.entitlement.leaveType}"></td>
-					<td class="button-container">
-						<a href="#" class="button"
-							th:href="@{/manager/approve/{id}(id=${leaveApplication.id})}">Approve</a>
-						<a href="#" class="button"
-							th:href="@{/manager/reject/{id}(id=${leaveApplication.id})}">Reject</a>
-					</td>
+					
 				</tr>
 			</tbody>
 		</table>

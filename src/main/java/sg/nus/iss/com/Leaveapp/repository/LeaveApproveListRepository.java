@@ -2,6 +2,7 @@ package sg.nus.iss.com.Leaveapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import sg.nus.iss.com.Leaveapp.model.Leave;
+import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
 import sg.nus.iss.com.Leaveapp.model.LeaveStatus;
 import sg.nus.iss.com.Leaveapp.model.LeaveType;
 
@@ -21,8 +22,7 @@ public interface LeaveApproveListRepository extends JpaRepository<Leave, Long> {
     
     List<Leave> findAllByOrderByIdDesc();
     
-//    @Query("")
-//    List<Leave> findByEmployeeIdAndTypeAndStatusOrderByIdDesc(Long employeeId, LeaveType type, LeaveStatus status);
+    List<Leave> findByEmployeeIdAndEntitlementAndStatusOrderByIdDesc(Long employeeId, LeaveEntitlement entitlement, int status);
     
     
 }

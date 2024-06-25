@@ -25,6 +25,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query("SELECT e FROM Employee e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<Employee> findByNameContainingIgnoreCase(@Param("name") String name);
 
-
+	@Query("SELECT e FROM Employee e WHERE e.username = :username AND e.password = :password")
+	Employee findEmployeeByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
 }

@@ -1,14 +1,13 @@
 import React from 'react';
-import LeaveList from './LeaveList';
+import LeaveList2 from "./LeaveList2";
 
 function App() {
-  return (
-    <div>
-      {/* 其他组件和内容 */}
-      <LeaveList />
-      {/* 其他组件和内容 */}
-    </div>
-  );
+    return (
+        <div>
+            {/*<LeaveList />*/}
+            {<LeaveList2/>}
+        </div>
+    );
 }
 
 export default App;

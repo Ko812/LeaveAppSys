@@ -54,14 +54,7 @@ public class LeaveEntitlementServiceImpl implements LeaveEntitlementService {
 
         if (entitlementOptional.isPresent()) {
             LeaveEntitlement entitlement = entitlementOptional.get();
-//            entitlement.setLeaveType(updatedEntitlement.getLeaveType());
-//            entitlement.setNumberOfDays(updatedEntitlement.getNumberOfDays());
-//            entitlement.setBroughtForward(updatedEntitlement.getBroughtForward());
-//            entitlement.setTotalDays(updatedEntitlement.getTotalDays());
             entitlement.setYear(updatedEntitlement.getYear());
-//            entitlement.setUsedDays(updatedEntitlement.getUsedDays());
-//            entitlement.setBalance(updatedEntitlement.getBalance());
-
             return leaveEntitlementRepository.save(entitlement);
         } else {
             // Handle the case where the leave entitlement with the given id is not found

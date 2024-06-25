@@ -20,13 +20,13 @@
 		
 		<div class="form-group">
 			<label for="startDate">Start Date:</label>
-			<input type="date" id="startDate" th:field="*{start}" class="form-control" th:value="${leave.getLocalStartDate()}" />
+			<input type="date" id="startDate" th:field="*{start}" class="form-control" />
 			<span th:if="${#fields.hasErrors('start')}" th:errors="*{start}" class="inputErrorMessage"></span>
 		</div>
 		
 		<div class="form-group">
 			<label for="endDate">End Date:</label>
-			<input type="date" id="endDate" th:field="*{end}" class="form-control" th:value="${leave.getLocalEndDate()}"/>
+			<input type="date" id="endDate" th:field="*{end}" class="form-control" />
 			<span th:if="${#fields.hasErrors('end')}" th:errors="*{end}" class="inputErrorMessage"></span>
 		</div>
 		
@@ -43,7 +43,8 @@
 		</div>
 		
 		<div class="d-flex flex-row p-2">
-			<input type="checkbox" id="overseasLeave" th:field="*{overseas}" name="overseasLeave" onchange="updateContactField()"><label for="overseasLeave" class="mt-1">Overseas Leave</label>
+			<input type="checkbox" id="overseasLeave" th:field="*{overseas}" name="overseasLeave" onchange="updateContactField()">
+			<label for="overseasLeave" class="ms-2 mt-2">Overseas Leave</label>
 		</div>
 		
 		<div class="mb-3">
@@ -58,7 +59,7 @@
     </form>
 	<a th:href="@{/leave/viewleaveHistory}">Back to View Leave History</a>
 </div>
-<script>
+<script th:inline="javascript">
 	var isOverseas = false;
 	
 	function updateContactField(){
@@ -70,6 +71,20 @@
 		} else {
 			contactField.setAttribute("disabled", true);
 		}
+	}
+	
+	window.onload = function(e){
+		const endTag = document.getElementById("endDate");
+		const startTag = document.getElementById("startDate");
+
+		var ov = /*[[${leave.overseas}]]*/ false;
+		if(ov){
+			document.getElementById("overseasContact").removeAttribute("disabled");
+		}
+		var start = /*[[${leave.start}]]*/ Date.now;
+		var end = /*[[${leave.end}]]*/ Date.now;
+		startTag.setAttribute("value", start);
+		endTag.setAttribute("value", end);
 	}
 </script>
 

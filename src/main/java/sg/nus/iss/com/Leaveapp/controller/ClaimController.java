@@ -29,9 +29,9 @@ public class ClaimController {
 
 	
 	@GetMapping("/make-claim")
-    public String makeClaim(Model model) {
+    public String makeClaim(Model model, HttpSession session) {
     	Claim claim = new Claim();
-    	
+    	claim.setEmployee((Employee)session.getAttribute("loggedInEmployee"));
     	model.addAttribute("claim", claim);
     	model.addAttribute("action", "make-claim");
     	return "index";

@@ -1,57 +1,69 @@
 package sg.nus.iss.com.Leaveapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Stream;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Map;
 
 @Entity
-@Table(name="leaves")
+@Table(name = "leaves")
 public class Leave {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
+    @JsonIgnoreProperties(value = {"manager", "role", "reportees", "claims"})
+    private Employee employee;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.REFRESH})
-	@JsonIgnoreProperties("manager")
-	private Employee employee;
-	
-	LocalDate start;
-	
-	LocalDate end;
-	
-	private String reasons;
-	
+    private LocalDate start;
+    
+    private int startMonth;
+    
+    private LocalDate end;
+    private String reasons;
+    private String nameOfSupportingCoworker;
 
-	private String nameOfSupportingCoworker;
-	
-	private boolean overseas;
-	
-	private String overseasContact;
+    private boolean overseas;
 
-	private String comment;
+    private String overseasContact;
 
-	private int status;
-	
-	private boolean halfDayLeave;
-	
-	private Integer halfOfDay;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	private LeaveEntitlement entitlement;
+    private String comment;
 
+    private Integer status;
+
+    private boolean halfDayLeave;
+
+    private Integer halfOfDay;
 	
-	public Leave() {
-		this.start = LocalDate.now();
-		this.end = LocalDate.now();
-		this.comment = "";
-		this.halfDayLeave = false;
-	}
+    @ManyToOne(fetch = FetchType.EAGER)
+    private LeaveEntitlement entitlement;
+    //page number
+    @JsonIgnore
+    @Transient
+    private Integer pageNo;
+    //page size
+    @JsonIgnore
+    @Transient
+    private Integer pageSize;
+    //search parameters
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @Transient
+    private Map<String, Object> params;
+
+    public Leave() {
+        this.start = LocalDate.now();
+        this.end = LocalDate.now();
+        this.comment = "";
+        this.halfDayLeave = false;
+        this.halfOfDay = HalfOfDay.Morning;
+        this.startMonth = start.getMonthValue();
+    }
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, int status) {
 		super();
@@ -63,7 +75,35 @@ public class Leave {
 		this.setStatus(status);
 		this.comment = "";
 		this.halfDayLeave = false;
+		this.halfOfDay = HalfOfDay.Morning;
+		this.startMonth = start.getMonthValue();
 	}
+    public Map<String, Object> getParams() {
+        return params;
+    }
+
+    public Leave setParams(Map<String, Object> params) {
+        this.params = params;
+        return this;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public Leave setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+        return this;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public Leave setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
 
 	public Long getId() {
 		return id;
@@ -79,6 +119,10 @@ public class Leave {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	
+	public int getStartMonth() {
+		return start.getMonth().getValue();
 	}
 
 	public LocalDate getStart() {
@@ -105,11 +149,11 @@ public class Leave {
 		this.reasons = reasons;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

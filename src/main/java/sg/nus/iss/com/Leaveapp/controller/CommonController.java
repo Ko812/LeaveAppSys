@@ -3,12 +3,17 @@ package sg.nus.iss.com.Leaveapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import sg.nus.iss.com.Leaveapp.model.Action;
 import sg.nus.iss.com.Leaveapp.model.Employee;
 import sg.nus.iss.com.Leaveapp.service.LoginService;
+
 
 import java.util.*;
 
@@ -17,6 +22,7 @@ public class CommonController {
 	
 	@Autowired
 	LoginService loginService;
+	
 
 	@GetMapping("/")
 	public String index(Model model, HttpSession session) {
@@ -37,8 +43,13 @@ public class CommonController {
 		if(employeeLogging != null) {
 			session.setAttribute("loggedInEmployee", employeeLogging);
 			return "redirect:/leave/viewleaveHistory";
-		} 
-		return "redirect:/";
+		} else {
+			Employee newEmployee = new Employee();
+			model.addAttribute("employee", newEmployee);
+			model.addAttribute("login-failed", true);
+			model.addAttribute("login-failed-message", "Invalid username or password");
+			return "login";
+		}
 	}
 	
 	@GetMapping("/logout")

@@ -98,12 +98,6 @@ public class LeaveController {
 		return "index"; // 
 	}
 	
-	@GetMapping("/leaveForm")
-	public String submitEmployeeIdToCheck()
-	{
-		return "submit-employee-tocheck";
-	}
-	
 	
 	@PostMapping("/submitHistory")
 	public String submitHistoryView(@RequestParam("employeeId") Long employeeId, RedirectAttributes redirectAttributes)
@@ -174,15 +168,6 @@ public class LeaveController {
             leaveService.save(Leave);
         }
         return "redirect:/leave/viewleaveHistory";
-    }
-	
-    @GetMapping("/make-claim")
-    public String makeClaim(Model model, HttpSession session) {
-    	Claim claim = new Claim();
-    	claim.setEmployee((Employee)session.getAttribute("loggedInEmployee"));
-    	model.addAttribute("claim", claim);
-    	model.addAttribute("action", "make-claim");
-    	return "index";
     }
     
 

@@ -1,7 +1,9 @@
 package sg.nus.iss.com.Leaveapp.model;
 
 import java.util.List;
-import java.util.function.IntPredicate;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -19,6 +21,7 @@ public class Employee {
     private Long id;
     private String name;
     
+    @JsonIgnoreProperties("employees")
     @ManyToOne(fetch=FetchType.EAGER, cascade={})
     private Role role;
     

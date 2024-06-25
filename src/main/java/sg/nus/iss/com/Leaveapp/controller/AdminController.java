@@ -24,15 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.validation.Valid;
-import sg.nus.iss.com.Leaveapp.model.Action;
+
 import sg.nus.iss.com.Leaveapp.model.Employee;
-import sg.nus.iss.com.Leaveapp.model.LeaveEntitlement;
-import sg.nus.iss.com.Leaveapp.model.LeaveType;
 import sg.nus.iss.com.Leaveapp.service.AdminService;
-import sg.nus.iss.com.Leaveapp.validator.EmployeeValidator;
-import sg.nus.iss.com.Leaveapp.validator.LeaveEntitlementValidator;
-import sg.nus.iss.com.Leaveapp.validator.LeaveValidator;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -40,26 +35,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+ 
     
-    
-//    @Autowired
-//	private LeaveEntitlementValidator leaveEntitlementValidator;
-//    
-//    @Autowired
-//	private EmployeeValidator employeeValidator;
-//	
-//	@InitBinder
-//	private void initCourseBinder(WebDataBinder binder) {
-//		binder.addValidators(leaveEntitlementValidator);
-//		binder.addValidators(employeeValidator);
-//	}
-    
-    // Dashboard
-    @GetMapping("/dashboard")
-    public String adminDashboard(Model model) {
-        // Add any additional data needed for the dashboard
-        return "dashboard";
-    }
+
     
     // Manage Employees
     

@@ -127,9 +127,4 @@ public class AdminEntitlementController {
         	return "index";
         }
     }
-    
-    @GetMapping("/calendar")
-    public String showCalendar() {
-        return "calendar"; // Assuming "calendar.html" is the Thymeleaf template for the calendar view
-    }
 }

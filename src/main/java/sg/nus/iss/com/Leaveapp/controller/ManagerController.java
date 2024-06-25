@@ -38,11 +38,6 @@ public class ManagerController {
   
 	@Autowired
 	private LeaveApproveService leaveApproveService;
-	
-	@GetMapping("/dashboard")
-	public String managerDashboard(Model model) {
-		return "dashboard";
-	}
 
 	@PostMapping("/approve")
 	public String approveLeave(@ModelAttribute("leave") Leave leave, Model model) {
@@ -112,19 +107,6 @@ public class ManagerController {
 	}
 	
 
-	// @PostMapping("/searchEmployee")
-	// public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model) {
-	//     Employee employee = managerService.findEmployeeByName(employeeName);
-	//     if (employee != null) {
-	//         model.addAttribute("employeeFound", true);
-	//         model.addAttribute("employee", employee);
-	//     } else {
-	//         model.addAttribute("employeeFound", false);
-	//     }
-	//     model.addAttribute("action", "employee-leave-history");
-	//     return "index";
-	// }
-
 	@PostMapping("/searchEmployee")
 	public String searchEmployee(@RequestParam("employeeName") String employeeName, Model model, HttpSession session) {
 	    Employee manager = (Employee) session.getAttribute("loggedInEmployee");
@@ -141,19 +123,6 @@ public class ManagerController {
 	    return "index";
 	}
 
-
-	
-	// @GetMapping("/history/{id}")
-	// public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
-	// 	Employee employee = managerService.getEmployeeById(id);
-	// 	List<Leave> leaveHistory = managerService.getEmployeeLeaveHistory(employee);
-	// 	model.addAttribute("employee", employee);
-	// 	model.addAttribute("employeeFound", employee != null);
-	// 	model.addAttribute("leaveHistory", leaveHistory);
-	// 	model.addAttribute("action", "employee-leave-history");
-	// 	return "index"; // Create a new HTML file for displaying the leave history
-	// }
-
 	@GetMapping("/history/{id}")
 	public String viewEmployeeLeaveHistory(@PathVariable("id") Long id, Model model) {
 		Employee employee = managerService.getEmployeeById(id);
@@ -166,20 +135,6 @@ public class ManagerController {
 		return "index";
 	}
 
-    @GetMapping("/leaveapprove/list")
-    public String listLeaves(@RequestParam(value = "status", required = false) int status, Model model) {
-        if (status != 0) {
-
-        	model.addAttribute("leaves", leaveApproveService.findLeavesByStatusOrderByStartDesc(status));
-        } 
-//        } else {
-//        	model.addAttribute("leaves", leaveApproveService.findAllByOrderByStartDesc());
-//
-//        }
-        
-        return "leave-list";
-    }
-
     @GetMapping("/leaveapprove/leave-applications")
     public String showLeaveApplications() {
         return "leave-applications";
@@ -188,7 +143,6 @@ public class ManagerController {
     @GetMapping("/leaveapprove/details/{id}")
     public String getDetail(@PathVariable("id") Long id, Model model) {
         Leave leave = leaveApproveService.getById(id);
-        System.out.println("view details");
         if (leave != null) {
             model.addAttribute("leaves", leaveApproveService.findLeavesByEmployeeIdOrderByIdDesc(leave.getEmployee().getId()));
             model.addAttribute("leave", leave);
@@ -198,19 +152,6 @@ public class ManagerController {
             model.addAttribute("leaves", leaveApproveService.findAllByOrderByIdDesc());
             return "index";
         }
-        
-
-
-        
-//    	@PostMapping("/approveCurrentClaim")
-//    	public String approveLeave(@ModelAttribute("leave") Leave leave, Model model) {
-//    		leaveApproveService.approveCurrentClaim(leave);
-//
-//	          
-//    		return "redirect:/manager/applications";
-//
-//    	}
-
     }
 }
 

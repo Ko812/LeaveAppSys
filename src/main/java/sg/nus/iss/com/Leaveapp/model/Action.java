@@ -75,17 +75,12 @@ public class Action {
 	public static final Action actionManageLeave = new Action(2L, "manage_leave_application", "/leave/manage-leave", List.of("employee", "admin", "manager"));
 	public static final Action actionClaimCompensation = new Action(3L, "claim_compensation", "/claim/make-claim", List.of("employee", "admin", "manager"));
 	public static final Action actionLeaveHistory = new Action(4L, "view_leave_history", "/leave/viewleaveHistory", List.of("employee", "admin", "manager"));
-//	public static final Action actionViewApplications = new Action(5L, "view_leave_applications", "/leave/view", List.of("employee", "admin", "manager"));
 	public static final Action actionViewEmployeeApplications = new Action(6L, "view_employee_applications", "/manager/applications", List.of("manager"));
 	public static final Action actionViewEmployeeHistory = new Action(7L, "view_employee_leave_history", "/manager/employeeHistory", List.of("manager"));
-//	public static final Action actionApproveRejectLeave = new Action(8L, "approve_reject_leave", "/leave/manage/approve-leave", List.of("manager"));
-//	public static final Action actionApproveRejectClaim = new Action(9L, "approve_reject_claim", "/leave/manage/approve-claim", List.of("manager"));
 	public static final Action actionManageLeaveEntitlement = new Action(10L, "manage_leave_entitlement", "/adminEntitlement/leavetypes", List.of("admin"));
 	public static final Action actionManageStaff = new Action(11L, "manage_staff", "/admin/employees", List.of("admin"));
 	public static final Action actionManageHolidays = new Action(11L, "manage_holidays", "/admin/holidays", List.of("admin"));
 	public static final Action actionConsumeClaim = new Action(12L, "consume_claim", "/leave/consume", List.of("employee", "admin", "manager"));
-//	public static final Action actionManageLeaveEntitlement = new Action(12L, "manage_leave_entitlement", "/admin/leave-entitlements", List.of("admin"));
-//	public static final Action actionManageApprovalHierarchy = new Action(13L, "manage_hierarchy", "/admin/manage-approver", List.of("admin"));
 	
 	public static List<Action> getAllActions(){
 		List<Action> allActions = new ArrayList<Action>();
@@ -94,16 +89,11 @@ public class Action {
 		allActions.add(actionClaimCompensation);
 		allActions.add(actionConsumeClaim);
 		allActions.add(actionLeaveHistory);
-//		allActions.add(actionViewApplications);
 		allActions.add(actionViewEmployeeApplications);
 		allActions.add(actionViewEmployeeHistory);
-//		allActions.add(actionApproveRejectLeave);
-//		allActions.add(actionApproveRejectClaim);
 		allActions.add(actionManageLeaveEntitlement);
 		allActions.add(actionManageStaff);
 		allActions.add(actionManageHolidays);
-//		allActions.add(actionManageLeaveEntitlement);
-//		allActions.add(actionManageApprovalHierarchy);
 		
 		return allActions;
 	}

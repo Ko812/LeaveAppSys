@@ -17,7 +17,7 @@ public class RestLeaveController {
     private LeaveService leaveService;
 
     
-    //  add and update leave   
+    //  Add and update leave   
     //  @param leave 
     //  @return result
     

@@ -12,4 +12,14 @@ import sg.nus.iss.com.Leaveapp.enums.LeaveStatusEnum;
 @EqualsAndHashCode(callSuper = false)
 public class LeaveVo extends Leave {
     private LeaveStatusEnum leaveStatus;
+
+	public LeaveStatusEnum getLeaveStatus() {
+		return leaveStatus;
+	}
+
+	public void setLeaveStatus(LeaveStatusEnum leaveStatus) {
+		this.leaveStatus = leaveStatus;
+	}
+    
+    
 }

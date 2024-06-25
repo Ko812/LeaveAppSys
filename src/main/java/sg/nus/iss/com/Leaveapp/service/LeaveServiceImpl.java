@@ -165,7 +165,8 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Override
     public List<LeaveVo> getList(Leave leave) {
-        List<Leave> leaveList = leaveRepository.findAll(getSpecification(leave));
+    	List<Leave> leaveList = leaveRepository.findAll(getSpecification(leave));
+//        List<Leave> leaveList = leaveRepository.findAllApprovedLeavesByMonth(leave.getStart().getMonth().getValue());
         if (CollectionUtil.isEmpty(leaveList)) {
             return null;
         }
@@ -239,8 +240,9 @@ public class LeaveServiceImpl implements LeaveService {
             if (leave.getEntitlement() != null) {
                 predicates.add(cb.equal(root.get("entitlement"), leave.getEntitlement()));
             }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
+            return cb.and(new Predicate[] {cb.equal(root.get("status"), LeaveStatus.Approved), cb.equal(root.get("status"), LeaveStatus.Approved), cb.equal(cb.function("YEAR", Integer.class, root.get("start")), leave.getStart().getYear()), cb.equal(cb.function("MONTH", Integer.class, root.get("start")), leave.getStart().getMonthValue())});
+//            return ;
+//            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
     

@@ -22,6 +22,9 @@ public class Leave {
     private Employee employee;
 
     private LocalDate start;
+    
+    private int startMonth;
+    
     private LocalDate end;
     private String reasons;
     private String nameOfSupportingCoworker;
@@ -54,12 +57,12 @@ public class Leave {
     private Map<String, Object> params;
 
     public Leave() {
-//        this.start = LocalDate.now();
-//        this.end = LocalDate.now();
-        this.start = null;
-        this.end = null;
+        this.start = LocalDate.now();
+        this.end = LocalDate.now();
         this.comment = "";
         this.halfDayLeave = false;
+        this.halfOfDay = HalfOfDay.Morning;
+        this.startMonth = start.getMonthValue();
     }
 
 	public Leave(Employee employee, LocalDate start, LocalDate end, LeaveEntitlement entitlement, String reasons, int status) {
@@ -72,6 +75,8 @@ public class Leave {
 		this.setStatus(status);
 		this.comment = "";
 		this.halfDayLeave = false;
+		this.halfOfDay = HalfOfDay.Morning;
+		this.startMonth = start.getMonthValue();
 	}
     public Map<String, Object> getParams() {
         return params;
@@ -114,6 +119,10 @@ public class Leave {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	
+	public int getStartMonth() {
+		return start.getMonth().getValue();
 	}
 
 	public LocalDate getStart() {

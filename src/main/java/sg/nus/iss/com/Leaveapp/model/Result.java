@@ -26,8 +26,11 @@ public class Result<T> implements Serializable {
     private T data;
 
 
+//    public static <T> ResultBuilder<T> builder(){
+//    	return new ResultBuilder<T>();
+//    }
 
-    public static <Void> Result<Void> success() {
+	public static <Void> Result<Void> success() {
         return Result.<Void>builder()
                 .code(200)
                 .msg("success！")
@@ -36,7 +39,7 @@ public class Result<T> implements Serializable {
     }
 
 
-    public static <Void> Result<Void> success(String msg) {
+    public static Result<Void> success(String msg) {
         return Result.<Void>builder()
                 .code(200)
                 .msg(msg)
@@ -45,7 +48,8 @@ public class Result<T> implements Serializable {
     }
 
 
-    public static <T> Result<T> success(T data) {
+
+	public static <T> Result<T> success(T data) {
         return Result.<T>builder()
                 .code(200)
                 .msg("success！")
@@ -88,4 +92,62 @@ public class Result<T> implements Serializable {
                 .data(null)
                 .build();
     }
+
+
+//	public Integer getCode() {
+//		return code;
+//	}
+//
+//
+//	public void setCode(Integer code) {
+//		this.code = code;
+//	}
+//
+//
+//	public String getMsg() {
+//		return msg;
+//	}
+//
+//
+//	public void setMsg(String msg) {
+//		this.msg = msg;
+//	}
+//
+//
+//	public T getData() {
+//		return data;
+//	}
+//
+//
+//	public void setData(T data) {
+//		this.data = data;
+//	}
+    
+//	static class ResultBuilder<S> {
+//		
+//		private Result<S> result;
+//		
+//		ResultBuilder() {
+//			this.result = new Result<S>();
+//		}
+//		
+//		public ResultBuilder<S> code(int code) {
+//			result.setCode(code);
+//			return this;
+//		}
+//		
+//		public ResultBuilder<S> msg(String msg) {
+//			result.setMsg(msg);
+//			return this;
+//		}
+//		
+//		public ResultBuilder<S> data(S data) {
+//			result.setData(data);
+//			return this;
+//		}
+//		
+//		public Result build() {
+//			return result;
+//		}
+//	}     
 }

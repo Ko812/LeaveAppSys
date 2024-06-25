@@ -9,7 +9,6 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 @AllArgsConstructor
 public enum LeaveStatusEnum {
    
@@ -23,7 +22,7 @@ public enum LeaveStatusEnum {
  
     DELETED(5, "Deleted"),
   
-    UPDATED(6, "Updated");
+    UPDATED(6, "Deleted");
 
     private static final Map<Integer, LeaveStatusEnum> map = new HashMap<>();
 
@@ -33,9 +32,9 @@ public enum LeaveStatusEnum {
         }
     }
 
-    private final Integer code;
+    private Integer code;
     @JsonValue
-    private final String msg;
+    private String msg;
 
     @JsonCreator
     private static LeaveStatusEnum jacksonInstance(final JsonNode jsonNode) {
@@ -46,4 +45,10 @@ public enum LeaveStatusEnum {
     public static LeaveStatusEnum getByCode(Integer code) {
         return map.getOrDefault(code, LeaveStatusEnum.APPLIED);
     }
+
+	public Integer getCode() {
+		return code;
+	}
+    
+    
 }
